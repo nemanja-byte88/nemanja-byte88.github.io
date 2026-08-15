@@ -6,7 +6,7 @@
 <title>Nemanja Bačević — Apps</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#10151b;
@@ -30,14 +30,54 @@
     color:var(--text);
     font-family:'Inter', sans-serif;
     min-height:100vh;
-    background-image:
-      radial-gradient(ellipse 900px 500px at 20% -10%, rgba(255,182,72,0.06), transparent),
-      radial-gradient(ellipse 700px 500px at 90% 10%, rgba(79,209,197,0.05), transparent);
+    position:relative;
+    background-image:url('assets/hero-bg.webp');
+    background-repeat:no-repeat;
+    background-position:bottom center;
+    background-size:100% auto;
+    background-attachment:fixed;
   }
+  .wrap{ max-width:920px; margin:0 auto; padding:32px 24px 48px; position:relative; z-index:0; }
 
-  .wrap{ max-width:920px; margin:0 auto; padding:72px 24px 48px; }
+  nav{
+    display:flex;
+    align-items:center;
+    gap:28px;
+    font-size:14px;
+    padding-top:10px;
+  }
+  .nav-link{
+    color:var(--text-dim);
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    transition:color 0.2s ease;
+  }
+  .nav-link:hover{ color:var(--text); }
+  .nav-link.active{
+    color:var(--amber);
+    padding-bottom:4px;
+    border-bottom:2px solid var(--amber);
+  }
+  .nav-link svg{ width:12px; height:12px; }
+  .star-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    border:1px solid var(--border-strong);
+    color:var(--text);
+    padding:7px 14px;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:13px;
+    transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  .star-btn:hover{ border-color:var(--amber); background:var(--amber-dim); }
+  .star-btn svg{ width:13px; height:13px; stroke:var(--amber); fill:none; }
 
-  header{ margin-bottom:56px; }
+  header{ margin-bottom:56px; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  header .intro{ max-width:520px; }
   .eyebrow{
     font-family:'IBM Plex Mono', monospace;
     font-size:12px;
@@ -61,9 +101,9 @@
     50%{ box-shadow:0 0 0 6px rgba(53,212,136,0.08); }
   }
   h1{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size:clamp(32px, 5vw, 44px);
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:clamp(32px, 5vw, 46px);
     letter-spacing:-0.01em;
     margin-bottom:12px;
   }
@@ -84,41 +124,63 @@
   }
 
   .card{
+    position:relative;
+    overflow:hidden;
     background:var(--panel);
     border:1px solid var(--border);
     border-radius:16px;
     padding:28px;
     display:flex;
     flex-direction:column;
-    transition:border-color 0.25s ease, transform 0.25s ease;
+    transition:border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   }
   .card:hover{
     border-color:var(--border-strong);
     transform:translateY(-2px);
   }
+  .card > *{ position:relative; z-index:1; }
+
+  .card-amber{ border-color:rgba(255,182,72,0.35); }
+  .card-amber:hover{ border-color:var(--amber); box-shadow:0 0 32px -8px rgba(255,182,72,0.25); }
+  .card-teal{ border-color:rgba(79,209,197,0.35); }
+  .card-teal:hover{ border-color:var(--teal); box-shadow:0 0 32px -8px rgba(79,209,197,0.25); }
+  .card-violet{ border-color:rgba(195,155,255,0.4); background:linear-gradient(160deg, var(--panel) 60%, rgba(195,155,255,0.05)); }
+  .card-violet:hover{ border-color:var(--violet); box-shadow:0 0 32px -8px rgba(195,155,255,0.3); }
+
+  .card-deco{
+    position:absolute;
+    top:0; right:0;
+    width:62%;
+    height:100%;
+    pointer-events:none;
+    opacity:0.5;
+    background-repeat:no-repeat;
+    background-position:right center;
+    background-size:cover;
+    -webkit-mask-image:linear-gradient(120deg, transparent 0%, transparent 22%, #000 55%, #000 100%);
+    mask-image:linear-gradient(120deg, transparent 0%, transparent 22%, #000 55%, #000 100%);
+  }
+  .card-deco.deco-weather{ background-image:url('assets/cards/weather_deco.webp'); }
+  .card-deco.deco-calc{ background-image:url('assets/cards/calc_deco.webp'); }
+  .card-deco.deco-ioc{ background-image:url('assets/cards/ioc_deco.webp'); }
 
   .dial{
-    width:64px; height:64px;
+    width:60px; height:60px;
     border-radius:50%;
-    border:1px solid var(--border-strong);
     display:flex;
     align-items:center;
     justify-content:center;
-    position:relative;
     margin-bottom:20px;
-    background:
-      repeating-conic-gradient(from -90deg, var(--border-strong) 0deg 1.2deg, transparent 1.2deg 30deg);
+    background:transparent;
+    border:1.5px solid currentColor;
   }
-  .dial::before{
-    content:'';
-    position:absolute;
-    inset:8px;border-radius:50%;
-    background:var(--panel-2);
-    border:1px solid var(--border);
-  }
-  .dial svg{ position:relative; z-index:1; width:26px; height:26px; }
+  .dial svg{ width:26px; height:26px; }
+  .dial.tone-amber{ color:var(--amber); box-shadow:0 0 18px -2px rgba(255,182,72,0.55); }
   .dial.tone-amber svg{ stroke:var(--amber); }
+  .dial.tone-teal{ color:var(--teal); box-shadow:0 0 18px -2px rgba(79,209,197,0.55); }
   .dial.tone-teal svg{ stroke:var(--teal); }
+  .dial.tone-violet{ color:var(--violet); box-shadow:0 0 18px -2px rgba(195,155,255,0.55); }
+  .dial.tone-violet svg{ stroke:var(--violet); }
 
   .status-row{
     display:flex; align-items:center; gap:7px;
@@ -135,9 +197,9 @@
   }
 
   .card h2{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size:22px;
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:24px;
     margin-bottom:8px;
   }
   .card p.desc{
@@ -187,8 +249,6 @@
     background:var(--violet-dim);
     border:1px solid rgba(195,155,255,0.3);
   }
-
-  .dial.tone-violet svg{ stroke:var(--violet); }
 
   .price-tag{
     font-family:'IBM Plex Mono', monospace;
@@ -259,6 +319,19 @@
     color:var(--bg);
   }
   .btn-primary:hover{ opacity:0.85; }
+  .btn-amber{
+    background:linear-gradient(135deg, #ffb648, #ff8a3d);
+    color:#1a1006;
+  }
+  .btn-teal{
+    background:linear-gradient(135deg, #6fe3d8, #35b8c9);
+    color:#052120;
+  }
+  .btn-violet{
+    background:linear-gradient(135deg, #c39bff, #9a6bf0);
+    color:#1c0f38;
+  }
+  .btn-amber:hover, .btn-teal:hover, .btn-violet:hover{ opacity:0.88; }
   .btn-ghost{
     background:transparent;
     border:1px solid var(--border-strong);
@@ -317,21 +390,37 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="eyebrow">ALL SYSTEMS ONLINE</div>
-      <h1>Nemanja Bačević</h1>
-      <p>Tools I've built end to end and kept running. Open them in any browser, or add to your home screen to use like an app.</p>
+      <div class="intro">
+        <div class="eyebrow">ALL SYSTEMS ONLINE</div>
+        <h1>Nemanja Bačević</h1>
+        <p>Tools I've built end to end and kept running. Open them in any browser, or add to your home screen to use like an app.</p>
+      </div>
+      <nav>
+        <a class="nav-link active" href="#tools">Tools</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="https://github.com/nemanja-byte88" target="_blank" rel="noopener">
+          GitHub
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"></path></svg>
+        </a>
+        <a class="star-btn" href="https://github.com/nemanja-byte88" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><polygon points="12,2 15,9 22,9.5 17,14.5 18.5,22 12,18 5.5,22 7,14.5 2,9.5 9,9"></polygon></svg>
+          Star on GitHub
+        </a>
+      </nav>
     </header>
 
     <div class="section">
       <div class="section-head">
+        <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
         <h3>Free Tools</h3>
         <div class="section-line"></div>
-        <span class="section-tag free">No account needed</span>
+        <span class="section-tag free"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11" style="vertical-align:-1px; margin-right:3px;"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4z"></path></svg>No account needed</span>
       </div>
 
     <div class="grid">
 
-      <div class="card">
+      <div class="card card-amber">
+        <div class="card-deco deco-weather"></div>
         <div class="dial tone-amber">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="9"></circle>
@@ -346,12 +435,13 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="5" y="2" width="14" height="20" rx="2"></rect></svg>Tablet</span>
         </div>
         <div class="actions">
-          <a class="btn btn-primary" href="https://weathervane-ultimate.netlify.app" target="_blank" rel="noopener">Open app</a>
+          <a class="btn btn-amber" href="https://weathervane-ultimate.netlify.app" target="_blank" rel="noopener">Open app</a>
           <a class="btn btn-ghost" href="https://github.com/nemanja-byte88/Weathervane_ultimate" target="_blank" rel="noopener">View source</a>
         </div>
       </div>
 
-      <div class="card">
+      <div class="card card-teal">
+        <div class="card-deco deco-calc"></div>
         <div class="dial tone-teal">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <rect x="5" y="3" width="14" height="18" rx="2"></rect>
@@ -373,7 +463,7 @@
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="5" y="2" width="14" height="20" rx="2"></rect></svg>Tablet</span>
         </div>
         <div class="actions">
-          <a class="btn btn-primary" href="https://ultimate-calculator-88.netlify.app" target="_blank" rel="noopener">Open app</a>
+          <a class="btn btn-teal" href="https://ultimate-calculator-88.netlify.app" target="_blank" rel="noopener">Open app</a>
           <a class="btn btn-ghost" href="https://github.com/nemanja-byte88/Ultimate-Calculator" target="_blank" rel="noopener">View source</a>
         </div>
       </div>
@@ -383,14 +473,16 @@
 
     <div class="section">
       <div class="section-head">
+        <svg class="section-icon" viewBox="0 0 24 24" fill="var(--violet)" stroke="none" width="16" height="16"><path d="M3 8l3.5 3L12 5l5.5 6L21 8l-2 10H5L3 8z"></path></svg>
         <h3>Premium</h3>
         <div class="section-line"></div>
-        <span class="section-tag premium">Bring your own API key</span>
+        <span class="section-tag premium"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11" style="vertical-align:-1px; margin-right:3px;"><circle cx="8" cy="15" r="4"></circle><path d="M10.5 12.5 20 3M17 6l3 3M14 9l2 2"></path></svg>Bring your own API key</span>
       </div>
 
       <div class="grid">
 
-        <div class="card">
+        <div class="card card-violet">
+          <div class="card-deco deco-ioc"></div>
           <div class="card-head-row">
             <div class="dial tone-violet">
               <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -408,7 +500,7 @@
             <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="9" y1="21" x2="15" y2="21"></line></svg>Mobile</span>
           </div>
           <div class="actions">
-            <a class="btn btn-primary" href="https://ioc-checker.netlify.app" target="_blank" rel="noopener">Open app</a>
+            <a class="btn btn-violet" href="https://ioc-checker.netlify.app" target="_blank" rel="noopener">Open app</a>
             <a class="btn btn-ghost" href="https://github.com/nemanja-byte88/ioc-checker-saas" target="_blank" rel="noopener">View source</a>
           </div>
         </div>

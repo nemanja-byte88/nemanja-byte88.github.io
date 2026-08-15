@@ -18,6 +18,8 @@
     --amber-dim:rgba(255,182,72,0.14);
     --teal:#4fd1c5;
     --green:#35d488;
+    --violet:#c39bff;
+    --violet-dim:rgba(195,155,255,0.14);
     --text:#eef2f5;
     --text-dim:#8a97a3;
     --text-faint:#5c6873;
@@ -110,8 +112,7 @@
   .dial::before{
     content:'';
     position:absolute;
-    inset:8px;
-    border-radius:50%;
+    inset:8px;border-radius:50%;
     background:var(--panel-2);
     border:1px solid var(--border);
   }
@@ -145,6 +146,87 @@
     line-height:1.65;
     margin-bottom:24px;
     flex-grow:1;
+  }
+
+  .section{ margin-bottom:52px; }
+  .section:last-of-type{ margin-bottom:0; }
+  .section-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+  }
+  .section-head h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.02em;
+    color:var(--text-dim);
+    text-transform:uppercase;
+  }
+  .section-line{
+    flex:1;
+    height:1px;
+    background:var(--border);
+  }
+  .section-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    padding:4px 10px;
+    border-radius:999px;
+    text-transform:uppercase;
+  }
+  .section-tag.free{
+    color:var(--green);
+    background:rgba(53,212,136,0.12);
+    border:1px solid rgba(53,212,136,0.28);
+  }
+  .section-tag.premium{
+    color:var(--violet);
+    background:var(--violet-dim);
+    border:1px solid rgba(195,155,255,0.3);
+  }
+
+  .dial.tone-violet svg{ stroke:var(--violet); }
+
+  .price-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--violet);
+    background:var(--violet-dim);
+    border:1px solid rgba(195,155,255,0.3);
+    padding:3px 10px;
+    border-radius:6px;
+    margin-left:auto;
+  }
+
+  .card-head-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+  }
+
+  .more-soon{
+    border:1px dashed var(--border-strong);
+    border-radius:16px;
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:var(--text-faint);
+    font-size:13.5px;
+    min-height:160px;
+  }
+  .more-soon span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-top:6px;color:var(--text-faint);
   }
 
   .platforms{
@@ -237,8 +319,15 @@
     <header>
       <div class="eyebrow">ALL SYSTEMS ONLINE</div>
       <h1>Nemanja Bačević</h1>
-      <p>Two small tools, built end to end and kept running. Open them in any browser, or add to your home screen to use like an app.</p>
+      <p>Tools I've built end to end and kept running. Open them in any browser, or add to your home screen to use like an app.</p>
     </header>
+
+    <div class="section">
+      <div class="section-head">
+        <h3>Free Tools</h3>
+        <div class="section-line"></div>
+        <span class="section-tag free">No account needed</span>
+      </div>
 
     <div class="grid">
 
@@ -251,8 +340,7 @@
         </div>
         <div class="status-row"><span class="status-dot"></span>LIVE</div>
         <h2>Weathervane</h2>
-        <p class="desc">Real weather conditions for land, sea, and air — with sunrise-to-sunset visuals that shift to match the moment you check them.</p>
-        <div class="platforms">
+        <p class="desc">Real weather conditions for land, sea, and air — with sunrise-to-sunset visuals that shift to match the moment you check them.</p><div class="platforms">
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="9" y1="21" x2="15" y2="21"></line></svg>Mobile</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="1"></rect><line x1="8" y1="21" x2="16" y2="21"></line></svg>Desktop</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="5" y="2" width="14" height="20" rx="2"></rect></svg>Tablet</span>
@@ -291,10 +379,51 @@
       </div>
 
     </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h3>Premium</h3>
+        <div class="section-line"></div>
+        <span class="section-tag premium">Bring your own API key</span>
+      </div>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-head-row">
+            <div class="dial tone-violet">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4z"></path>
+                <path d="m9.5 12 1.8 1.8L15 10"></path>
+              </svg>
+            </div>
+            <span class="price-tag">Free tier + Paid</span>
+          </div>
+          <div class="status-row"><span class="status-dot"></span>LIVE</div>
+          <h2>IOC Checker</h2>
+          <p class="desc">Look up IPs, domains, and file hashes against VirusTotal and AbuseIPDB in one place. Use your own free API keys, or upgrade for batch lookups and history.</p>
+          <div class="platforms">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="1"></rect><line x1="8" y1="21" x2="16" y2="21"></line></svg>Desktop</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="9" y1="21" x2="15" y2="21"></line></svg>Mobile</span>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://ioc-checker.netlify.app" target="_blank" rel="noopener">Open app</a>
+            <a class="btn btn-ghost" href="https://github.com/nemanja-byte88/ioc-checker-saas" target="_blank" rel="noopener">View source</a>
+          </div>
+        </div>
+
+        <div class="more-soon">
+          <div>More tools land here as they ship.</div>
+          <span>In progress</span>
+        </div>
+
+      </div>
+    </div>
 
     <footer>
       <div class="support">
-        <p>Built these free — a small tip keeps them going.</p>
+        <p>Weathervane & Calculator are free — a small tip keeps them running.</p>
         <a class="kofi" href="https://revolut.me/nemanjyzg0" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="2" x2="6" y2="4"></line><line x1="10" y1="2" x2="10" y2="4"></line><line x1="14" y1="2" x2="14" y2="4"></line></svg>
           Send a tip

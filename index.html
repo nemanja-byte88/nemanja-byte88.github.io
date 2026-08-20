@@ -20,6 +20,10 @@
     --green:#35d488;
     --violet:#c39bff;
     --violet-dim:rgba(195,155,255,0.14);
+    --red:#ff5a3c;
+    --red-dim:rgba(255,90,60,0.14);
+    --blue:#4f8cff;
+    --blue-dim:rgba(79,140,255,0.14);
     --text:#eef2f5;
     --text-dim:#8a97a3;
     --text-faint:#5c6873;
@@ -156,6 +160,10 @@
   .card-teal:hover{ border-color:var(--teal); box-shadow:0 0 32px -8px rgba(79,209,197,0.25); }
   .card-violet{ border-color:rgba(195,155,255,0.4); background:linear-gradient(160deg, var(--panel) 60%, rgba(195,155,255,0.05)); }
   .card-violet:hover{ border-color:var(--violet); box-shadow:0 0 32px -8px rgba(195,155,255,0.3); }
+  .card-red{ border-color:rgba(255,90,60,0.35); }
+  .card-red:hover{ border-color:var(--red); box-shadow:0 0 32px -8px rgba(255,90,60,0.25); }
+  .card-blue{ border-color:rgba(79,140,255,0.35); }
+  .card-blue:hover{ border-color:var(--blue); box-shadow:0 0 32px -8px rgba(79,140,255,0.25); }
 
   .card-deco{
     position:absolute;
@@ -172,6 +180,25 @@
   .card-deco.deco-weather{ background-image:url('assets/cards/weather_deco.webp'); }
   .card-deco.deco-calc{ background-image:url('assets/cards/calc_deco.webp'); }
   .card-deco.deco-ioc{ background-image:url('assets/cards/ioc_deco.webp'); }
+  .card-deco.deco-red{ background-image:url('assets/cards/security_deco_red.webp'); }
+  .card-deco.deco-blue{ background-image:url('assets/cards/security_deco_blue.webp'); }
+
+  .code-snip{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; justify-content:flex-start; align-items:flex-end;
+    padding:30px 22px 0 0;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px; line-height:1.7;
+    color:var(--text-dim);
+    white-space:pre; text-align:left; margin:0;
+  }
+  .code-snip .hi{ color:var(--red); }
+  .code-snip .med{ color:var(--amber); }
+  .code-snip .lo{ color:var(--text-faint); }
+  .code-snip .ok{ color:var(--green); }
+  .card-blue .code-snip{ color:rgba(79,140,255,0.6); }
+  .card-blue .code-snip .kw{ color:var(--blue); }
+  .card-blue .code-snip .ok{ color:var(--green); }
 
   .dial{
     width:60px; height:60px;
@@ -190,6 +217,10 @@
   .dial.tone-teal svg{ stroke:var(--teal); }
   .dial.tone-violet{ color:var(--violet); box-shadow:0 0 18px -2px rgba(195,155,255,0.55); }
   .dial.tone-violet svg{ stroke:var(--violet); }
+  .dial.tone-red{ color:var(--red); box-shadow:0 0 18px -2px rgba(255,90,60,0.55); }
+  .dial.tone-red svg{ stroke:var(--red); }
+  .dial.tone-blue{ color:var(--blue); box-shadow:0 0 18px -2px rgba(79,140,255,0.55); }
+  .dial.tone-blue svg{ stroke:var(--blue); }
 
   .status-row{
     display:flex; align-items:center; gap:7px;
@@ -340,7 +371,15 @@
     background:linear-gradient(135deg, #c39bff, #9a6bf0);
     color:#1c0f38;
   }
-  .btn-amber:hover, .btn-teal:hover, .btn-violet:hover{ opacity:0.88; }
+  .btn-red{
+    background:linear-gradient(135deg, #ff8a6a, #ff5a3c);
+    color:#340d05;
+  }
+  .btn-blue{
+    background:linear-gradient(135deg, #7bb0ff, #4f8cff);
+    color:#06122e;
+  }
+  .btn-amber:hover, .btn-teal:hover, .btn-violet:hover, .btn-red:hover, .btn-blue:hover{ opacity:0.88; }
   .btn-ghost{
     background:transparent;
     border:1px solid var(--border-strong);
@@ -431,8 +470,13 @@
         <div class="card-deco deco-weather"></div>
         <div class="dial tone-amber">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9"></circle>
-            <polygon points="12,7 14,12 12,17 10,12"></polygon>
+            <circle cx="9" cy="9" r="3.2"></circle>
+            <line x1="9" y1="2.7" x2="9" y2="4.3"></line>
+            <line x1="4.6" y1="4.6" x2="5.7" y2="5.7"></line>
+            <line x1="2.7" y1="9" x2="4.3" y2="9"></line>
+            <line x1="4.6" y1="13.4" x2="5.7" y2="12.3"></line>
+            <line x1="13.4" y1="4.6" x2="12.3" y2="5.7"></line>
+            <path d="M18 19H9a4 4 0 1 1 1.2-7.8A5 5 0 0 1 20 13.5 3.2 3.2 0 0 1 18 19z"></path>
           </svg>
         </div>
         <div class="status-row"><span class="status-dot"></span>LIVE</div>
@@ -481,6 +525,72 @@
 
     <div class="section">
       <div class="section-head">
+        <svg class="section-icon" viewBox="0 0 24 24" fill="var(--red)" stroke="none" width="16" height="16"><path d="M3 8l3.5 3L12 5l5.5 6L21 8l-2 10H5L3 8z"></path></svg>
+        <h3>Security &amp; AppSec</h3>
+        <div class="section-line"></div>
+        <span class="section-tag free"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11" style="vertical-align:-1px; margin-right:3px;"><polyline points="20 6 9 17 4 12"></polyline></svg>Open source</span>
+      </div>
+
+      <div class="grid">
+
+        <div class="card card-red">
+          <div class="card-deco deco-red"><pre class="code-snip">$ bandit -r .
+
+<span class="hi">[high]</span> B602
+<span class="med">[med] </span> B105
+<span class="lo">[low] </span> B404
+
+6 &#8594; <span class="ok">1 fixed</span></pre></div>
+          <div class="dial tone-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <circle cx="12" cy="11" r="3.1"></circle>
+              <line x1="14.2" y1="13.2" x2="16.3" y2="15.3"></line>
+            </svg>
+          </div>
+          <div class="status-row"><span class="status-dot"></span>CODE</div>
+          <h2>Bandit SAST Demo</h2>
+          <p class="desc">Static analysis on intentionally vulnerable Python code — 6 CWE-classified issues found, fixed, and re-scanned to confirm the fix.</p>
+          <div class="platforms">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="1"></rect><line x1="8" y1="21" x2="16" y2="21"></line></svg>Desktop</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="9" y1="21" x2="15" y2="21"></line></svg>Mobile</span>
+          </div>
+          <div class="actions">
+            <a class="btn btn-red" href="https://github.com/nemanja-byte88/python-security-bandit-demo" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+        </div>
+
+        <div class="card card-blue">
+          <div class="card-deco deco-blue"><pre class="code-snip"><span class="kw">@app.post</span>
+("/login")
+<span class="kw">def</span> login():
+  verify_pw()
+  <span class="ok">return</span> token</pre></div>
+          <div class="dial tone-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <rect x="9.3" y="12" width="5.4" height="4.6" rx="1"></rect>
+              <path d="M10.4 12v-2a1.6 1.6 0 0 1 3.2 0v2"></path>
+              <circle cx="12" cy="14.2" r="0.45" fill="currentColor" stroke="none"></circle>
+            </svg>
+          </div>
+          <div class="status-row"><span class="status-dot"></span>CODE</div>
+          <h2>Secure FastAPI Demo</h2>
+          <p class="desc">A REST API built with security in mind — JWT auth, bcrypt hashing, rate limiting, and input validation. 0 findings on a Bandit scan.</p>
+          <div class="platforms">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="1"></rect><line x1="8" y1="21" x2="16" y2="21"></line></svg>Desktop</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="9" y1="21" x2="15" y2="21"></line></svg>Mobile</span>
+          </div>
+          <div class="actions">
+            <a class="btn btn-blue" href="https://github.com/nemanja-byte88/secure-fastapi-demo" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
         <svg class="section-icon" viewBox="0 0 24 24" fill="var(--violet)" stroke="none" width="16" height="16"><path d="M3 8l3.5 3L12 5l5.5 6L21 8l-2 10H5L3 8z"></path></svg>
         <h3>Premium</h3>
         <div class="section-line"></div>
@@ -494,8 +604,8 @@
           <div class="card-head-row">
             <div class="dial tone-violet">
               <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4z"></path>
-                <path d="m9.5 12 1.8 1.8L15 10"></path>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="8.5 12.3 11 14.8 15.5 9.8"></polyline>
               </svg>
             </div>
             <span class="price-tag">Free tier + Paid</span>

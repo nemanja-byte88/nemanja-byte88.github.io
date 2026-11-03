@@ -73,7 +73,7 @@ a:focus-visible{outline:2px solid #ffb648;outline-offset:3px}
     <a href="assets/Nemanja_Bacevic_CV.pdf" target="_blank" rel="noopener">CV ↓</a>
     <a href="https://www.linkedin.com/in/nemanja-bacevic-743492312/" target="_blank" rel="noopener">LinkedIn ↗</a>
     <a href="https://github.com/nemanja-byte88" target="_blank" rel="noopener">GitHub ↗</a>
-    <a href="mailto:nemanja.bacevic88@gmail.com" id="mail" title="nemanja.bacevic88@gmail.com">Email</a>
+    <a href="mailto:nemanja.bacevic.dev@gmail.com" id="mail" title="nemanja.bacevic.dev@gmail.com">Email</a>
   </nav>
   <div class="copy">© 2026 NEMANJA BAČEVIĆ</div>
 </div>
@@ -136,7 +136,7 @@ a:focus-visible{outline:2px solid #ffb648;outline-offset:3px}
 </script>
 <script>
 // Desktop: copy the address (a mailto: link does nothing if no mail app is set up). Touch devices keep the normal mailto: behaviour.
-(()=>{const a=document.getElementById('mail');if(!a)return;const addr='nemanja.bacevic88@gmail.com';let t;
+(()=>{const a=document.getElementById('mail');if(!a)return;const addr='nemanja.bacevic.dev@gmail.com';let t;
  a.addEventListener('click',e=>{if(!matchMedia('(hover:hover) and (pointer:fine)').matches)return;e.preventDefault();
   const done=()=>{a.textContent='Copied: '+addr;clearTimeout(t);t=setTimeout(()=>{a.textContent='Email'},2600)};
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(addr).then(done,()=>{a.textContent=addr;clearTimeout(t);t=setTimeout(()=>{a.textContent='Email'},4000)})}

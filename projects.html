@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Projects — Nemanja Bačević</title>
+<meta name="description" content="Tools built end to end and kept running: Weathervane, Calculator v3.0, IOC Checker, plus Python and FastAPI security demos. By Nemanja Bačević.">
+<meta name="theme-color" content="#050914">
+<meta property="og:type" content="website"><meta property="og:title" content="Nemanja Bačević — Apps &amp; Security Projects">
+<meta property="og:description" content="Free tools, AppSec demos and a threat-intel lookup app. Open in any browser.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230c1219%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2738%27 font-family=%27Georgia,serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27%23ffb648%27%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c1219;--panel:rgba(22,31,41,.82);--line:rgba(255,255,255,.1);--text:#edf3f7;--muted:#91a0ad;--amber:#ffb648;--teal:#4fd1c5;--red:#ff654d;--blue:#639bff;--violet:#c39bff;--green:#35d488}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#050914;color:var(--text);font-family:Inter,system-ui,sans-serif;overflow-x:hidden;isolation:isolate}
+#cyber-bg{position:fixed;inset:0;z-index:-3;pointer-events:none;background-image:url("assets/hero-bg.webp");background-size:cover;background-position:center 43%;opacity:.74;filter:saturate(1.24) contrast(1.1);transform:scale(1.035);animation:bg-drift 34s ease-in-out infinite alternate}
+#flow{position:fixed;inset:0;width:100%;height:100%;z-index:-2;opacity:1;pointer-events:none}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(3,8,17,.12),rgba(4,9,19,.43) 45%,rgba(4,9,19,.72)),radial-gradient(ellipse at 50% 45%,rgba(6,13,29,.04),rgba(3,7,15,.24) 80%)}
+@keyframes bg-drift{from{transform:scale(1.035) translate3d(-.4%,0,0)}to{transform:scale(1.09) translate3d(.4%,-.5%,0)}}@media(min-width:1000px){
+ #cyber-bg{opacity:.8;background-position:center 46%;filter:saturate(1.3) contrast(1.12)}
+ #flow{opacity:1}
+ body:before{background:linear-gradient(180deg,rgba(3,8,17,.08),rgba(4,9,19,.34) 45%,rgba(4,9,19,.66)),radial-gradient(ellipse at 50% 45%,rgba(6,13,29,.02),rgba(3,7,15,.18) 80%)}
+ body:after{opacity:1.08}
+}
+.wrap{max-width:1080px;margin:auto;padding:30px 26px 60px}nav{display:flex;align-items:center;gap:26px;justify-content:flex-end;font-size:13px;margin-bottom:52px}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:white}.star{border:1px solid var(--line);padding:9px 15px;border-radius:30px}.hero{min-height:270px;display:flex;align-items:center;justify-content:space-between;gap:30px;margin-bottom:60px;position:relative}.intro{max-width:600px;position:relative;z-index:2}.eyebrow,.status,.mono{font:11px 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase}.eyebrow{color:var(--amber);display:flex;align-items:center;gap:10px;margin-bottom:20px}.eyebrow:before{content:"";width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 14px var(--green);animation:pulse 2s infinite}@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(53,212,136,0)}}h1{font:700 clamp(42px,6vw,66px) 'Fraunces',serif;letter-spacing:-.035em;margin:0 0 15px;line-height:1.02}h1 em{font-style:normal;color:#b8d6d8;text-shadow:0 0 28px rgba(79,209,197,.2)}.intro p{color:var(--muted);line-height:1.75;font-size:16px;max-width:530px}.hero-art{width:340px;height:220px;flex:0 0 340px;position:relative;display:grid;place-items:center;perspective:900px}.system-panel{position:relative;width:100%;padding:17px 19px 16px;border:1px solid rgba(79,209,197,.24);border-radius:15px;background:linear-gradient(135deg,rgba(12,23,36,.84),rgba(8,14,25,.66));backdrop-filter:blur(12px);box-shadow:0 18px 55px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.045);transform:rotateY(-9deg) rotateX(4deg);animation:panelFloat 8s ease-in-out infinite;overflow:hidden}.system-panel:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 20%,rgba(79,209,197,.055) 48%,transparent 72%);transform:translateX(-100%);animation:panelSweep 7s ease-in-out infinite}.system-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px;color:#9eacb9;font:9px 'IBM Plex Mono';letter-spacing:.12em}.system-dots{display:flex;gap:5px}.system-dots i{width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 9px rgba(255,182,72,.5)}.system-dots i:nth-child(2){background:var(--teal);box-shadow:0 0 9px rgba(79,209,197,.5)}.system-dots i:nth-child(3){background:var(--violet);box-shadow:0 0 9px rgba(195,155,255,.5)}.code-line{height:6px;border-radius:8px;margin:10px 0;background:rgba(145,160,173,.13);overflow:hidden}.code-line span{display:block;height:100%;border-radius:8px;animation:codeFlow 4s ease-in-out infinite alternate}.code-line:nth-of-type(3) span{animation-delay:.5s}.code-line:nth-of-type(4) span{animation-delay:1s}.code-line:nth-of-type(5) span{animation-delay:1.5s}.code-line .a{background:linear-gradient(90deg,var(--amber),rgba(255,182,72,.15))}.code-line .t{background:linear-gradient(90deg,var(--teal),rgba(79,209,197,.12))}.code-line .v{background:linear-gradient(90deg,var(--violet),rgba(195,155,255,.12))}.system-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:17px;color:#8293a2;font:9px 'IBM Plex Mono';letter-spacing:.08em}.system-live{color:var(--green)}.system-live:before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--green);margin:0 7px 1px 0;box-shadow:0 0 10px var(--green)}.hero-label{position:absolute;right:3px;bottom:-2px;color:#78909d;font:9px 'IBM Plex Mono';letter-spacing:.1em}@keyframes panelFloat{50%{transform:translateY(-6px) rotateY(-5deg) rotateX(2deg)}}@keyframes panelSweep{45%,100%{transform:translateX(100%)}}@keyframes codeFlow{from{width:22%;opacity:.55}to{width:var(--bar,85%);opacity:1}}.section{margin:0 0 54px}.section-head{display:flex;align-items:center;gap:13px;margin-bottom:19px}.section-head h3{font:600 14px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#aab7c1}.line{height:1px;background:var(--line);flex:1}.tag{font:10px 'IBM Plex Mono';letter-spacing:.08em;border:1px solid rgba(53,212,136,.3);color:var(--green);background:rgba(53,212,136,.08);border-radius:30px;padding:6px 11px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{--accent:var(--amber);--rgb:255,182,72;position:relative;overflow:hidden;isolation:isolate;min-height:300px;padding:25px;border-radius:19px;border:1px solid rgba(var(--rgb),.28);background:linear-gradient(145deg,rgba(17,27,42,.82),rgba(8,16,29,.78));backdrop-filter:blur(13px);transform-style:preserve-3d;transition:transform .22s ease,border-color .25s,box-shadow .25s;box-shadow:0 12px 35px rgba(0,0,0,.16)}.card:before{content:"";position:absolute;inset:-1px;z-index:-1;opacity:0;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(var(--rgb),.19),transparent 42%);transition:opacity .25s}.card:after{content:"";position:absolute;inset:0;z-index:-1;opacity:0;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.07) 48%,transparent 72%);transform:translateX(-100%);transition:opacity .3s}.card:hover,.card.is-active{border-color:rgba(var(--rgb),.8);box-shadow:0 18px 55px rgba(var(--rgb),.12),0 10px 35px rgba(0,0,0,.28)}.card:hover:before,.card.is-active:before{opacity:1}.card:hover:after{opacity:1;animation:sweep 1.1s ease}@keyframes sweep{to{transform:translateX(100%)}}.card.teal{--accent:var(--teal);--rgb:79,209,197}.card.red{--accent:var(--red);--rgb:255,101,77}.card.blue{--accent:var(--blue);--rgb:99,155,255}.card.violet{--accent:var(--violet);--rgb:195,155,255}.deco{position:absolute;right:8px;top:18px;width:48%;height:140px;opacity:.52;pointer-events:none;transform:translateZ(18px)}.deco svg{width:100%;height:100%;overflow:visible}.dial{width:48px;height:48px;border:1px solid var(--accent);border-radius:50%;display:grid;place-items:center;color:var(--accent);box-shadow:0 0 22px rgba(var(--rgb),.24);margin-bottom:22px;transform:translateZ(24px)}.dial svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5}.status{font-size:9px;color:#748391;letter-spacing:.12em;margin-bottom:7px}.status:before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--green);margin:0 7px 1px 0;box-shadow:0 0 8px var(--green)}.card h2{font:700 23px 'Fraunces',serif;margin:0 0 9px;transform:translateZ(18px)}.card p{font-size:13px;line-height:1.65;color:var(--muted);max-width:90%;margin:0 0 20px;min-height:62px;transform:translateZ(12px)}.platforms{font:10px 'IBM Plex Mono';color:#71808c;display:flex;gap:13px;margin-bottom:20px}.actions{display:flex;gap:9px;transform:translateZ(20px)}.btn{font-size:11px;text-decoration:none;padding:10px 14px;border-radius:7px;font-weight:600;background:var(--accent);color:#101820;transition:filter .2s,transform .2s}.btn:hover{filter:brightness(1.12);transform:translateY(-2px)}.ghost{background:transparent;border:1px solid var(--line);color:#b7c2ca}.premium{color:var(--violet);border-color:rgba(195,155,255,.35);background:rgba(195,155,255,.08)}.foot{border-top:1px solid var(--line);padding-top:25px;margin-top:58px;color:#73818d;font:11px 'IBM Plex Mono';display:flex;justify-content:space-between;gap:15px}.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}.reveal.visible{opacity:1;transform:translateY(0)}@media(max-width:700px){.wrap{padding:22px 17px 40px}nav{justify-content:flex-start;margin-bottom:38px}.hero{min-height:unset;margin-bottom:45px}.hero-art{position:absolute;right:-95px;top:5px;opacity:.4;transform:scale(.8)}.intro{max-width:100%}.grid{grid-template-columns:1fr}.card{min-height:285px}.foot{flex-direction:column}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+
+/* V4: preserve the original project cards; add restrained depth and richer ambient colour. */
+body::after{content:"";position:fixed;inset:-18%;z-index:-1;pointer-events:none;background:
+ radial-gradient(ellipse at 12% 46%,rgba(255,126,35,.17),transparent 34%),
+ radial-gradient(ellipse at 86% 42%,rgba(20,154,255,.17),transparent 35%),
+ radial-gradient(ellipse at 55% 86%,rgba(174,67,255,.13),transparent 32%),
+ radial-gradient(ellipse at 48% 8%,rgba(35,205,190,.07),transparent 28%);
+ filter:blur(34px);opacity:1;animation:ambientColour 18s ease-in-out infinite alternate}
+@keyframes ambientColour{0%{transform:translate3d(-1.5%,0,0) scale(1)}50%{transform:translate3d(1.5%,-1%,0) scale(1.035)}100%{transform:translate3d(0,1.5%,0) scale(1.02)}}
+.grid{perspective:1200px}
+.card{min-height:320px;border-radius:17px;padding:25px 24px 23px;background:linear-gradient(145deg,rgba(24,34,45,.88),rgba(9,17,29,.82));transform:perspective(1100px) rotateX(.7deg) rotateY(-.7deg);animation:cardIdle 9s ease-in-out infinite;will-change:transform;box-shadow:0 14px 38px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.035)}
+.card:nth-child(2n){animation-delay:-4.5s;transform:perspective(1100px) rotateX(.7deg) rotateY(.7deg)}
+@keyframes cardIdle{0%,100%{translate:0 0}50%{translate:0 -3px}}
+.card:before{opacity:.16;background:radial-gradient(460px circle at var(--mx,50%) var(--my,50%),rgba(var(--rgb),.23),transparent 48%);transition:opacity .35s}
+.card:after{z-index:0;opacity:.12;transform:translateX(-130%);background:linear-gradient(115deg,transparent 25%,rgba(var(--rgb),.16) 46%,rgba(255,255,255,.055) 50%,transparent 70%);animation:idleSheen 12s ease-in-out infinite;pointer-events:none}
+.card:nth-child(2n):after{animation-delay:-6s}
+@keyframes idleSheen{0%,65%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
+.card:hover,.card.is-active{transform:perspective(1100px) translateY(-5px) scale(1.012);border-color:rgba(var(--rgb),.86);box-shadow:0 22px 65px rgba(var(--rgb),.19),0 0 24px rgba(var(--rgb),.10),inset 0 0 24px rgba(var(--rgb),.035)}
+.card:hover:before,.card.is-active:before{opacity:1}
+.card:hover:after{opacity:.65;animation:sweep .95s ease forwards}
+.dial{transition:box-shadow .3s,transform .3s;background:rgba(var(--rgb),.035)}
+.card:hover .dial{box-shadow:0 0 12px rgba(var(--rgb),.35),0 0 32px rgba(var(--rgb),.22);transform:translateZ(30px) scale(1.055)}
+.deco{opacity:.58;transition:opacity .3s,filter .3s}
+.card:hover .deco{opacity:.82;filter:drop-shadow(0 0 8px rgba(var(--rgb),.22))}
+.card h2,.card p,.dial,.deco,.actions{backface-visibility:hidden}
+@media(max-width:700px){.card{min-height:300px;transform:none;animation:none}.card:nth-child(2n){transform:none}}
+@media(prefers-reduced-motion:reduce){body:after,.card,.card:after{animation:none!important}.card{translate:none!important}}
+
+
+/* V5 — animated product-specific artwork inside the original cards */
+.card{min-height:320px;background:linear-gradient(110deg,rgba(8,15,25,.96) 0%,rgba(8,15,25,.88) 46%,rgba(8,15,25,.68) 100%);}
+.card>.deco{display:none}
+.card>.scene{position:absolute;z-index:0;right:0;top:0;width:62%;height:100%;overflow:hidden;pointer-events:none;opacity:.78;mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.45) 22%,#000 58%);}
+.card>:not(.scene){position:relative;z-index:1}
+.card .scene:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,10,18,.72),transparent 58%);z-index:4}
+.card .scene:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 78% 78%,rgba(var(--rgb),.17),transparent 58%);animation:sceneBreath 6s ease-in-out infinite alternate;z-index:3}
+@keyframes sceneBreath{to{opacity:.45;transform:scale(1.12)}}
+.scene .wave{position:absolute;right:-9%;bottom:-17%;width:112%;height:66%;border:1px solid rgba(var(--rgb),.5);border-radius:50%;transform:rotate(-12deg);box-shadow:0 0 18px rgba(var(--rgb),.12),inset 0 0 15px rgba(var(--rgb),.08);}
+.scene .wave:nth-child(2){bottom:-24%;right:-2%;opacity:.7;transform:rotate(-8deg) scale(.92);animation:waveDrift 9s ease-in-out infinite alternate}
+.scene .wave:nth-child(3){bottom:-31%;right:4%;opacity:.45;transform:rotate(-5deg) scale(.84);animation:waveDrift 11s ease-in-out infinite alternate-reverse}
+@keyframes waveDrift{to{translate:0 -13px;rotate:3deg}}
+.scene .code-rain{position:absolute;inset:5% 4% 8% 22%;display:flex;justify-content:space-around;overflow:hidden;opacity:.45;color:var(--accent);font:10px/1.8 'IBM Plex Mono',monospace;}
+.scene .code-rain span{writing-mode:vertical-rl;letter-spacing:4px;animation:codeFall 7s linear infinite;}
+.scene .code-rain span:nth-child(2n){animation-delay:-2.5s;opacity:.55}.scene .code-rain span:nth-child(3n){animation-delay:-4.5s}
+@keyframes codeFall{from{transform:translateY(-35%)}to{transform:translateY(45%)}}
+.scene .formula{position:absolute;color:var(--accent);font:italic 12px 'IBM Plex Mono',monospace;white-space:nowrap;text-shadow:0 0 12px rgba(var(--rgb),.4);opacity:.65;animation:formulaFloat 8s ease-in-out infinite alternate;}
+.scene .formula.f1{right:8%;top:18%}.scene .formula.f2{right:23%;top:43%;animation-delay:-3s}.scene .formula.f3{right:5%;top:65%;animation-delay:-5s}
+@keyframes formulaFloat{to{transform:translate3d(-9px,-7px,0);opacity:.9}}
+.scene .terminal{position:absolute;right:5%;top:20%;width:67%;padding:10px 12px;border:1px solid rgba(var(--rgb),.3);border-radius:8px;background:rgba(3,8,15,.48);color:var(--accent);font:9px/1.9 'IBM Plex Mono',monospace;box-shadow:0 0 25px rgba(var(--rgb),.08);transform:perspective(500px) rotateY(-8deg);}
+.scene .terminal b{display:block;color:rgba(var(--rgb),.95);font-weight:500}.scene .terminal i{display:inline-block;width:5px;height:9px;background:var(--accent);vertical-align:middle;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.scene .api-mark{position:absolute;right:10%;top:18%;width:74px;height:74px;border:1px solid rgba(var(--rgb),.65);border-radius:22px;display:grid;place-items:center;color:var(--accent);font:600 19px 'Space Grotesk';transform:rotate(45deg);box-shadow:0 0 24px rgba(var(--rgb),.13);animation:apiBob 6s ease-in-out infinite;}
+.scene .api-mark span{transform:rotate(-45deg)}@keyframes apiBob{50%{translate:0 -8px}}
+.scene .shield-mark{position:absolute;right:22%;top:17%;width:75px;height:85px;color:var(--accent);filter:drop-shadow(0 0 12px rgba(var(--rgb),.35));animation:shieldPulse 4s ease-in-out infinite;}
+@keyframes shieldPulse{50%{transform:translateY(-5px) scale(1.04);filter:drop-shadow(0 0 20px rgba(var(--rgb),.65))}}
+.scene .weather-icon{position:absolute;color:var(--accent);font-size:25px;opacity:.75;text-shadow:0 0 14px rgba(var(--rgb),.55);animation:weatherFloat 6s ease-in-out infinite;}
+.scene .weather-icon:nth-child(1){right:18%;top:18%}.scene .weather-icon:nth-child(2){right:48%;top:43%;animation-delay:-2s}.scene .weather-icon:nth-child(3){right:12%;top:60%;animation-delay:-4s}
+@keyframes weatherFloat{50%{transform:translateY(-10px) rotate(7deg);opacity:1}}
+.scene .binary-cloud{position:absolute;right:3%;top:12%;width:70%;height:68%;color:var(--accent);font:11px/2 'IBM Plex Mono';letter-spacing:8px;opacity:.5;overflow:hidden;mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent);}
+.scene .binary-cloud span{display:block;white-space:nowrap;animation:binarySlide 12s linear infinite}.scene .binary-cloud span:nth-child(2){animation-delay:-5s}.scene .binary-cloud span:nth-child(3){animation-delay:-8s}
+@keyframes binarySlide{from{transform:translateX(15%)}to{transform:translateX(-20%)}}
+.card:hover .scene{opacity:1;filter:drop-shadow(0 0 10px rgba(var(--rgb),.12))}.card:hover .scene:after{opacity:1}
+.card:hover .scene .formula,.card:hover .scene .code-rain{opacity:.95}
+@media(max-width:700px){.card>.scene{width:72%;opacity:.52}.card{min-height:310px}}
+@media(prefers-reduced-motion:reduce){.scene *,.scene:after{animation:none!important}}
+
+
+/* V6 — fuller product cards; product-specific motion wakes only on focus/selection. */
+.card{min-height:354px;padding:27px 26px 25px;background:linear-gradient(112deg,rgba(8,15,25,.97) 0%,rgba(8,15,25,.91) 48%,rgba(8,15,25,.76) 100%);}
+.card>.scene{width:68%;opacity:.64;mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.48) 18%,#000 52%);}
+.card .scene:after{animation-play-state:paused;opacity:.45;}
+.card .scene .wave,
+.card .scene .wave:nth-child(2),
+.card .scene .wave:nth-child(3),
+.card .scene .weather-icon,
+.card .scene .code-rain span,
+.card .scene .formula,
+.card .scene .terminal i,
+.card .scene .api-mark,
+.card .scene .shield-mark,
+.card .scene .binary-cloud span{animation-play-state:paused;}
+.card .scene .terminal{opacity:.8;}
+.card .scene .code-rain,.card .scene .binary-cloud{opacity:.27;}
+.card .scene .formula{opacity:.34;}
+.card.is-active>.scene,.card:focus-within>.scene{opacity:1;filter:drop-shadow(0 0 13px rgba(var(--rgb),.2));}
+.card.is-active .scene:after,.card:focus-within .scene:after,
+.card.is-active .scene .wave,.card:focus-within .scene .wave,
+.card.is-active .scene .weather-icon,.card:focus-within .scene .weather-icon,
+.card.is-active .scene .code-rain span,.card:focus-within .scene .code-rain span,
+.card.is-active .scene .formula,.card:focus-within .scene .formula,
+.card.is-active .scene .terminal i,.card:focus-within .scene .terminal i,
+.card.is-active .scene .api-mark,.card:focus-within .scene .api-mark,
+.card.is-active .scene .shield-mark,.card:focus-within .scene .shield-mark,
+.card.is-active .scene .binary-cloud span,.card:focus-within .scene .binary-cloud span{animation-play-state:running;}
+.card.is-active .scene .code-rain,.card:focus-within .scene .code-rain,
+.card.is-active .scene .binary-cloud,.card:focus-within .scene .binary-cloud,
+.card.is-active .scene .formula,.card:focus-within .scene .formula{opacity:.9;}
+.card.is-active .scene .terminal,.card:focus-within .scene .terminal{opacity:1;box-shadow:0 0 34px rgba(var(--rgb),.16);}
+.card.is-active .dial,.card:focus-within .dial{box-shadow:0 0 14px rgba(var(--rgb),.42),0 0 34px rgba(var(--rgb),.25);}
+.card.is-active:after{opacity:.65;animation:sweep .95s ease forwards;}
+.card p{max-width:82%;}
+@media(max-width:700px){.card{min-height:330px;padding:23px 21px}.card>.scene{width:74%;opacity:.5}.card p{max-width:94%}}
+@media(prefers-reduced-motion:reduce){.card .scene *,.card .scene:after{animation:none!important}}
+
+/* V7 — richer weather, calculator and IOC scenes. Motion still wakes on card focus. */
+.scene.weather .weather-orbit{position:absolute;inset:5% 5% 5% 22%;}
+.scene.weather .weather-icon{font-size:34px;opacity:.82;filter:drop-shadow(0 0 9px rgba(var(--rgb),.5));}
+.scene.weather .weather-icon.sun{right:18%;top:8%;font-size:42px;animation:weatherSun 8s ease-in-out infinite;}
+.scene.weather .weather-icon.cloud{right:49%;top:27%;font-size:32px;animation:weatherCloud 7s ease-in-out infinite;}
+.scene.weather .weather-icon.rain{right:14%;top:48%;font-size:30px;animation:weatherRain 5s ease-in-out infinite;}
+.scene.weather .weather-icon.small-cloud{right:57%;top:66%;font-size:22px;animation:weatherCloud 8s ease-in-out infinite reverse;}
+@keyframes weatherSun{50%{transform:translateY(-8px) rotate(22deg);filter:drop-shadow(0 0 17px rgba(var(--rgb),.85));}}
+@keyframes weatherCloud{50%{transform:translate(9px,-5px);}}
+@keyframes weatherRain{50%{transform:translateY(7px) scale(1.08);}}
+.scene .weather-panel{position:absolute;right:5%;bottom:10%;width:69%;padding:10px 12px 9px;border:1px solid rgba(var(--rgb),.3);border-radius:10px;background:linear-gradient(135deg,rgba(4,10,17,.88),rgba(9,17,27,.68));box-shadow:0 8px 28px rgba(0,0,0,.2),inset 0 0 24px rgba(var(--rgb),.045);font:8px 'IBM Plex Mono',monospace;color:var(--accent);}
+.weather-head,.weather-stats,.weather-reading,.forecast,.ioc-head,.ioc-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.weather-head{font-size:7px;letter-spacing:1.2px;opacity:.75}.weather-head b{color:#35d488;font-size:7px;}
+.weather-reading{justify-content:flex-start;margin:4px 0 6px;gap:10px}.weather-reading strong{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:32px;line-height:1;text-shadow:0 0 12px rgba(var(--rgb),.35)}
+.weather-reading span{font-size:8px;line-height:1.5}.weather-reading small{opacity:.6;font-size:7px}
+.weather-stats{border-top:1px solid rgba(var(--rgb),.16);padding-top:6px;font-size:7px;opacity:.78}.weather-stats b{display:block;color:#e8f2f8;font-weight:400;margin-top:3px}
+.forecast{margin-top:8px;padding-top:6px;border-top:1px solid rgba(var(--rgb),.16)}.forecast i{font-style:normal;display:grid;gap:3px;text-align:center;color:#e8f2f8;font-size:8px}.forecast b{font-size:12px;color:var(--accent)}
+.weather-sweep{position:absolute;right:0;bottom:0;width:72%;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.45;filter:blur(2px);animation:weatherSweep 5s ease-in-out infinite alternate;}
+@keyframes weatherSweep{to{transform:translateX(-25%);opacity:.9}}
+.scene.calculator .calc-board{position:absolute;right:5%;top:12%;width:54%;padding:10px;border:1px solid rgba(var(--rgb),.34);border-radius:10px;background:linear-gradient(145deg,rgba(3,10,18,.92),rgba(7,20,29,.74));box-shadow:0 0 28px rgba(var(--rgb),.09);transform:perspective(700px) rotateY(-7deg);}
+.calc-top{display:flex;justify-content:space-between;color:var(--accent);font:7px 'IBM Plex Mono';letter-spacing:1px;opacity:.8}.calc-top b{font-weight:400}
+.calc-screen{margin:8px 0;padding:8px;border-radius:5px;background:rgba(var(--rgb),.07);text-align:right;font-family:'IBM Plex Mono';}.calc-screen small{display:block;color:rgba(225,243,248,.58);font-size:8px}.calc-screen strong{display:block;margin-top:3px;color:#eafaff;font-size:21px;font-weight:500;text-shadow:0 0 12px rgba(var(--rgb),.4);}
+.calc-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.calc-keys i{font:8px 'IBM Plex Mono';font-style:normal;text-align:center;padding:5px 2px;border:1px solid rgba(var(--rgb),.17);border-radius:4px;background:rgba(255,255,255,.025);color:rgba(230,248,255,.8);}
+.calc-keys i:nth-child(4n+1){color:var(--accent)}
+.scene.calculator .formula{font-size:10px;opacity:.62}.scene.calculator .formula.f1{right:61%;top:17%}.scene.calculator .formula.f2{right:60%;top:39%}.scene.calculator .formula.f3{right:57%;top:61%}.scene.calculator .formula.f4{right:64%;top:79%}.scene.calculator .formula.f5{right:4%;top:5%;}
+@keyframes formulaFloat{to{transform:translate3d(-12px,-9px,0) rotate(-2deg);opacity:1}}
+.scene.ioc .ioc-console{position:absolute;right:4%;top:14%;width:72%;padding:10px 11px 8px;border:1px solid rgba(var(--rgb),.35);border-radius:9px;background:linear-gradient(145deg,rgba(5,7,17,.94),rgba(15,7,25,.78));box-shadow:0 0 28px rgba(var(--rgb),.1);font:8px 'IBM Plex Mono',monospace;z-index:2;}
+.ioc-head{font-size:7px;letter-spacing:.8px;color:var(--accent);padding-bottom:7px;border-bottom:1px solid rgba(var(--rgb),.22)}.ioc-head b{color:#35d488;font-size:6px;font-weight:500;}
+.ioc-row{display:grid;grid-template-columns:8px 1fr auto;align-items:center;gap:7px;padding:7px 1px;border-bottom:1px solid rgba(255,255,255,.055);color:#d8e3ec;}
+.ioc-row code{font:8px 'IBM Plex Mono';letter-spacing:.1px}.ioc-row em{font:6px 'IBM Plex Mono';font-style:normal;color:#35d488;}
+.ioc-row:nth-of-type(3) em{color:#ffbd55}.ioc-row:nth-of-type(4) em{color:#ff657a}
+.ioc-dot{width:6px;height:6px;border-radius:50%;background:#35d488;box-shadow:0 0 8px currentColor;color:#35d488}.ioc-dot.warn{background:#ffbd55;color:#ffbd55}.ioc-dot.danger{background:#ff657a;color:#ff657a}
+.ioc-foot{padding-top:7px;color:rgba(225,230,245,.55);font-size:6px;letter-spacing:.4px}.ioc-foot b{color:var(--accent);font-weight:400;}
+.scene.ioc .binary-cloud{top:5%;right:0;width:100%;height:90%;opacity:.22;z-index:1}.scene.ioc .shield-mark{right:8%;top:68%;width:43px;height:49px;opacity:.8;z-index:3;}
+.card .scene .weather-panel,.card .scene .calc-board,.card .scene .ioc-console{opacity:.82;transition:opacity .25s,box-shadow .25s;}
+.card .scene .weather-sweep{animation-play-state:paused;}
+.card.is-active .scene .weather-panel,.card:focus-within .scene .weather-panel,.card.is-active .scene .calc-board,.card:focus-within .scene .calc-board,.card.is-active .scene .ioc-console,.card:focus-within .scene .ioc-console{opacity:1;box-shadow:0 0 34px rgba(var(--rgb),.2);}
+.card.is-active .scene .weather-sweep,.card:focus-within .scene .weather-sweep{animation-play-state:running;}
+@media(max-width:700px){.scene .weather-panel{width:72%;right:3%;bottom:7%;}.scene.calculator .calc-board{width:58%;right:3%;}.scene.ioc .ioc-console{width:77%;right:2%;}.scene.calculator .formula{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.scene .weather-sweep{animation:none!important}}
+
+/* Calculator V9: the former calculator illustration is replaced by Living Equations.
+   The card itself keeps the same shared grid dimensions and portfolio styling. */
+.card.calculator-v9{isolation:isolate;overflow:hidden}
+.card.calculator-v9>.calc-v9-art{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.08) 28%,#000 57%)}
+.card.calculator-v9>.dial,.card.calculator-v9>.status,.card.calculator-v9>h2,
+.card.calculator-v9>p,.card.calculator-v9>.platforms,.card.calculator-v9>.actions{position:relative;z-index:2}
+.card.calculator-v9 .calc-v9-formula{position:absolute;white-space:nowrap;font-family:Georgia,serif;font-style:italic;
+  color:rgba(79,209,197,.28);font-size:clamp(9px,.95vw,13px);letter-spacing:.01em;
+  text-shadow:0 0 10px rgba(79,209,197,.08);transition:color .4s,text-shadow .4s;animation-play-state:paused}
+.card.calculator-v9:hover .calc-v9-formula,.card.calculator-v9.is-active .calc-v9-formula{
+  color:rgba(105,239,225,.82);text-shadow:0 0 12px rgba(79,209,197,.42),0 0 24px rgba(0,180,190,.18);animation-play-state:running}
+.card.calculator-v9 .cf1{top:13%;left:43%;animation:calcV9Drift1 13s ease-in-out infinite}
+.card.calculator-v9 .cf2{top:17%;right:5%;animation:calcV9Drift2 16s ease-in-out infinite}
+.card.calculator-v9 .cf3{top:39%;left:48%;animation:calcV9Drift3 17s ease-in-out infinite}
+.card.calculator-v9 .cf4{top:55%;right:8%;animation:calcV9Drift4 15s ease-in-out infinite}
+.card.calculator-v9 .cf5{bottom:22%;left:42%;font-size:16px;animation:calcV9Drift5 18s ease-in-out infinite}
+.card.calculator-v9 .cf6{bottom:11%;right:10%;animation:calcV9Drift2 19s ease-in-out infinite}
+.card.calculator-v9 .cf7{top:70%;left:52%;animation:calcV9Drift1 16s ease-in-out infinite}
+.card.calculator-v9 .cf8{top:28%;right:28%;animation:calcV9Drift3 20s ease-in-out infinite}
+.card.calculator-v9 .cf9{bottom:8%;left:39%;animation:calcV9Drift4 17s ease-in-out infinite}
+.card.calculator-v9 .cf10{top:7%;left:64%;font-size:10px;animation:calcV9Drift5 21s ease-in-out infinite}
+.card.calculator-v9 .calc-v9-mesh{position:absolute;left:28%;right:-8%;bottom:-35%;height:75%;opacity:.2;
+  background-image:radial-gradient(circle,rgba(79,209,197,.9) 1px,transparent 1.7px),
+  repeating-radial-gradient(ellipse at 50% 100%,transparent 0 13px,rgba(79,209,197,.25) 14px 15px,transparent 16px 27px);
+  background-size:11px 11px,100% 100%;transform:perspective(380px) rotateX(58deg) scale(1.2);
+  mask-image:linear-gradient(0deg,#000,transparent 92%);transition:opacity .4s}
+.card.calculator-v9:hover .calc-v9-mesh,.card.calculator-v9.is-active .calc-v9-mesh{
+  opacity:.5;animation:calcV9MeshFlow 8s ease-in-out infinite alternate}
+.card.calculator-v9 .calc-v9-particles{position:absolute;inset:0;opacity:.13;
+  background-image:radial-gradient(circle,rgba(79,209,197,.8) 1px,transparent 1.8px);background-size:37px 37px;
+  mask-image:linear-gradient(90deg,transparent,#000 30%,#000)}
+.card.calculator-v9:hover .calc-v9-particles,.card.calculator-v9.is-active .calc-v9-particles{
+  opacity:.42;animation:calcV9ParticleShift 18s linear infinite}
+@keyframes calcV9Drift1{0%,100%{transform:translate(0,0) rotate(-2deg)}50%{transform:translate(12px,-8px) rotate(1deg)}}
+@keyframes calcV9Drift2{0%,100%{transform:translate(0,0) rotate(1deg)}50%{transform:translate(-13px,9px) rotate(-1deg)}}
+@keyframes calcV9Drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(9px,7px) scale(1.04)}}
+@keyframes calcV9Drift4{0%,100%{transform:translate(0,0) rotate(-1deg)}50%{transform:translate(-9px,-10px) rotate(1deg)}}
+@keyframes calcV9Drift5{0%,100%{transform:translate(0,0)}50%{transform:translate(13px,-6px)}}
+@keyframes calcV9MeshFlow{to{transform:perspective(380px) rotateX(58deg) scale(1.28) translateY(-8px)}}
+@keyframes calcV9ParticleShift{to{background-position:74px -74px}}
+@media(max-width:700px){.card.calculator-v9>.calc-v9-art{mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.1) 16%,#000 42%)}
+.card.calculator-v9 .calc-v9-formula{font-size:9px}.card.calculator-v9 .cf5{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.card.calculator-v9 .calc-v9-formula,.card.calculator-v9 .calc-v9-mesh,.card.calculator-v9 .calc-v9-particles{animation:none!important}}
+
+/* Calculator: the original larger scientific calculator recedes as the living equations take focus. */
+.card.calculator-v9 .scene.calculator{opacity:.76;transition:opacity .55s ease,filter .55s ease}
+.card.calculator-v9 .scene.calculator .calc-board{opacity:.68;filter:saturate(.82);transition:opacity .55s ease,filter .55s ease,transform .65s ease,box-shadow .55s ease}
+.card.calculator-v9:hover .scene.calculator .calc-board,
+.card.calculator-v9.is-active .scene.calculator .calc-board,
+.card.calculator-v9:focus-within .scene.calculator .calc-board{
+  opacity:.13;filter:blur(1.2px) saturate(.48);
+  transform:perspective(700px) rotateY(-12deg) scale(.96) translateX(8px);
+  box-shadow:0 0 8px rgba(55,205,198,.04)
+}
+.card.calculator-v9:hover .scene.calculator,
+.card.calculator-v9.is-active .scene.calculator,
+.card.calculator-v9:focus-within .scene.calculator{opacity:.42}
+@media(prefers-reduced-motion:reduce){.card.calculator-v9 .scene.calculator,.card.calculator-v9 .scene.calculator .calc-board{transition:none}}
+
+/* Weathervane: shared inactive/active visual language, tuned to the amber card. */
+.card.weather-card{--weather-glow:rgba(255,182,72,.16)}
+.card.weather-card .scene.weather{opacity:.86;mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.3) 17%,#000 55%)}
+.card.weather-card .scene.weather:before{background:linear-gradient(90deg,rgba(5,10,18,.78),rgba(5,10,18,.08) 72%)}
+.card.weather-card .scene.weather .weather-orbit{inset:0;}
+.card.weather-card .scene.weather .weather-icon{position:absolute;display:block;line-height:1;transition:filter .5s,opacity .5s;}
+.card.weather-card .scene.weather .weather-icon.sun{right:17%;top:9%;font-size:43px;opacity:.58;filter:drop-shadow(0 0 8px rgba(255,190,85,.38));animation:weatherSunIdle 12s ease-in-out infinite}
+.card.weather-card .scene.weather .weather-icon.cloud{right:47%;top:28%;font-size:34px;opacity:.58;filter:drop-shadow(0 0 7px rgba(190,213,230,.22));animation:weatherCloudIdle 13s ease-in-out infinite}
+.card.weather-card .scene.weather .weather-icon.rain{right:12%;top:49%;font-size:27px;opacity:.35;animation:weatherRainIdle 9s ease-in-out infinite}
+.card.weather-card .scene.weather .weather-icon.small-cloud{right:58%;top:66%;font-size:23px;opacity:.38;animation:weatherCloudIdle 16s ease-in-out infinite reverse}
+.card.weather-card .weather-rays{position:absolute;right:8%;top:-16%;width:48%;height:78%;border-radius:50%;opacity:.16;background:repeating-conic-gradient(from -18deg at 50% 50%,rgba(255,194,99,.34) 0deg 1.2deg,transparent 1.2deg 13deg);mask-image:radial-gradient(circle,transparent 0 17%,#000 20% 67%,transparent 72%);transform:rotate(-12deg);animation:weatherRayTurn 38s linear infinite}
+.card.weather-card .wind-trail{position:absolute;left:24%;height:1px;width:31%;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(255,211,143,.62),transparent);opacity:.28;filter:drop-shadow(0 0 4px rgba(255,190,85,.28));animation:windGlide 9s ease-in-out infinite}
+.card.weather-card .wind-one{top:24%;animation-delay:-2s}.card.weather-card .wind-two{top:43%;left:35%;width:25%;animation-delay:-5s}.card.weather-card .wind-three{top:69%;left:18%;width:36%;animation-delay:-7s}
+.card.weather-card .weather-star{position:absolute;color:#ffd18b;opacity:.3;text-shadow:0 0 9px rgba(255,192,100,.55);animation:starPulse 5s ease-in-out infinite}.card.weather-card .star-one{right:36%;top:15%;font-size:12px}.card.weather-card .star-two{right:61%;top:52%;font-size:22px;animation-delay:-2.5s}
+.card.weather-card .scene .weather-panel{opacity:.72;transform:translateY(2px);transition:opacity .45s,transform .45s,box-shadow .45s,border-color .45s}
+.card.weather-card .scene .weather-sweep{animation-play-state:paused;opacity:.2}
+.card.weather-card.is-active .scene.weather,.card.weather-card:focus-within .scene.weather{opacity:1}
+.card.weather-card.is-active .scene.weather .weather-icon.sun,.card.weather-card:focus-within .scene.weather .weather-icon.sun{opacity:.96;filter:drop-shadow(0 0 18px rgba(255,193,91,.9));animation-duration:6s}
+.card.weather-card.is-active .scene.weather .weather-icon.cloud,.card.weather-card:focus-within .scene.weather .weather-icon.cloud{opacity:.9;filter:drop-shadow(0 0 12px rgba(210,230,245,.48));animation-duration:7s}
+.card.weather-card.is-active .scene.weather .weather-icon.rain,.card.weather-card:focus-within .scene.weather .weather-icon.rain{opacity:.72;animation-duration:4.5s}
+.card.weather-card.is-active .scene.weather .weather-icon.small-cloud,.card.weather-card:focus-within .scene.weather .weather-icon.small-cloud{opacity:.68}
+.card.weather-card.is-active .weather-rays,.card.weather-card:focus-within .weather-rays{opacity:.34;filter:drop-shadow(0 0 10px rgba(255,186,78,.24))}
+.card.weather-card.is-active .wind-trail,.card.weather-card:focus-within .wind-trail{opacity:.72;animation-duration:5s}
+.card.weather-card.is-active .weather-star,.card.weather-card:focus-within .weather-star{opacity:.8}
+.card.weather-card.is-active .scene .weather-panel,.card.weather-card:focus-within .scene .weather-panel{opacity:1;transform:translateY(0);border-color:rgba(255,190,93,.58);box-shadow:0 0 30px rgba(255,182,72,.2),0 8px 28px rgba(0,0,0,.22)}
+.card.weather-card.is-active .scene .weather-sweep,.card.weather-card:focus-within .scene .weather-sweep{animation-play-state:running;opacity:.8}
+@keyframes weatherSunIdle{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-5px) rotate(8deg)}}
+@keyframes weatherCloudIdle{0%,100%{translate:-3px 0}50%{translate:9px -4px}}
+@keyframes weatherRainIdle{0%,100%{translate:0 0}50%{translate:0 5px}}
+@keyframes weatherRayTurn{to{transform:rotate(348deg)}}
+@keyframes windGlide{0%,100%{transform:translateX(-12px) scaleX(.72)}50%{transform:translateX(24px) scaleX(1.12)}}
+@keyframes starPulse{0%,100%{transform:scale(.8);opacity:.18}50%{transform:scale(1.2);opacity:.55}}
+@media(max-width:700px){.card.weather-card .scene.weather{opacity:.9}.card.weather-card .weather-rays{right:1%;width:52%}.card.weather-card .scene .weather-panel{opacity:.82}}
+@media(prefers-reduced-motion:reduce){.card.weather-card .weather-rays,.card.weather-card .wind-trail,.card.weather-card .weather-star,.card.weather-card .weather-icon{animation:none!important}}
+
+/* WEATHERVANE STAGE 2 — refined instrument panel and calmer atmospheric depth. */
+.card.weather-card .scene.weather{opacity:.9;}
+.card.weather-card .scene.weather:before{background:radial-gradient(ellipse at 78% 25%,rgba(255,190,91,.13),transparent 34%),linear-gradient(90deg,rgba(5,10,18,.76),rgba(5,10,18,.04) 76%);}
+.card.weather-card .scene.weather .weather-icon.sun{font-size:47px;opacity:.7;text-shadow:0 0 18px rgba(255,191,91,.22);}
+.card.weather-card .scene.weather .weather-icon.sun:after{content:"";position:absolute;inset:-13px;border:1px solid rgba(255,198,112,.18);border-radius:50%;box-shadow:0 0 20px rgba(255,183,83,.13);animation:sunHalo 8s ease-in-out infinite;}
+.card.weather-card .scene.weather .weather-icon.cloud{filter:drop-shadow(0 5px 7px rgba(0,0,0,.24)) drop-shadow(0 0 8px rgba(207,224,239,.24));}
+.card.weather-card .scene.weather .weather-icon.small-cloud{filter:drop-shadow(0 3px 5px rgba(0,0,0,.25));}
+.card.weather-card .scene.weather .weather-panel{width:72%;padding:11px 13px 10px;border-radius:12px;background:linear-gradient(135deg,rgba(5,12,20,.91),rgba(12,21,31,.76));backdrop-filter:blur(7px);border-color:rgba(255,190,93,.25);box-shadow:0 10px 30px rgba(0,0,0,.26),inset 0 1px rgba(255,255,255,.045),inset 0 0 22px rgba(255,183,72,.035);}
+.card.weather-card .weather-head{font-size:7px;letter-spacing:1.35px;color:rgba(255,226,184,.82);}
+.card.weather-card .weather-head b{padding:3px 5px;border:1px solid rgba(53,212,136,.24);border-radius:20px;background:rgba(53,212,136,.07);}
+.card.weather-card .weather-reading strong{font-size:35px;letter-spacing:-1.5px;color:#fff4df;text-shadow:0 0 16px rgba(255,183,83,.32);}
+.card.weather-card .weather-stats{gap:6px;padding-top:7px;border-color:rgba(255,190,93,.16);font-size:6px;letter-spacing:.45px;}
+.card.weather-card .weather-stats span{flex:1;min-width:0;color:rgba(226,235,241,.62);}
+.card.weather-card .weather-stats b{font-size:8px;color:#f5f7f8;white-space:nowrap;}
+.card.weather-card .forecast{border-color:rgba(255,190,93,.16);}
+.card.weather-card .forecast i{min-width:0;flex:1;color:rgba(236,242,246,.72);}
+.card.weather-card .forecast b{filter:drop-shadow(0 0 5px rgba(255,190,93,.28));}
+.card.weather-card .wind-trail{height:1.5px;filter:drop-shadow(0 0 5px rgba(255,190,93,.36));}
+.card.weather-card .weather-rays{background:repeating-conic-gradient(from -18deg at 50% 50%,rgba(255,194,99,.4) 0deg 1deg,transparent 1deg 12deg);}
+.card.weather-card.is-active .scene.weather .weather-panel,.card.weather-card:focus-within .scene.weather .weather-panel{transform:translateY(-2px);box-shadow:0 0 34px rgba(255,182,72,.22),0 12px 30px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.06);}
+.card.weather-card.is-active .scene.weather .weather-icon.sun,.card.weather-card:focus-within .scene.weather .weather-icon.sun{transform:scale(1.04);}
+@keyframes sunHalo{0%,100%{transform:scale(.94);opacity:.45}50%{transform:scale(1.09);opacity:.9}}
+@media(max-width:700px){.card.weather-card .scene.weather .weather-panel{width:74%;padding:9px 10px 8px}.card.weather-card .weather-stats{font-size:5.5px}.card.weather-card .weather-stats b{font-size:7px}}
+@media(prefers-reduced-motion:reduce){.card.weather-card .weather-icon.sun:after{animation:none!important}}
+
+
+
+/* BANDIT SAST — quiet code inspection at rest, focused scan on activation. */
+.card.bandit-card .sast-visual{position:absolute;right:18px;top:25px;width:47%;height:130px;padding:9px 10px 8px;border:1px solid rgba(255,101,77,.2);border-radius:10px;background:linear-gradient(145deg,rgba(18,13,19,.76),rgba(10,17,27,.52));box-shadow:inset 0 1px rgba(255,255,255,.035),0 8px 25px rgba(0,0,0,.12);font:8px 'IBM Plex Mono',monospace;color:rgba(223,231,237,.56);opacity:.62;overflow:hidden;pointer-events:none;transition:opacity .45s,filter .45s,border-color .45s,box-shadow .45s}
+.card.bandit-card .sast-code-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:6px;margin-bottom:5px;border-bottom:1px solid rgba(255,101,77,.14);font-size:7px;letter-spacing:.08em;color:rgba(224,232,238,.52)}
+.card.bandit-card .sast-code-head b{font-size:6px;color:rgba(255,139,112,.7);font-weight:500}
+.card.bandit-card .sast-code-row{height:14px;display:flex;align-items:center;gap:5px;white-space:nowrap;position:relative}
+.card.bandit-card .sast-code-row i{width:12px;color:rgba(150,164,176,.32);font-style:normal;font-size:7px}
+.card.bandit-card .sast-code-row .kw{color:rgba(255,155,119,.66)}.card.bandit-card .sast-code-row .fn{color:rgba(255,207,153,.7)}.card.bandit-card .sast-code-row .var{color:rgba(217,187,255,.68)}.card.bandit-card .sast-code-row .str{color:rgba(132,212,180,.64)}
+.card.bandit-card .sast-code-row em{height:3px;width:18%;margin-left:auto;border-radius:4px;background:rgba(255,101,77,.15)}
+.card.bandit-card .sast-code-row:nth-of-type(3) em{width:31%}.card.bandit-card .sast-code-row:nth-of-type(4) em{width:12%}
+.card.bandit-card .sast-scanline{position:absolute;left:0;right:0;top:-18%;height:18px;background:linear-gradient(180deg,transparent,rgba(255,101,77,.12),rgba(255,101,77,.04),transparent);opacity:.48;transform:translateY(0);animation:sastIdleScan 8s ease-in-out infinite}
+.card.bandit-card .sast-findings{display:flex;align-items:center;gap:6px;margin-top:4px;padding-top:5px;border-top:1px solid rgba(255,101,77,.12);font-size:6px;letter-spacing:.06em;color:rgba(255,135,112,.58)}
+.card.bandit-card .sast-findings b{margin-left:auto;color:rgba(255,170,132,.62);font-size:6px;font-weight:500}
+.card.bandit-card.is-active .sast-visual,.card.bandit-card:hover .sast-visual,.card.bandit-card:focus-within .sast-visual{opacity:.98;border-color:rgba(255,101,77,.48);box-shadow:0 0 25px rgba(255,83,62,.12),inset 0 0 22px rgba(255,101,77,.045);filter:brightness(1.12)}
+.card.bandit-card.is-active .sast-code-row em,.card.bandit-card:hover .sast-code-row em,.card.bandit-card:focus-within .sast-code-row em{background:rgba(255,101,77,.4);box-shadow:0 0 7px rgba(255,101,77,.3)}
+.card.bandit-card.is-active .sast-scanline,.card.bandit-card:hover .sast-scanline,.card.bandit-card:focus-within .sast-scanline{height:25px;opacity:.95;animation:sastActiveScan 2.8s ease-in-out infinite}
+.card.bandit-card.is-active .sast-findings,.card.bandit-card:hover .sast-findings,.card.bandit-card:focus-within .sast-findings{color:#ff9b83}.card.bandit-card.is-active .sast-findings b,.card.bandit-card:hover .sast-findings b,.card.bandit-card:focus-within .sast-findings b{color:#ffb29d;text-shadow:0 0 8px rgba(255,101,77,.42)}
+@keyframes sastIdleScan{0%,15%{transform:translateY(0)}75%,100%{transform:translateY(145px)}}
+@keyframes sastActiveScan{0%{transform:translateY(0)}85%,100%{transform:translateY(150px)}}
+@media(max-width:700px){.card.bandit-card .sast-visual{right:12px;top:20px;width:45%;height:124px;opacity:.68;padding:8px 7px}.card.bandit-card .sast-code-row{height:13px}.card.bandit-card .sast-findings{gap:4px}}
+@media(prefers-reduced-motion:reduce){.card.bandit-card .sast-scanline{animation:none!important}.card.bandit-card .sast-visual{transition:none}}
+
+/* Bandit visual split into two vertically stacked mini-panels, matching FastAPI. */
+.card.bandit-card .sast-visual{height:142px;padding:7px 8px;display:flex;flex-direction:column;gap:5px;}
+.card.bandit-card .sast-mini-card{position:relative;min-height:0;padding:5px 6px 4px;border:1px solid rgba(255,101,77,.14);border-radius:6px;background:linear-gradient(110deg,rgba(28,18,22,.68),rgba(13,16,25,.48));box-shadow:inset 0 1px rgba(255,255,255,.025);}
+.card.bandit-card .sast-source-card{flex:1.15;}
+.card.bandit-card .sast-result-card{flex:.85;}
+.card.bandit-card .sast-code-head{padding-bottom:3px;margin-bottom:2px;font-size:6px;}
+.card.bandit-card .sast-code-row{height:12px;font-size:7px;}
+.card.bandit-card .sast-code-row i{width:10px;font-size:6px;}
+.card.bandit-card .sast-result-head{display:flex;justify-content:space-between;align-items:center;font-size:6px;letter-spacing:.07em;color:rgba(224,170,160,.58);}
+.card.bandit-card .sast-result-head b{font-size:5px;color:rgba(255,139,112,.72);font-weight:500;}
+.card.bandit-card .sast-findings{margin-top:4px;padding-top:4px;gap:5px;font-size:6px;}
+.card.bandit-card .sast-result-foot{display:flex;justify-content:space-between;margin-top:3px;font-size:5px;letter-spacing:.04em;color:rgba(215,196,198,.4);}
+.card.bandit-card .sast-result-foot strong{font-weight:500;color:rgba(255,160,132,.7);}
+@media(max-width:700px){.card.bandit-card .sast-visual{height:136px;padding:6px 6px;gap:4px}.card.bandit-card .sast-code-row{height:11px}.card.bandit-card .sast-findings{margin-top:3px;padding-top:3px}}
+
+
+
+/* SECURE FASTAPI — quiet API traffic at rest, active request flow on focus. */
+.card.fastapi-card .api-flow{position:absolute;right:18px;top:20px;width:47%;height:142px;padding:8px 9px;border:1px solid rgba(99,155,255,.2);border-radius:10px;background:linear-gradient(145deg,rgba(9,17,32,.8),rgba(10,19,36,.56));box-shadow:inset 0 1px rgba(255,255,255,.035),0 8px 25px rgba(0,0,0,.12);font:8px 'IBM Plex Mono',monospace;color:rgba(220,233,250,.56);opacity:.64;overflow:hidden;pointer-events:none;transition:opacity .45s,border-color .45s,box-shadow .45s,filter .45s}
+.card.fastapi-card .api-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:5px;margin-bottom:5px;border-bottom:1px solid rgba(99,155,255,.14);font-size:7px;letter-spacing:.08em;color:rgba(204,222,247,.56)}
+.card.fastapi-card .api-mini-card{position:relative;padding:5px 6px 4px;margin-bottom:5px;border:1px solid rgba(99,155,255,.13);border-radius:6px;background:linear-gradient(110deg,rgba(17,32,55,.62),rgba(11,22,40,.4));box-shadow:inset 0 1px rgba(255,255,255,.025)}
+.card.fastapi-card .api-mini-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;font-size:6px;letter-spacing:.08em;color:rgba(153,190,235,.52)}
+.card.fastapi-card .api-mini-label b{font-weight:500;color:rgba(102,220,177,.65)}
+.card.fastapi-card .api-head b{font-size:6px;color:rgba(125,183,255,.72);font-weight:500}
+.card.fastapi-card .api-route{display:flex;align-items:center;gap:6px;height:15px;white-space:nowrap;position:relative}
+.card.fastapi-card .api-route strong{font-size:6px;font-weight:500;color:rgba(102,220,177,.78);border:1px solid rgba(102,220,177,.2);border-radius:3px;padding:2px 4px}
+.card.fastapi-card .api-route code{font:7px 'IBM Plex Mono';color:rgba(215,230,250,.66)}
+.card.fastapi-card .api-route i{margin-left:auto;width:5px;height:5px;border-radius:50%;background:#62d9b0;box-shadow:0 0 7px rgba(98,217,176,.32);opacity:.55}
+.card.fastapi-card .api-route:nth-of-type(3) strong{color:rgba(125,183,255,.8);border-color:rgba(99,155,255,.22)}
+.card.fastapi-card .api-route:nth-of-type(4) strong{color:rgba(255,195,105,.78);border-color:rgba(255,195,105,.2)}
+.card.fastapi-card .api-flowline{position:absolute;left:13px;right:13px;bottom:23px;height:1px;background:linear-gradient(90deg,transparent,rgba(99,155,255,.28),transparent);opacity:.5}
+.card.fastapi-card .api-packet{position:absolute;left:13%;bottom:20px;width:4px;height:4px;border-radius:50%;background:#8ec0ff;box-shadow:0 0 9px #639bff;opacity:.5;animation:apiPacketIdle 7s ease-in-out infinite}
+.card.fastapi-card .api-foot{position:absolute;left:10px;right:10px;bottom:6px;display:flex;justify-content:space-between;color:rgba(185,205,231,.42);font-size:6px;letter-spacing:.06em}
+.card.fastapi-card .api-foot b{font-weight:500;color:rgba(102,220,177,.65)}
+.card.fastapi-card.is-active .api-flow,.card.fastapi-card:hover .api-flow,.card.fastapi-card:focus-within .api-flow{opacity:.98;border-color:rgba(99,155,255,.5);box-shadow:0 0 25px rgba(74,137,255,.15),inset 0 0 22px rgba(99,155,255,.06);filter:brightness(1.13)}
+.card.fastapi-card.is-active .api-route i,.card.fastapi-card:hover .api-route i,.card.fastapi-card:focus-within .api-route i{opacity:1;box-shadow:0 0 10px rgba(98,217,176,.7)}
+.card.fastapi-card.is-active .api-packet,.card.fastapi-card:hover .api-packet,.card.fastapi-card:focus-within .api-packet{opacity:1;animation:apiPacketActive 2.4s ease-in-out infinite}
+.card.fastapi-card.is-active .api-foot b,.card.fastapi-card:hover .api-foot b,.card.fastapi-card:focus-within .api-foot b{color:#83f0c9;text-shadow:0 0 8px rgba(98,217,176,.4)}
+@keyframes apiPacketIdle{0%,100%{transform:translateX(0);opacity:.25}50%{transform:translateX(85px);opacity:.65}}
+@keyframes apiPacketActive{0%{transform:translateX(0);opacity:.2}50%{transform:translateX(125px);opacity:1}100%{transform:translateX(0);opacity:.3}}
+@media(max-width:700px){.card.fastapi-card .api-flow{right:12px;top:17px;width:45%;height:136px;opacity:.68;padding:7px 6px}.card.fastapi-card .api-route{height:14px}.card.fastapi-card .api-route code{font-size:6px}.card.fastapi-card .api-mini-card{padding:4px 5px 3px;margin-bottom:4px}}
+@media(prefers-reduced-motion:reduce){.card.fastapi-card .api-packet{animation:none!important}.card.fastapi-card .api-flow{transition:none}}
+
+
+/* IOC Checker — violet threat-intel stream, restrained at rest and alive on activation. */
+.scene.ioc{overflow:visible}
+.scene.ioc .ioc-console{width:68%;right:3%;top:10%;padding:9px 10px 7px;opacity:.62;filter:saturate(.72);transition:opacity .35s,filter .35s,box-shadow .35s;}
+.scene.ioc .ioc-row{padding:6px 1px;}
+.scene.ioc .ioc-row code{font-size:7px;}
+.scene.ioc .binary-cloud{opacity:.13;transition:opacity .35s;}
+.scene.ioc .shield-mark{opacity:.48;transition:opacity .35s,filter .35s;filter:drop-shadow(0 0 5px rgba(195,155,255,.12));}
+.ioc-token-cloud{position:absolute;inset:0;z-index:3;pointer-events:none;}
+.ioc-token{position:absolute;display:block;max-width:46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 7px;border:1px solid rgba(195,155,255,.24);border-radius:5px;background:rgba(10,8,24,.76);color:rgba(218,198,255,.66);font:7px 'IBM Plex Mono',monospace;letter-spacing:.02em;box-shadow:0 0 12px rgba(195,155,255,.04);opacity:.48;animation:iocDrift 11s ease-in-out infinite;transition:opacity .3s,border-color .3s,color .3s,box-shadow .3s;}
+.ioc-token.token-domain{left:7%;top:15%;animation-delay:-2s}.ioc-token.token-ip{left:11%;top:45%;animation-delay:-5s}.ioc-token.token-key{right:5%;bottom:18%;animation-delay:-7s}.ioc-token.token-key2{left:4%;bottom:7%;animation-delay:-3.5s}
+
+.ioc-token.token-domain2{right:4%;top:36%;animation-delay:-4.5s}.ioc-token.token-ip2{left:34%;bottom:5%;animation-delay:-8s}
+.scene.ioc .ioc-console{width:70%;padding:8px 9px 6px;}
+.scene.ioc .ioc-row{padding:4px 1px;}
+.scene.ioc .ioc-row code{font-size:6.5px;}
+.scene.ioc .ioc-foot{padding-top:5px;font-size:5.5px;}
+@media(max-width:700px){.scene.ioc .ioc-console{width:76%;padding:7px 8px 5px}.scene.ioc .ioc-row{padding:3px 1px}.ioc-token.token-domain2{top:29%;right:3%}.ioc-token.token-ip2{bottom:2%;left:29%}}
+
+@keyframes iocDrift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(7px,-9px,0)}}
+.card.violet:hover .scene.ioc .ioc-console,.card.violet.is-active .scene.ioc .ioc-console,.card.violet:focus-within .scene.ioc .ioc-console{opacity:.92;filter:saturate(1.15);box-shadow:0 0 32px rgba(195,155,255,.2)}
+.card.violet:hover .scene.ioc .binary-cloud,.card.violet.is-active .scene.ioc .binary-cloud,.card.violet:focus-within .scene.ioc .binary-cloud{opacity:.29}
+.card.violet:hover .scene.ioc .shield-mark,.card.violet.is-active .scene.ioc .shield-mark,.card.violet:focus-within .scene.ioc .shield-mark{opacity:.82;filter:drop-shadow(0 0 12px rgba(195,155,255,.42))}
+.card.violet:hover .ioc-token,.card.violet.is-active .ioc-token,.card.violet:focus-within .ioc-token{opacity:.9;border-color:rgba(195,155,255,.5);color:#e4d4ff;box-shadow:0 0 17px rgba(195,155,255,.16)}
+@media(max-width:700px){.scene.ioc .ioc-console{width:75%;right:2%;top:11%}.ioc-token{font-size:6px;padding:4px 5px}.ioc-token.token-key2{bottom:3%}}
+@media(prefers-reduced-motion:reduce){.ioc-token{animation:none!important}}
+
+
+/* FINAL POLISH */
+nav{flex-wrap:wrap;gap:14px 24px}
+:root{--muted:#a3b0bc}
+.status{color:#8a99a6}.platforms{color:#8594a0}.foot{color:#8a98a4}.hero-label{color:#8aa0ad}
+.card p{font-size:13.5px}
+a:focus-visible,.card:focus-within{outline:2px solid var(--amber);outline-offset:3px}
+.btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.card-head-row{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.card-head-row .dial{margin-bottom:0}
+.price-tag{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:7px 12px;border-radius:30px;color:#e6d4ff;border:1px solid rgba(195,155,255,.6);background:linear-gradient(135deg,rgba(195,155,255,.22),rgba(120,80,200,.16));box-shadow:0 0 18px rgba(195,155,255,.18),inset 0 1px rgba(255,255,255,.08)}
+.support{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:6px;padding:20px 24px;border:1px solid var(--line);border-radius:16px;background:rgba(17,27,42,.55);backdrop-filter:blur(10px)}
+.support p{margin:0;color:var(--muted);font-size:14px}
+.tip{color:#101820;background:var(--amber);text-decoration:none;font-weight:600;font-size:13px;padding:10px 16px;border-radius:8px;transition:filter .2s,transform .2s}
+.tip:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.foot a{color:inherit;text-decoration:none}.foot a:hover{color:#fff}
+@media(max-width:700px){.support{flex-direction:column;align-items:flex-start}}
+</style></head><body><div id="cyber-bg" aria-hidden="true"></div><canvas id="flow" aria-hidden="true"></canvas><main class="wrap">
+<nav><a href="index.html">← Home</a><a href="#tools">Tools</a><a href="assets/Nemanja_Bacevic_CV.pdf" target="_blank" rel="noopener">CV</a><a href="https://www.linkedin.com/in/nemanja-bacevic-743492312/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/nemanja-byte88" target="_blank" rel="noopener">GitHub ↗</a><a class="star" href="https://github.com/nemanja-byte88" target="_blank" rel="noopener">☆ Star on GitHub</a></nav>
+<header class="hero"><div class="intro"><div class="eyebrow">ALL SYSTEMS ONLINE</div><h1>Nemanja <em>Bačević</em></h1><p>Tools I've built end to end and kept running. Open them in any browser, or add them to your home screen to use like an app.</p></div><div class="hero-art" aria-hidden="true"><div class="system-panel"><div class="system-top"><span>NEMANJA.B / SYSTEM OVERVIEW</span><span class="system-dots"><i></i><i></i><i></i></span></div><div class="code-line"><span class="a" style="--bar:78%"></span></div><div class="code-line"><span class="t" style="--bar:55%"></span></div><div class="code-line"><span class="v" style="--bar:88%"></span></div><div class="code-line"><span class="a" style="--bar:43%"></span></div><div class="system-bottom"><span>BUILD · DEPLOY · SECURE</span><span class="system-live">ALL SYSTEMS ONLINE</span></div></div><div class="hero-label">DIGITAL WORKSPACE / 2026</div></div></header>
+<section class="section reveal" id="tools"><div class="section-head"><h3>Free Tools</h3><div class="line"></div><span class="tag">NO ACCOUNT NEEDED</span></div><div class="grid">
+<article class="card weather-card"><div class="deco"><svg viewBox="0 0 220 130" fill="none"><circle cx="140" cy="60" r="42" stroke="#ffb648" opacity=".5"/><path d="M140 5V115M85 60H195M102 22L178 98M178 22L102 98" stroke="#ffb648" opacity=".3"/><path d="M140 18C115 18 98 38 98 60s17 42 42 42 42-20 42-42" stroke="#ffb648" stroke-width="2" stroke-dasharray="5 6"/></svg></div><div class="dial"><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><path d="M18 19H9a4 4 0 1 1 1.2-7.8A5 5 0 0 1 20 13.5 3.2 3.2 0 0 1 18 19z"/></svg></div><div class="status">LIVE</div><h2>Weathervane</h2><p>Real weather conditions for land, sea, and air — with sunrise-to-sunset visuals that shift to match the moment you check them.</p><div class="platforms">MOBILE　 DESKTOP　 TABLET</div><div class="actions"><a class="btn" href="https://weathervane-ultimate.netlify.app" target="_blank" rel="noopener">Open app ↗</a><a class="btn ghost" href="https://github.com/nemanja-byte88/Weathervane_ultimate" target="_blank" rel="noopener">View source</a></div></article>
+<article class="card teal calculator-v9">
+<div class="calc-v9-art" aria-hidden="true">
+  <div class="calc-v9-particles"></div>
+  <div class="calc-v9-mesh"></div>
+  <span class="calc-v9-formula cf1">BMI = kg / m²</span>
+  <span class="calc-v9-formula cf2">sin² x + cos² x = 1</span>
+  <span class="calc-v9-formula cf3">x = (−b ± √Δ) / 2a</span>
+  <span class="calc-v9-formula cf4">c² = a² + b²</span>
+  <span class="calc-v9-formula cf5">E = mc²</span>
+  <span class="calc-v9-formula cf6">P = nRT</span>
+  <span class="calc-v9-formula cf7">°C = (°F − 32) × 5/9</span>
+  <span class="calc-v9-formula cf8">1 km = 0.621 mi</span>
+  <span class="calc-v9-formula cf9">F = ma</span>
+  <span class="calc-v9-formula cf10">BMR = 10W + 6.25H − 5A + S</span>
+</div>
+<div class="dial"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01"/></svg></div>
+<div class="status">LIVE</div>
+<h2>Calculator v3.0</h2>
+<p>A calculator that grew up — scientific mode, unit conversion, a full fitness toolkit, and a loan calculator, in one clean screen.</p>
+<div class="platforms">MOBILE　 DESKTOP　 TABLET</div>
+<div class="actions"><a class="btn" href="https://ultimate-calculator-88.netlify.app" target="_blank" rel="noopener">Open app ↗</a><a class="btn ghost" href="https://github.com/nemanja-byte88/Ultimate-Calculator" target="_blank" rel="noopener">View source</a></div>
+</article></div></section>
+<section class="section reveal"><div class="section-head"><h3>Security &amp; AppSec</h3><div class="line"></div><span class="tag">OPEN SOURCE</span></div><div class="grid">
+<article class="card red bandit-card"><div class="deco"><svg viewBox="0 0 220 130" fill="none"><path d="M130 8 184 28v34c0 33-22 51-54 65-32-14-54-32-54-65V28z" stroke="#ff654d" stroke-width="2"/><circle cx="130" cy="60" r="19" stroke="#ff654d"/><path d="m144 74 17 17" stroke="#ff654d" stroke-width="4" stroke-linecap="round"/><path d="M95 39h20m-20 12h12" stroke="#ff654d" opacity=".6"/></svg></div>
+<div class="sast-visual" aria-hidden="true">
+  <div class="sast-mini-card sast-source-card">
+    <div class="sast-code-head"><span>01 / SOURCE · scan.py</span><b>PYTHON</b></div>
+    <div class="sast-code-row"><i>01</i><span class="kw">import</span> <span class="fn">os</span><em></em></div>
+    <div class="sast-code-row"><i>02</i><span class="var">password</span> = <span class="str">"••••••••"</span><em></em></div>
+    <div class="sast-code-row"><i>03</i><span class="kw">eval</span>(user_input)<em></em></div>
+  </div>
+  <div class="sast-mini-card sast-result-card">
+    <div class="sast-result-head"><span>02 / SCAN RESULTS</span><b>COMPLETE</b></div>
+    <div class="sast-findings"><span>! B602</span><span>! B307</span><b>6 FINDINGS</b></div>
+    <div class="sast-result-foot"><span>CWE CLASSIFIED</span><strong>REVIEW REQUIRED</strong></div>
+  </div>
+  <div class="sast-scanline"></div>
+</div>
+<div class="dial"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg></div><div class="status">CODE / SCAN COMPLETE</div><h2>Bandit SAST Demo</h2><p>Static analysis on intentionally vulnerable Python code — 6 CWE-classified issues found, fixed, and re-scanned to confirm the fix.</p><div class="platforms">DESKTOP　 MOBILE</div><div class="actions"><a class="btn" href="https://github.com/nemanja-byte88/python-security-bandit-demo" target="_blank" rel="noopener">View on GitHub ↗</a></div></article>
+<article class="card blue fastapi-card"><div class="deco"><svg viewBox="0 0 220 130" fill="none"><path d="M130 8 184 28v34c0 33-22 51-54 65-32-14-54-32-54-65V28z" stroke="#639bff" stroke-width="2"/><rect x="116" y="54" width="28" height="25" rx="4" stroke="#639bff"/><path d="M122 54v-9a8 8 0 0 1 16 0v9" stroke="#639bff"/><circle cx="130" cy="66" r="2" fill="#639bff"/></svg></div><div class="api-flow" aria-hidden="true"><div class="api-head"><span>FASTAPI · SYSTEM</span><b>● ONLINE</b></div><div class="api-mini-card"><div class="api-mini-label"><span>01 / ROUTES</span><b>3 ENDPOINTS</b></div><div class="api-route"><strong>GET</strong><code>/api/v1/status</code><i></i></div><div class="api-route"><strong>POST</strong><code>/auth/token</code><i></i></div></div><div class="api-mini-card"><div class="api-mini-label"><span>02 / SECURITY</span><b>PROTECTED</b></div><div class="api-route"><strong>POST</strong><code>/users/validate</code><i></i></div></div><div class="api-flowline"></div><span class="api-packet"></span><div class="api-foot"><span>JWT · HTTPS · RATE LIMIT</span><b>200 OK</b></div></div><div class="dial"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><rect x="9.3" y="12" width="5.4" height="4.6" rx="1"/></svg></div><div class="status">CODE / SECURE</div><h2>Secure FastAPI Demo</h2><p>A REST API built with security in mind — JWT auth, bcrypt hashing, rate limiting, and input validation. 0 findings on a Bandit scan.</p><div class="platforms">DESKTOP　 MOBILE</div><div class="actions"><a class="btn" href="https://github.com/nemanja-byte88/secure-fastapi-demo" target="_blank" rel="noopener">View on GitHub ↗</a></div></article></div></section>
+<section class="section reveal"><div class="section-head"><h3>Premium</h3><div class="line"></div><span class="tag premium">BRING YOUR OWN API KEY</span></div><div class="grid"><article class="card violet"><div class="deco"><svg viewBox="0 0 220 130" fill="none"><circle cx="143" cy="64" r="48" stroke="#c39bff"/><circle cx="143" cy="64" r="33" stroke="#c39bff" opacity=".45" stroke-dasharray="4 5"/><path d="M143 5v118M84 64h118" stroke="#c39bff" opacity=".3"/><path d="m130 65 9 9 18-22" stroke="#c39bff" stroke-width="3"/></svg></div><div class="card-head-row"><div class="dial"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m8.5 12.3 2.5 2.5 4.5-5"/></svg></div><span class="price-tag">Free tier + Paid</span></div><div class="status">LIVE</div><h2>IOC Checker</h2><p>Look up IPs, domains, and file hashes against VirusTotal and AbuseIPDB in one place. Use your own free API keys, or upgrade for batch lookups and history.</p><div class="platforms">DESKTOP　 MOBILE</div><div class="actions"><a class="btn" href="https://ioc-checker.netlify.app" target="_blank" rel="noopener">Open app ↗</a><a class="btn ghost" href="https://github.com/nemanja-byte88/ioc-checker-saas" target="_blank" rel="noopener">View source</a></div></article><article class="card" style="border-style:dashed;display:grid;place-content:center;text-align:center;min-height:300px"><div class="mono" style="color:#7c8a96">NEXT BUILD</div><h2 style="color:#aab7c1">More tools incoming</h2><p style="min-height:0;margin:0 auto">New experiments and products will appear here.</p></article></div></section>
+<section class="support"><p>Weathervane &amp; Calculator are free — a small tip keeps them running.</p><a class="tip" href="https://revolut.me/nemanjyzg0" target="_blank" rel="noopener">☕ Send a tip</a></section>
+<footer class="foot"><span>© 2026 NEMANJA BAČEVIĆ</span><span><a href="assets/Nemanja_Bacevic_CV.pdf" target="_blank" rel="noopener">CV</a> · <a href="https://www.linkedin.com/in/nemanja-bacevic-743492312/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/nemanja-byte88" target="_blank" rel="noopener">GitHub</a></span></footer></main>
+<script>
+// Cyber-flow layer: soft network particles plus restrained falling code glyphs.
+(()=>{
+ const c=document.getElementById('flow'),ctx=c.getContext('2d');let w,h,dpr,pts=[],streams=[],running=true;
+ const glyphs='01ABCDEF<>/{}[]#$%&*';
+ function resize(){dpr=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
+  pts=Array.from({length:(w<700?Math.min(70,Math.floor(w/6)):Math.min(130,Math.floor(w/10)))},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,r:Math.random()*1.35+.35,p:Math.random()*6.28}));
+  const count=Math.min(48,Math.max(20,Math.floor(w/48)));streams=Array.from({length:count},(_,i)=>({x:(i+.5)*w/count+(Math.random()-.5)*35,y:Math.random()*h,speed:.22+Math.random()*.55,len:5+Math.floor(Math.random()*10),phase:Math.random()*8,alpha:.16+Math.random()*.20}));
+ }
+ function draw(t){ctx.clearRect(0,0,w,h);
+  // Falling code is intentionally faint, like data moving behind the interface.
+  ctx.font='10px IBM Plex Mono, monospace';
+  for(const st of streams){st.y+=st.speed;if(st.y>h+st.len*17)st.y=-st.len*17;for(let k=0;k<st.len;k++){let yy=st.y-k*17;let ch=glyphs[Math.floor((t*.0007+k*3+st.phase*10)%glyphs.length)];let a=st.alpha*(1-k/st.len);ctx.fillStyle=k===0?`rgba(74,211,224,${a*2.2})`:`rgba(67,151,194,${a})`;ctx.fillText(ch,st.x+Math.sin(t*.00035+st.phase)*5,yy)}}
+  for(const p of pts){p.x+=p.vx+Math.sin(t*.00025+p.p)*.08;p.y+=p.vy+Math.cos(t*.0002+p.p)*.08;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(125,220,235,.78)';ctx.fill()}
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){let a=pts[i],b=pts[j],dx=a.x-b.x,dy=a.y-b.y,dist=Math.hypot(dx,dy);if(dist<145){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(79,178,208,${(1-dist/145)*.23})`;ctx.lineWidth=.7;ctx.stroke()}}
+  if(running)requestAnimationFrame(draw)
+ }
+ const rm=matchMedia('(prefers-reduced-motion: reduce)');
+ addEventListener('resize',resize);resize();
+ if(rm.matches){c.style.display='none'}else{raf=requestAnimationFrame(draw)}
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){running=false}else if(!running&&!rm.matches){running=true;requestAnimationFrame(draw)}})
+})();
+// Scroll reveal with a staggered entrance.
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i*.08)+'s';io.observe(el)});
+// Card tilt + local glow only while the pointer is over a card.
+document.querySelectorAll('.card').forEach(card=>{
+ card.addEventListener('pointerenter',()=>card.classList.add('is-active'));
+ card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;card.style.setProperty('--mx',x+'px');card.style.setProperty('--my',y+'px');const rx=((y/r.height)-.5)*-3,ry=((x/r.width)-.5)*4;card.style.transform=`perspective(1100px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`});
+ card.addEventListener('pointerleave',()=>{card.classList.remove('is-active');card.style.transform='';card.style.removeProperty('--mx');card.style.removeProperty('--my')});
+ card.addEventListener('focusin',()=>card.classList.add('is-active'));
+ card.addEventListener('focusout',e=>{if(!card.contains(e.relatedTarget))card.classList.remove('is-active')});
+ // Touch users can wake the card by tapping its non-link surface.
+ card.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!e.target.closest('a,button'))card.classList.toggle('is-active')});
+});
+
+// Add a distinct animated visual language to each original product card.
+(()=>{
+ const specs=[
+  {kind:'weather',markup:'<div class="weather-orbit"><span class="weather-rays"></span><span class="weather-icon sun">☀</span><span class="weather-icon cloud">☁</span><span class="weather-icon rain">☂</span><span class="weather-icon small-cloud">☁</span><span class="wind-trail wind-one"></span><span class="wind-trail wind-two"></span><span class="wind-trail wind-three"></span><span class="weather-star star-one">✦</span><span class="weather-star star-two">·</span></div><div class="weather-panel"><div class="weather-head"><span>PREVIEW</span><b>◉ SAMPLE DATA</b></div><div class="weather-reading"><strong>24°</strong><span>Partly cloudy<br><small>Feels like 23° · UV 4</small></span></div><div class="weather-stats"><span>WIND <b>12 km/h</b></span><span>HUMIDITY <b>48%</b></span><span>PRESSURE <b>1013 hPa</b></span></div><div class="forecast"><i><b>☀</b> 14°</i><i><b>☁</b> 18°</i><i><b>☂</b> 16°</i><i><b>☾</b> 12°</i></div></div><div class="weather-sweep"></div>'},
+  {kind:'calculator',markup:'<div class="calc-board"><div class="calc-top"><span>SCIENTIFIC MODE</span><b>v3.0</b></div><div class="calc-screen"><small>sin(30°) + cos(60°)</small><strong>1.0000</strong></div><div class="calc-keys"><i>sin</i><i>cos</i><i>tan</i><i>√x</i><i>7</i><i>8</i><i>9</i><i>÷</i><i>4</i><i>5</i><i>6</i><i>×</i><i>1</i><i>2</i><i>3</i><i>−</i></div></div><span class="formula f1">sin²x + cos²x = 1</span><span class="formula f2">√(b² − 4ac)</span><span class="formula f3">BMI = kg / m²</span><span class="formula f4">E = mc²</span><span class="formula f5">P = nRT</span>'},
+  {kind:'bandit',markup:'<div class="terminal"><b>$ bandit -r ./src</b>[high] B608: SQL expression<br>[med] B105: hardcoded password<br>[low] B303: insecure MD5<br><b>✓ scan complete <i></i></b></div><div class="code-rain"><span>010110101101</span><span>101001011010</span><span>110010101101</span><span>001101010110</span></div>'},
+  {kind:'api',markup:'<div class="terminal"><b>@app.get("/api/health")</b>async def health():<br>&nbsp; return {"status":"ok"}<br><br><b>@app.post("/api/items")</b>async def create_item():<br>&nbsp; return {"created": True}</div><div class="api-mark"><span>API</span></div><div class="code-rain"><span>async await def</span><span>auth token post</span><span>secure validate</span></div>'},
+  {kind:'ioc',markup:'<div class="ioc-console"><div class="ioc-head"><span>IOC LOOKUP / LIVE FEED</span><b>● SIMULATED</b></div><div class="ioc-row"><span class="ioc-dot safe"></span><code>192.0.2.41</code><em>LOW RISK</em></div><div class="ioc-row"><span class="ioc-dot warn"></span><code>cdn-update.example</code><em>REVIEW</em></div><div class="ioc-row"><span class="ioc-dot danger"></span><code>203.0.113.84</code><em>FLAGGED</em></div><div class="ioc-row"><span class="ioc-dot safe"></span><code>api-login.example</code><em>CLEAN</em></div><div class="ioc-row"><span class="ioc-dot warn"></span><code>cdn-assets.example</code><em>REVIEW</em></div><div class="ioc-row"><span class="ioc-dot danger"></span><code>198.51.100.72</code><em>FLAGGED</em></div><div class="ioc-foot"><span>6 INDICATORS ANALYZED</span><b>DEMO DATA ONLY</b></div></div><div class="ioc-token-cloud"><span class="ioc-token token-domain">edge-cache.example</span><span class="ioc-token token-ip">198.51.100.27</span><span class="ioc-token token-key">VT_DEMO_••••7A2C</span><span class="ioc-token token-key2">ABUSE_DEMO_••••91F0</span><span class="ioc-token token-domain2">api-gateway.example</span><span class="ioc-token token-ip2">203.0.113.56</span></div><div class="binary-cloud"><span>0101 1010 0011 0110 1101</span><span>1100 0101 1011 0010 0110</span><span>0011 1010 1100 0101 1001</span></div><div class="shield-mark"><svg viewBox="0 0 80 90" width="100%" height="100%" fill="none"><path d="M40 4 70 16v24c0 21-13 36-30 45C23 76 10 61 10 40V16L40 4Z" stroke="currentColor" stroke-width="3"/><path d="m26 44 9 9 20-22" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'}
+ ];
+ const cards=[...document.querySelectorAll('.card')].filter(c=>!c.textContent.includes('More tools incoming'));
+ cards.forEach((card,i)=>{const spec=specs[i];if(!spec)return;const scene=document.createElement('div');scene.className='scene '+spec.kind;scene.setAttribute('aria-hidden','true');scene.innerHTML=spec.markup+'<i class="wave"></i><i class="wave"></i><i class="wave"></i>';card.prepend(scene)});
+})();
+// Rotate only reserved/example indicators and masked demo-key fragments; never use real credentials.
+(()=>{const samples=[['edge-cache.example','VT_DEMO_••••7A2C','ABUSE_DEMO_••••91F0','198.51.100.27','api-gateway.example','203.0.113.56'],['auth-check.example','VT_DEMO_••••B84D','ABUSE_DEMO_••••2C70','203.0.113.19','cdn-assets.example','192.0.2.144'],['static-sync.example','VT_DEMO_••••4F11','ABUSE_DEMO_••••A903','192.0.2.88','login-node.example','198.51.100.92'],['portal-gateway.example','VT_DEMO_••••D62A','ABUSE_DEMO_••••7E14','198.51.100.63','media-cache.example','203.0.113.77']];let n=0;const cards=[...document.querySelectorAll('.scene.ioc')];if(!cards.length)return;setInterval(()=>{n=(n+1)%samples.length;cards.forEach(scene=>{const vals=samples[n],nodes=scene.querySelectorAll('.ioc-token');nodes.forEach((node,i)=>{const map=[0,3,1,2,4,5];node.textContent=vals[map[i]]||vals[0]})})},3200)})();
+
+</script></body></html>

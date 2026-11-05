@@ -105,18 +105,21 @@
 @keyframes sunBreath{0%,100%{opacity:.3;transform:translate(-50%,-50%) scale(.88)}50%{opacity:.95;transform:translate(-50%,-50%) scale(1.14)}}
 @keyframes mouthBreath{0%,100%{opacity:.25;transform:translate(-50%,-50%) scaleX(.92)}50%{opacity:.75;transform:translate(-50%,-50%) scaleX(1.08)}}
 @media(prefers-reduced-motion:reduce){.sun,.mouth{animation:none;opacity:.55}.flow{display:none}}
+.hero2 .vals{margin:24px 0 0;padding:12px 6px;width:fit-content;max-width:100%;border:1px solid rgba(93,255,58,.26);border-radius:10px;background:rgba(1,13,17,.5);backdrop-filter:blur(6px)}.hero2 .vals li:first-child{border-left:0}
+.hero2{padding-bottom:1vh}.cards3{margin-top:2.4vh}
+#home{overflow-x:clip}@media(max-width:520px){.hnav{gap:4px}.hnav a,.hnav span{padding:8px 9px;font-size:10.5px}.hero2:before{inset:-20px -20px -24px -20px}}
 </style></head>
 <body><header class="topbar shell"><a class="brand" href="index.html" aria-label="NB Digital Labs"><img src="assets/work/logo-labs.webp" height="34" alt="NB Digital Labs" style="display:block;height:34px;width:auto"></a><nav class="nav"><a href="#" onclick="showPage('home');return false" class="active" id="nav-home">[ WORK WITH ME ]</a><a href="index.html">[ NB HUB ]</a><a href="projects.html">[ SECURITY PROJECTS ]</a></nav></header>
 <div id="nb-journey" aria-label="You are here" role="navigation"></div><button id="nb-go-back" type="button">← GO BACK</button><main class="shell">
 <section id="home" class="page active"><div class="hbg" aria-hidden="true"><div class="sun"></div><div class="mouth"></div><canvas class="flow"></canvas></div><div class="shell">
 <header class="htop"><a href="index.html" aria-label="NB Digital Labs — home"><img src="assets/work/logo-labs.webp" width="510" height="85" alt="NB Digital Labs — Web, Apps, Automation"></a>
 <nav class="hnav" aria-label="Sections"><span aria-current="page">Work with me</span><a href="index.html">NB Hub</a><a href="projects.html">Security projects</a></nav></header>
-<div class="hero2"><div class="eyebrow">[ WORK WITH ME ]</div><h1>Have an idea?<span>Let’s build it.</span></h1><p>Websites, applications and automation — let’s turn your idea into <b>something real.</b></p></div>
+<div class="hero2"><div class="eyebrow">[ WORK WITH ME ]</div><h1>Have an idea?<span>Let’s build it.</span></h1><p>Websites, applications and automation — let’s turn your idea into <b>something real.</b></p><ul class="vals"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15c-1 3-1 5-1 5s2 0 5-1M14 4c3-1 6-1 6-1s0 3-1 6l-7 7-4-4zM9 12l-3-1 2-3 3 .5M12 15l1 3 3-2-.5-3"/></svg>From idea<br>to launch</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"/></svg>Tailored<br>solutions</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.500-1 8-4 8-9V6z"/><path d="m8.500 12 2.500 2.500 4.500-5"/></svg>Reliable<br>&amp; scalable</li></ul></div>
 <div class="cards3"><button class="cardbtn" onclick="openCategory('web')" aria-label="Web and Design: websites and digital experiences"><img src="assets/work/card-web.webp" width="640" height="375" alt="Web &amp; Design"></button>
 <button class="cardbtn" onclick="openCategory('app')" aria-label="App and Development: applications, dashboards and tools"><img src="assets/work/card-app.webp" width="640" height="375" alt="App &amp; Development"></button>
 <button class="cardbtn" onclick="openCategory('automation')" aria-label="Automation and Bots: bots, workflows and integrations"><img src="assets/work/card-auto.webp" width="640" height="375" alt="Automation &amp; Bots"></button></div>
 <div class="hrow"><button class="btn" onclick="openConfig('all','universal')">Got an idea? — Build me ↗</button><a class="mail" id="mail" href="mailto:nemanja.bacevic.dev@gmail.com" title="nemanja.bacevic.dev@gmail.com">Or send me an email ✉</a>
-<ul class="vals"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15c-1 3-1 5-1 5s2 0 5-1M14 4c3-1 6-1 6-1s0 3-1 6l-7 7-4-4zM9 12l-3-1 2-3 3 .5M12 15l1 3 3-2-.5-3"/></svg>From idea<br>to launch</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"/></svg>Tailored<br>solutions</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.500-1 8-4 8-9V6z"/><path d="m8.500 12 2.500 2.500 4.500-5"/></svg>Reliable<br>&amp; scalable</li></ul></div>
+</div>
 <footer class="hfoot"><span><i>●</i> ALL SYSTEMS ONLINE</span><span>© 2026 NB DIGITAL LABS · NEMANJA BAČEVIĆ</span></footer></div></section>
 <section id="category" class="page subpage"><div class="category-hero"><div><div class="eyebrow" id="cat-eyebrow">[ 01 / WEB & DESIGN ]</div><h1 id="cat-title">WEB & <span class="gradient">DESIGN.</span></h1><p id="cat-desc"></p><button class="btn cyan" id="cat-build" onclick="openConfig(activeCat,'custom')">BUILD THIS ↗</button></div><div class="visual-panel" id="cat-visual"></div></div>
 <div class="content-section"><h2>01 / CHOOSE A PROJECT CONCEPT</h2><p class="sub">Start with the kind of solution you need. We’ll narrow the options to what matters for this project.</p><div class="concept-grid" id="concept-grid"></div></div>
@@ -298,10 +301,10 @@ function sendBrief(){
 (()=>{const home=document.getElementById('home'),box=home.querySelector('.hbg'),cv=box.querySelector('.flow'),ctx=cv.getContext('2d');
  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
  const IW=1670,IH=941,P=[[1279,300],[1230,345],[1150,385],[1200,425],[1295,462],[1260,505],[1130,527],[1050,552],[940,578],[905,615],[900,650],[955,680],[978,705],[950,735],[975,765],[900,795],[800,815],[700,840],[610,862],[480,880]],MOUTH=[960,724],SUN=[1277,288];
- let vw,vh,s,ox,oy,dpr,pts=[],cum=[],len=0,dots=[],sprite;
+ let vw,vh,s,ox,oy,dpr,pts=[],cum=[],len=0,dots=[],sprite,tm=.72;
  const cr=(p0,p1,p2,p3,t)=>[.5*((2*p1[0])+(-p0[0]+p2[0])*t+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*t*t+(-p0[0]+3*p1[0]-3*p2[0]+p3[0])*t*t*t),.5*((2*p1[1])+(-p0[1]+p2[1])*t+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t*t+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t*t*t)];
  for(let i=0;i<P.length-1;i++)for(let k=0;k<14;k++)pts.push(cr(P[Math.max(0,i-1)],P[i],P[i+1],P[Math.min(P.length-1,i+2)],k/14));pts.push(P[P.length-1]);
- pts.forEach((p,i)=>{if(i)len+=Math.hypot(p[0]-pts[i-1][0],p[1]-pts[i-1][1]);cum.push(len)});
+ pts.forEach((p,i)=>{if(i)len+=Math.hypot(p[0]-pts[i-1][0],p[1]-pts[i-1][1]);cum.push(len)});{let b=1e9,bi=0;pts.forEach((p,i)=>{const d=Math.hypot(p[0]-MOUTH[0],p[1]-MOUTH[1]);if(d<b){b=d;bi=i}});tm=cum[bi]/len}
  const at=t=>{const d=t*len;let lo=0,hi=cum.length-1;while(lo<hi){const m=(lo+hi)>>1;cum[m]<d?lo=m+1:hi=m}const i=Math.max(1,lo),f=(d-cum[i-1])/((cum[i]-cum[i-1])||1),a=pts[i-1],b=pts[i];return[a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f,b[0]-a[0],b[1]-a[1]]};
  sprite=document.createElement('canvas');sprite.width=sprite.height=32;{const g=sprite.getContext('2d'),r=g.createRadialGradient(16,16,0,16,16,16);r.addColorStop(0,'rgba(225,255,205,1)');r.addColorStop(.35,'rgba(120,255,160,.45)');r.addColorStop(1,'rgba(60,255,140,0)');g.fillStyle=r;g.fillRect(0,0,32,32)}
  function layout(){vw=innerWidth;vh=innerHeight;dpr=Math.min(devicePixelRatio||1,1.5);cv.width=vw*dpr;cv.height=vh*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);s=Math.max(vw/IW,vh/IH);ox=(vw-IW*s)*.6;oy=(vh-IH*s)*.3;
@@ -312,10 +315,10 @@ function sendBrief(){
  function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-last)/1000);last=now;
   if(document.hidden||!home.classList.contains('active'))return;
   ctx.clearRect(0,0,vw,vh);ctx.globalCompositeOperation='lighter';
-  for(const d of dots){d.t+=d.v*dt;if(d.t>1){d.t-=1;d.o=(Math.random()-.5)}const q=at(Math.min(.9999,d.t)),L=Math.hypot(q[2],q[3])||1,nx=-q[3]/L,ny=q[2]/L,spread=(8+Math.max(0,d.t-.62)*70)*s*d.o,fade=Math.sin(Math.PI*d.t),x=ox+(q[0]+nx*spread)*s,y=oy+(q[1]+ny*spread*.5)*s,r=d.z*s*(1+d.t*1.2)*5;ctx.globalAlpha=d.a*Math.pow(fade,.7)*.85;ctx.drawImage(sprite,x-r,y-r,r*2,r*2)}
+  for(const d of dots){const u=d.t>tm?(d.t-tm)/(1-tm):0;d.t+=d.v*dt*(1-.62*u);if(d.t>1){d.t-=1;d.o=(Math.random()-.5)}const q=at(Math.min(.9999,d.t)),L=Math.hypot(q[2],q[3])||1,nx=-q[3]/L,ny=q[2]/L,spread=(7+u*u*300)*s*d.o,fade=Math.sin(Math.PI*Math.min(d.t,tm+.001)/ (tm+.001)*.5+Math.PI*.0)*1,x=ox+(q[0]+nx*spread+q[2]/L*u*60*d.o)*s,y=oy+(q[1]+ny*spread*.38)*s,r=d.z*s*(1+u*.8)*5,head=Math.min(1,d.t*8),tw=u>0?.7+.3*Math.sin(now*.004+d.o*40):1;ctx.globalAlpha=d.a*head*(u>0?Math.pow(1-u,1.4):Math.pow(Math.sin(Math.PI*.5*d.t/tm+.2),.6))*tw*.85;ctx.drawImage(sprite,x-r,y-r,r*2,r*2)}
   // ripples where the river meets the lake
   ctx.globalAlpha=1;ctx.lineWidth=1.2*s+.4;const mx=ox+MOUTH[0]*s,my=oy+MOUTH[1]*s;
-  for(let k=0;k<3;k++){const ph=((now/1000)/7+k/3)%1,rx=(30+ph*330)*s;ctx.strokeStyle='rgba(130,255,175,'+(.34*(1-ph)*Math.sin(Math.min(1,ph*6)*Math.PI/2))+')';ctx.beginPath();ctx.ellipse(mx,my+12*s,rx,rx*.16,0,0,Math.PI*2);ctx.stroke()}
+  for(let k=0;k<3;k++){const ph=((now/1000)/7+k/3)%1,rx=(24+ph*210)*s;ctx.strokeStyle='rgba(130,255,175,'+(.26*(1-ph)*Math.sin(Math.min(1,ph*6)*Math.PI/2))+')';ctx.beginPath();ctx.ellipse(mx,my+12*s,rx,rx*.16,0,0,Math.PI*2);ctx.stroke()}
   ctx.globalCompositeOperation='source-over'}
  requestAnimationFrame(frame)})();
 </script></body></html>

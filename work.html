@@ -95,7 +95,7 @@
 #config{position:relative;isolation:isolate}#config:before{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(1,9,12,.82),rgba(1,9,12,.93)),url(assets/work/bg-river.webp) 60% 30%/cover no-repeat}
 .topbar,#nb-journey{z-index:6!important}
 .topbar .brand{display:flex;align-items:center;font-size:0}.topbar .brand:before,.topbar .brand:after{content:none!important}
-.hero2{position:relative}.hero2:before{content:"";position:absolute;z-index:-1;inset:-24px -140px -30px -240px;pointer-events:none;background:radial-gradient(ellipse 70% 62% at 36% 52%,rgba(1,9,12,.72),rgba(1,9,12,.46) 58%,transparent 100%)}
+.hero2{position:relative}.hero2:before{content:"";position:absolute;z-index:-1;pointer-events:none;top:-80px;bottom:-70px;left:-100vw;width:calc(100vw + 1150px);background:linear-gradient(90deg,rgba(1,9,12,.78) 0,rgba(1,9,12,.78) 100vw,rgba(1,9,12,.64) calc(100vw + 380px),rgba(1,9,12,.36) calc(100vw + 700px),rgba(1,9,12,.1) calc(100vw + 980px),transparent calc(100vw + 1150px));-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 24%,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 24%,#000 70%,transparent 100%)}
 
 #home .hbg{--sx:76.5%;--sy:30%;--ss:1000px;--mx:57%;--my:77%}
 .sun,.mouth{position:absolute;pointer-events:none;mix-blend-mode:screen;transform:translate(-50%,-50%)}
@@ -107,7 +107,7 @@
 @media(prefers-reduced-motion:reduce){.sun,.mouth{animation:none;opacity:.55}.flow{display:none}}
 .hero2 .vals{margin:24px 0 0;padding:12px 6px;width:fit-content;max-width:100%;border:1px solid rgba(93,255,58,.26);border-radius:10px;background:rgba(1,13,17,.5);backdrop-filter:blur(6px)}.hero2 .vals li:first-child{border-left:0}
 .hero2{padding-bottom:1vh}.cards3{margin-top:2.4vh}
-#home{overflow-x:clip}@media(max-width:520px){.hnav{gap:4px}.hnav a,.hnav span{padding:8px 9px;font-size:10.5px}.hero2:before{inset:-20px -20px -24px -20px}}
+#home{overflow-x:clip}@media(max-width:520px){.hnav{gap:4px}.hnav a,.hnav span{padding:8px 9px;font-size:10.5px}}
 </style></head>
 <body><header class="topbar shell"><a class="brand" href="index.html" aria-label="NB Digital Labs"><img src="assets/work/logo-labs.webp" height="34" alt="NB Digital Labs" style="display:block;height:34px;width:auto"></a><nav class="nav"><a href="#" onclick="showPage('home');return false" class="active" id="nav-home">[ WORK WITH ME ]</a><a href="index.html">[ NB HUB ]</a><a href="projects.html">[ SECURITY PROJECTS ]</a></nav></header>
 <div id="nb-journey" aria-label="You are here" role="navigation"></div><button id="nb-go-back" type="button">← GO BACK</button><main class="shell">

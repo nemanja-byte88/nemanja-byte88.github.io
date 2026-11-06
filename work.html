@@ -255,10 +255,10 @@ let nbPageHistory=['home'];const _nbShowPage=showPage;showPage=function(id){cons
    journey.classList.toggle('visible',visible);back.classList.toggle('visible',visible);
    if(!visible){journey.innerHTML='';return;}
    const visibleTrail=(id==='config'&&pageTrail.at(-1)?.id==='config')?pageTrail.slice(0,-1):pageTrail;
-   const crumbs=visibleTrail.map((p,i)=>({label:p.label,fn:()=>{pageTrail.splice(i+1);stepTrail.length=0;internal=true;originalShowPage(p.id);internal=false;renderJourney();}}));
+   const crumbs=visibleTrail.map(p=>({label:p.label,fn:()=>{if(p.id==='home')window.showPage('home');else if(p.id==='category')window.openCategory(activeCat);window.scrollTo({top:0,behavior:'smooth'})}}));
    if(id==='config'){
      const cur=stepTrail.length?stepTrail[stepTrail.length-1]:Math.max(0,step);
-     crumbs.push({label:'PROJECT BUILDER',fn:()=>{}});
+     crumbs.push({label:'PROJECT BUILDER',fn:()=>{step=(configMode==='custom'?1:0);stepTrail.length=0;stepTrail.push(step);renderConfig();renderJourney();window.scrollTo({top:0,behavior:'smooth'})}});
      crumbs.push({label:stepNames[Math.min(4,cur)],fn:()=>{}});
    }
    journey.innerHTML=crumbs.map((c,i)=>`${i?'<span class="sep">/</span>':''}${i===crumbs.length-1?`<span class="current">${c.label}</span>`:`<button type="button" data-crumb="${i}">${c.label}</button>`}`).join('');

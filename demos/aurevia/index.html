@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Aurevia · Family Resort · Tuscany — concept demo by NB Digital Labs</title>
+<meta name="description" content="Concept demo of a small family resort website in Tuscany: rooms, experiences and a five-step booking flow. Fictional property, built by NB Digital Labs.">
+<meta name="theme-color" content="#F4EEE3"><meta property="og:title" content="Aurevia · Family Resort · Tuscany"><meta property="og:image" content="img/hero.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F4EEE3;--sand:#EAE0CF;--olive:#6B7048;--terra:#B7683E;--ink:#3A2F26;--sage:#A9B08F;--serif:'Cormorant Garamond',Georgia,serif;--sans:Jost,system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font:300 17px/1.7 var(--sans)}
+img{display:block;max-width:100%;height:auto}a{color:inherit}
+.wrap{width:min(1160px,calc(100% - 40px));margin:0 auto}
+.demobar{background:#1c1a16;color:#e9e2d3;font:400 12px/1.4 var(--sans);letter-spacing:.04em;padding:9px 16px;display:flex;gap:6px 18px;flex-wrap:wrap;justify-content:center;align-items:center;text-align:center}
+.demobar a{color:#d9c9a3;text-decoration:underline;text-underline-offset:3px}
+header.top{position:sticky;top:0;z-index:20;background:rgba(244,238,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(58,47,38,.1)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.logo{font:600 28px/1 var(--serif);letter-spacing:.06em;text-decoration:none;color:var(--olive)}
+nav{display:flex;gap:26px;font-size:14px;letter-spacing:.08em;text-transform:uppercase}nav a{text-decoration:none}nav a:hover{color:var(--terra)}
+.btn{display:inline-block;border:0;cursor:pointer;background:var(--terra);color:#fff;padding:13px 26px;font:500 13px var(--sans);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .2s}
+.btn:hover{background:#9f5530;transform:translateY(-1px)}.btn.ghost{background:none;color:var(--ink);border:1px solid rgba(58,47,38,.4)}.btn.ghost:hover{background:var(--sand)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+:focus-visible{outline:2px solid var(--terra);outline-offset:3px}
+.hero{position:relative;min-height:min(86svh,760px);display:flex;align-items:flex-end;color:#fff;overflow:hidden;isolation:isolate}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;animation:kb 30s ease-in-out infinite alternate}
+.hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(30,22,14,.82),rgba(30,22,14,.18) 58%,rgba(30,22,14,.25))}
+@keyframes kb{to{transform:scale(1.06)}}
+.hero h1,.hero .sub,.hero p{text-shadow:0 2px 18px rgba(20,12,6,.55)}.hero .wrap{padding:0 0 64px}.hero h1{font:500 clamp(54px,9vw,112px)/1 var(--serif);margin:0;letter-spacing:.04em}
+.hero .sub{font:400 14px var(--sans);letter-spacing:.3em;text-transform:uppercase;margin:6px 0 20px;color:#f0dfbf}
+.hero p{max-width:520px;font-size:19px;margin:0 0 28px}
+section{padding:92px 0}h2{font:500 clamp(34px,4.6vw,52px)/1.1 var(--serif);margin:0 0 14px;color:var(--olive)}
+.eyebrow{font:500 12px var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--terra);margin:0 0 12px}
+.lead{max-width:640px;margin:0 0 44px}
+.intro{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}.intro img{border-radius:3px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.room{background:#fff;border-radius:3px;overflow:hidden;box-shadow:0 8px 30px rgba(58,47,38,.08);display:flex;flex-direction:column}
+.room .b{padding:22px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1}.room h3{font:500 28px/1.1 var(--serif);margin:0}
+.room ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}.room li{font-size:12.5px;background:var(--sand);padding:3px 10px;border-radius:99px}
+.room .pr{margin-top:auto;font-size:14px}.room .pr b{font:500 26px var(--serif);color:var(--terra)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tile{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:3px;color:#fff}.tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s}.tile:hover img{transform:scale(1.05)}
+.tile div{position:absolute;inset:auto 0 0;padding:34px 18px 16px;background:linear-gradient(0deg,rgba(25,18,10,.78),transparent)}.tile b{display:block;font:500 24px/1.1 var(--serif)}.tile span{font-size:13.5px;opacity:.92}
+.alt{background:var(--sand)}.two{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.info dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 22px;font-size:15.5px}.info dt{font-weight:500}.info dd{margin:0}
+details{border-bottom:1px solid rgba(58,47,38,.18);padding:14px 0}summary{cursor:pointer;font-weight:400;list-style:none}summary:after{content:"+";float:right;color:var(--terra)}details[open] summary:after{content:"–"}details p{margin:10px 0 0;font-size:15.5px}
+.book{background:#fff;border-radius:3px;box-shadow:0 14px 50px rgba(58,47,38,.12);padding:34px;display:grid;grid-template-columns:1.5fr 1fr;gap:34px}
+.steps{display:flex;gap:6px;margin:0 0 22px;padding:0;list-style:none;grid-column:1/-1}.steps li{flex:1;border-top:3px solid var(--sand);padding-top:7px;font:500 11.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#8a7d6e}.steps li.on{border-color:var(--terra);color:var(--ink)}.steps li.done{border-color:var(--olive)}
+.panel{display:none}.panel.on{display:block}.panel h3{font:500 30px var(--serif);margin:0 0 16px}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:14px}.f label{display:flex;flex-direction:column;gap:5px;font-size:13px;letter-spacing:.06em;text-transform:uppercase}.f .full{grid-column:1/-1}
+input,textarea,select{font:300 16px var(--sans);padding:11px 12px;border:1px solid rgba(58,47,38,.3);background:var(--cream);border-radius:2px;color:var(--ink);width:100%}
+.opt{display:flex;gap:14px;align-items:center;border:1px solid rgba(58,47,38,.25);padding:12px 14px;margin:0 0 10px;cursor:pointer;border-radius:2px}.opt input{width:auto}.opt.sel{border-color:var(--terra);background:#fbf3ea}.opt img{width:96px;height:64px;object-fit:cover;border-radius:2px}.opt.dis{opacity:.45;cursor:not-allowed}
+.opt .t{flex:1}.opt b{font:500 21px var(--serif)}.opt small{display:block;font-size:13px;opacity:.8}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:20px}.err{color:#a3321f;font-size:14px;min-height:22px;margin:10px 0 0}
+aside.sum{background:var(--cream);padding:22px;border-radius:3px;align-self:start;font-size:15px}aside.sum h4{font:500 24px var(--serif);margin:0 0 10px}aside.sum p{margin:4px 0;display:flex;justify-content:space-between;gap:10px}aside.sum .tot{border-top:1px solid rgba(58,47,38,.2);margin-top:12px;padding-top:12px;font-weight:500;font-size:19px}
+.ok{text-align:center;padding:30px 10px}.ok h3{font:500 36px var(--serif);color:var(--olive)}
+footer{background:#1c1a16;color:#cfc6b4;padding:46px 0;font-size:14px}footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}footer a{color:#d9c9a3}
+@media(max-width:900px){nav{display:none}.intro,.two,.book{grid-template-columns:1fr}.cards,.tiles{grid-template-columns:1fr}.book{padding:22px}section{padding:64px 0}.steps li{font-size:10px;letter-spacing:.04em}}
+@media(max-width:520px){.f{grid-template-columns:1fr}.opt img{display:none}}
+@media(prefers-reduced-motion:reduce){.hero img{animation:none}html{scroll-behavior:auto}*{transition:none!important}}
+</style></head>
+<body>
+<div class="demobar"><span>Concept demo · fictional property · images are AI-generated</span><a href="../../work.html">← Back to NB Digital Labs</a><a href="../../work.html">Build something like this ↗</a></div>
+<header class="top"><div class="wrap"><a class="logo" href="#top">Aurevia</a><nav aria-label="Main"><a href="#rooms">Rooms</a><a href="#experiences">Experiences</a><a href="#info">Practical</a><a href="#book">Book</a></nav><a class="btn" href="#book">Check availability</a></div></header>
+<main id="top">
+<div class="hero"><img src="img/hero.webp" width="1600" height="900" alt="Stone farmhouse among olive trees and cypresses at golden hour" fetchpriority="high"><div class="wrap"><h1>Aurevia</h1><p class="sub">Family Resort · Tuscany</p><p>A small family-run stay among olive groves and vineyards, where days move slowly and the table is always long.</p><a class="btn" href="#book">Check availability</a></div></div>
+<section><div class="wrap intro"><div><p class="eyebrow">Our story</p><h2>Slow days, long tables.</h2><p>Aurevia is a handful of stone houses on a quiet hillside, looked after by one family. Breakfast comes from the garden, evenings end under the pergola, and the hills do the rest.</p><p>There are only a few rooms, so we know every guest by name. Come for a weekend or stay for a week — children and grandparents are equally at home here.</p></div><img src="img/dinner.webp" width="1080" height="720" loading="lazy" alt="Long wooden table under a vine pergola at dusk"></div></section>
+<section id="rooms" class="alt"><div class="wrap"><p class="eyebrow">Rooms &amp; houses</p><h2>A place for every kind of stay.</h2><p class="lead">Three ways to stay, all with breakfast on the terrace and views of the hills. Sample rates, per night.</p>
+<div class="cards">
+<article class="room"><img src="img/room-ulivo.webp" width="1080" height="720" loading="lazy" alt="Bright bedroom with a window onto olive trees"><div class="b"><h3>Camera Ulivo</h3><p>A bright double room with stone walls, wooden beams and a window onto the olive grove.</p><ul><li>2 guests</li><li>28 m²</li><li>Garden view</li></ul><div class="pr">from <b>€165</b> / night</div><button class="btn ghost" data-pick="ulivo">Choose this room</button></div></article>
+<article class="room"><img src="img/room-vigna.webp" width="1080" height="720" loading="lazy" alt="Suite with doors opening onto a vineyard view"><div class="b"><h3>Suite Vigna</h3><p>Open the doors to a private terrace and a sunset over the vineyard. Space for a small child.</p><ul><li>2–3 guests</li><li>38 m²</li><li>Terrace · vineyard view</li></ul><div class="pr">from <b>€215</b> / night</div><button class="btn ghost" data-pick="vigna">Choose this room</button></div></article>
+<article class="room"><img src="img/family-house.webp" width="1080" height="720" loading="lazy" alt="Family living area with kitchen and fireplace"><div class="b"><h3>Casetta Famiglia</h3><p>A small stone house with kitchen, fireplace and two bedrooms — made for families and friends.</p><ul><li>up to 5 guests</li><li>72 m²</li><li>Kitchen · fireplace</li></ul><div class="pr">from <b>€290</b> / night</div><button class="btn ghost" data-pick="famiglia">Choose this house</button></div></article>
+</div></div></section>
+<section id="experiences"><div class="wrap"><p class="eyebrow">Experiences</p><h2>Simple pleasures, done well.</h2><p class="lead">Nothing is rushed. Join in, or do nothing at all.</p>
+<div class="tiles">
+<div class="tile"><img src="img/breakfast.webp" width="1080" height="720" loading="lazy" alt="Breakfast table on a stone terrace"><div><b>Breakfast on the terrace</b><span>Bread, honey, fruit and our own olive oil.</span></div></div>
+<div class="tile"><img src="img/pool.webp" width="1080" height="720" loading="lazy" alt="Stone pool among olive trees"><div><b>Pool among the olives</b><span>Quiet mornings, long afternoons.</span></div></div>
+<div class="tile"><img src="img/kids-garden.webp" width="1080" height="720" loading="lazy" alt="Garden with a wooden swing under a fruit tree"><div><b>A garden for children</b><span>Fruit trees, a swing and room to run.</span></div></div>
+<div class="tile"><img src="img/vineyard.webp" width="1080" height="720" loading="lazy" alt="Vineyard path at sunrise"><div><b>Walks through the vineyard</b><span>Easy paths at sunrise or sunset.</span></div></div>
+<div class="tile"><img src="img/details.webp" width="1080" height="720" loading="lazy" alt="Wine, olive oil, bread and tomatoes on a stone wall"><div><b>Local tastings</b><span>Wine, oil and cheeses from nearby farms.</span></div></div>
+<div class="tile"><img src="img/dinner.webp" width="1080" height="720" loading="lazy" alt="Dinner table under a pergola"><div><b>Dinner under the pergola</b><span>A shared table, a few evenings a week.</span></div></div>
+</div></div></section>
+<section id="info" class="alt"><div class="wrap two info"><div><p class="eyebrow">Practical</p><h2>Good to know.</h2><dl><dt>Where</dt><dd>Tuscany, Italy — about an hour from the nearest city airport.</dd><dt>Check-in</dt><dd>15:00 – 20:00</dd><dt>Check-out</dt><dd>until 11:00</dd><dt>Cancellation</dt><dd>Free up to 7 days before arrival.</dd><dt>Families</dt><dd>Cots, high chairs and a children’s menu on request.</dd></dl></div>
+<div><p class="eyebrow">Questions</p><h2>Often asked.</h2><details><summary>Can we arrive without a car?</summary><p>Yes. We can arrange a transfer from the airport or the train station; add it in the booking step.</p></details><details><summary>Is breakfast included?</summary><p>Breakfast is served on the terrace every morning and can be added to any stay.</p></details><details><summary>Do you welcome small children?</summary><p>Very much so. The garden, the pool and the little house were all planned with families in mind.</p></details><details><summary>Is this a real property?</summary><p>No — Aurevia is a fictional concept created by NB Digital Labs to show what a small-resort website can look like.</p></details></div></div></section>
+<section id="book"><div class="wrap"><p class="eyebrow">Book your stay</p><h2>Five simple steps.</h2><p class="lead">Concept demo: nothing is booked or sent. On a real property, this enquiry goes straight to the owners.</p>
+<div class="book"><ol class="steps" id="steps"><li>1 Dates</li><li>2 Room</li><li>3 Extras</li><li>4 Details</li><li>5 Review</li></ol>
+<div>
+<div class="panel on" data-s="1"><h3>When are you coming?</h3><div class="f"><label>Arrival<input type="date" id="ci"></label><label>Departure<input type="date" id="co"></label><label>Adults<select id="ad"></select></label><label>Children<select id="ch"></select></label></div></div>
+<div class="panel" data-s="2"><h3>Choose your room</h3><div id="roomopts"></div></div>
+<div class="panel" data-s="3"><h3>Make it yours</h3><div id="exopts"></div></div>
+<div class="panel" data-s="4"><h3>Your details</h3><div class="f"><label class="full">Full name<input id="nm" autocomplete="name"></label><label class="full">Email<input id="em" type="email" autocomplete="email"></label><label class="full">Anything we should know?<textarea id="ms" rows="3"></textarea></label></div></div>
+<div class="panel" data-s="5"><h3>Review your stay</h3><div id="rev"></div></div>
+<div class="panel" data-s="6"><div class="ok"><h3 id="okt">Thank you!</h3><p id="okp"></p><button class="btn ghost" id="again">Start again</button></div></div>
+<p class="err" id="err" role="alert"></p>
+<div class="nav" id="nav"><button class="btn ghost" id="prev">← Back</button><button class="btn" id="next">Continue →</button></div>
+</div>
+<aside class="sum" aria-live="polite"><h4>Your stay</h4><div id="sum"></div></aside></div></div></section>
+</main>
+<footer><div class="wrap"><span>© 2026 Aurevia — fictional concept demo. Images are AI-generated.</span><span>Made by <a href="../../work.html">NB Digital Labs</a> · <a href="../../work.html">Build something like this ↗</a></span></div></footer>
+<script>
+const R={ulivo:{n:'Camera Ulivo',p:165,max:2,img:'room-ulivo',d:'2 guests · 28 m²'},vigna:{n:'Suite Vigna',p:215,max:3,img:'room-vigna',d:'2–3 guests · 38 m²'},famiglia:{n:'Casetta Famiglia',p:290,max:5,img:'family-house',d:'up to 5 guests · 72 m²'}};
+const X={breakfast:{n:'Breakfast on the terrace',p:14,u:'per person / night'},transfer:{n:'Airport transfer',p:85,u:'per trip'},tasting:{n:'Wine & olive oil tasting',p:35,u:'per person'},cooking:{n:'Tuscan cooking class',p:60,u:'per person'}};
+const L={back:'← Back',next:'Continue →',send:'Send enquiry',e1:'Please choose arrival and departure dates (at least one night).',e2:'Please choose a room.',e4:'Please add your name and a valid email.',night:'night',nights:'nights',guests:'guests',total:'Total',room:'Room',stay:'Stay',extras:'Extras',none:'None',thanks:'Thank you',done:'This is a concept demo: nothing was booked or sent. On a real property, your enquiry would go straight to the owners’ inbox.',over:'Too many guests for this room'};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],E=new Intl.NumberFormat('en',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+const S={step:1,room:null,ex:{}};let step=1;
+const iso=d=>d.toISOString().slice(0,10),today=new Date();$('#ci').min=iso(today);
+for(let i=1;i<=6;i++)$('#ad').add(new Option(i,i,i===2,i===2));for(let i=0;i<=4;i++)$('#ch').add(new Option(i,i));
+const guests=()=>+$('#ad').value+ +$('#ch').value,nights=()=>{const a=new Date($('#ci').value),b=new Date($('#co').value);return a&&b&&b>a?Math.round((b-a)/864e5):0};
+$('#ci').onchange=()=>{const d=new Date($('#ci').value);d.setDate(d.getDate()+1);$('#co').min=iso(d);if(!$('#co').value||new Date($('#co').value)<=new Date($('#ci').value))$('#co').value=iso(d);upd()};
+function price(){const n=nights(),g=guests();let t=S.room?R[S.room].p*n:0,ex=[];for(const k in S.ex){if(!S.ex[k])continue;const q=k==='breakfast'?g*n:k==='transfer'?1:g;t+=X[k].p*q;ex.push(X[k].n)}return{t,ex,n,g}}
+function sum(){const{t,ex,n,g}=price();$('#sum').innerHTML=`<p><span>${L.stay}</span><span>${n?n+' '+(n>1?L.nights:L.night)+' · '+g+' '+L.guests:'—'}</span></p><p><span>${L.room}</span><span>${S.room?R[S.room].n:'—'}</span></p><p><span>${L.extras}</span><span>${ex.length||'—'}</span></p><p class="tot"><span>${L.total}</span><span>${n&&S.room?E.format(t):'—'}</span></p>`}
+function rooms(){$('#roomopts').innerHTML=Object.entries(R).map(([k,r])=>{const bad=guests()>r.max;return`<label class="opt${S.room===k?' sel':''}${bad?' dis':''}"><input type="radio" name="room" value="${k}" ${bad?'disabled':''} ${S.room===k?'checked':''}><img src="img/${r.img}.webp" alt="" loading="lazy"><span class="t"><b>${r.n}</b><small>${r.d}${bad?' · '+L.over:''}</small></span><span>${E.format(r.p)}<small>/ ${L.night}</small></span></label>`}).join('');$$('#roomopts input').forEach(i=>i.onchange=()=>{S.room=i.value;rooms();sum()})}
+function exs(){$('#exopts').innerHTML=Object.entries(X).map(([k,x])=>`<label class="opt${S.ex[k]?' sel':''}"><input type="checkbox" value="${k}" ${S.ex[k]?'checked':''}><span class="t"><b>${x.n}</b><small>${x.u}</small></span><span>${E.format(x.p)}</span></label>`).join('');$$('#exopts input').forEach(i=>i.onchange=()=>{S.ex[i.value]=i.checked;exs();sum()})}
+function review(){const{t,ex,n,g}=price(),r=R[S.room];$('#rev').innerHTML=`<p><b>${r.n}</b> — ${n} ${n>1?L.nights:L.night}, ${g} ${L.guests}</p><p>${$('#ci').value} → ${$('#co').value}</p><p>${L.extras}: ${ex.length?ex.join(', '):L.none}</p><p><b>${L.total}: ${E.format(t)}</b> <small>(sample rates)</small></p><p>${$('#nm').value} · ${$('#em').value}</p>`}
+function upd(){sum();if(step===2)rooms()}
+function go(n){step=n;$$('.panel').forEach(p=>p.classList.toggle('on',+p.dataset.s===n));$$('#steps li').forEach((li,i)=>{li.classList.toggle('on',i+1===n);li.classList.toggle('done',i+1<n)});$('#err').textContent='';$('#prev').style.visibility=n===1||n===6?'hidden':'visible';$('#nav').style.display=n===6?'none':'flex';$('#next').textContent=n===5?L.send:L.next;if(n===2)rooms();if(n===3)exs();if(n===5)review();sum()}
+$('#next').onclick=()=>{let e='';if(step===1&&!nights())e=L.e1;if(step===2&&!S.room)e=L.e2;if(step===4&&(!$('#nm').value.trim()||!/^\S+@\S+\.\S+$/.test($('#em').value)))e=L.e4;if(e){$('#err').textContent=e;return}if(step===5){$('#okt').textContent=L.thanks+', '+$('#nm').value.split(' ')[0]+'!';$('#okp').textContent=L.done;go(6);return}go(step+1)};
+$('#prev').onclick=()=>go(step-1);$('#again').onclick=()=>{S.room=null;S.ex={};['ci','co','nm','em','ms'].forEach(i=>$('#'+i).value='');go(1)};
+$$('[data-pick]').forEach(b=>b.onclick=()=>{S.room=b.dataset.pick;go(1);$('#book').scrollIntoView({behavior:'smooth'});sum()});
+$('#ad').onchange=$('#ch').onchange=()=>{if(S.room&&guests()>R[S.room].max)S.room=null;upd()};go(1);
+</script></body></html>

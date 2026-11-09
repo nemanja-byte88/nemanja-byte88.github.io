@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Aurevia Operations · concept demo by NB Digital Labs</title>
+<meta name="description" content="Concept demo of a resort back office: occupancy, bookings, rooms and revenue with role-based access. Fictional resort, built by NB Digital Labs.">
+<meta name="theme-color" content="#3A2F26">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F4EEE3;--ink:#3A2F26;--olive:#6B7048;--sage:#A9B08F;--sand:#EAE0CF;--terra:#B7683E;--ok:#5d7a3a;--warn:#b7883e}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--cream);color:var(--ink);font:400 15px/1.5 Jost,system-ui,sans-serif;padding-bottom:env(safe-area-inset-bottom,0)}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;margin:0}
+.demo{background:var(--ink);color:var(--sand);font-size:12px;padding:7px 16px;display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;padding-top:calc(7px + env(safe-area-inset-top,0))}
+.demo a{color:var(--sage);text-decoration:none}.demo a:hover{color:#fff}
+header{background:var(--olive);color:#fff;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+.brand{font:600 24px 'Cormorant Garamond',serif;letter-spacing:.5px}.brand small{font:300 12px Jost;letter-spacing:2px;text-transform:uppercase;opacity:.85;margin-left:8px}
+.who{display:flex;align-items:center;gap:8px;font-size:13px}
+select,input{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--sage);border-radius:6px;padding:7px 10px}
+nav{display:flex;gap:4px;padding:10px 20px 0;border-bottom:1px solid var(--sage);flex-wrap:wrap}
+nav button{font:inherit;background:none;border:0;border-bottom:3px solid transparent;padding:10px 16px;cursor:pointer;color:var(--ink)}
+nav button.on{border-color:var(--terra);font-weight:500}
+nav button.lock{opacity:.45}
+main{max-width:1100px;margin:0 auto;padding:22px 20px 60px}
+.note{font-size:13px;color:#6a5d50;margin:0 0 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px}
+.card{background:#fff;border:1px solid var(--sand);border-radius:12px;padding:16px 18px;box-shadow:0 2px 10px rgba(58,47,38,.05)}
+.kpi b{display:block;font:600 34px 'Cormorant Garamond',serif;color:var(--olive)}.kpi span{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#7a6c5d}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+h2{font-size:26px;margin-bottom:10px}h3{font-size:20px;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--sand);white-space:nowrap}
+th{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#7a6c5d;font-weight:500}
+.wrap{overflow-x:auto}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;background:var(--sand)}
+.p-In{background:#dfe8c8}.p-Co{background:#e6edf5}.p-Pe{background:#f3e3c2}.p-Ch{background:var(--sand);color:#7a6c5d}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.room{padding:0;overflow:hidden}.room img{display:block;width:100%;height:110px;object-fit:cover;background:var(--sage)}
+.room div{padding:12px 14px}.room h3{margin-bottom:2px}
+.strip{display:flex;gap:2px;margin:8px 0}.strip i{flex:1;height:8px;border-radius:2px;background:var(--sand)}.strip i.o{background:var(--olive)}
+button.act{font:inherit;background:var(--terra);color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer;margin-top:6px}
+ul.list{list-style:none;margin:0;padding:0}ul.list li{padding:8px 0;border-bottom:1px solid var(--sand);display:flex;justify-content:space-between;gap:10px;font-size:14px}
+svg text{font:11px Jost;fill:#7a6c5d}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:8px;opacity:0;transition:.25s;pointer-events:none;font-size:14px;max-width:90vw}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;font-size:12px;color:#7a6c5d;padding:20px}
+</style></head><body>
+<div class="demo"><span>Concept demo · fictional resort · all data is sample data</span><span><a href="../../work.html">← Back to NB Digital Labs</a> · <a href="../aurevia/">Aurevia website ↗</a> · <a href="../../work.html">Build something like this ↗</a></span></div>
+<header><div class="brand">Aurevia<small>Operations</small></div>
+<label class="who">Signed in as <select id="role"><option value="owner">Owner</option><option value="reception">Reception</option><option value="housekeeping">Housekeeping</option></select></label></header>
+<nav id="tabs"></nav>
+<main id="view"></main>
+<footer>© 2026 Aurevia Family Resort · fictional concept · Made by <a href="../../work.html" style="color:inherit">NB Digital Labs</a></footer>
+<div id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s);
+const TYPES=[{id:'ulivo',name:'Camera Ulivo',rate:165,n:4,pre:'U',img:'room-ulivo'},{id:'vigna',name:'Suite Vigna',rate:215,n:3,pre:'V',img:'room-vigna'},{id:'casetta',name:'Casetta Famiglia',rate:290,n:2,pre:'C',img:'family-house'}];
+const UNITS=TYPES.flatMap(t=>Array.from({length:t.n},(_,i)=>({id:t.pre+(i+1),type:t})));
+const today=new Date();today.setHours(0,0,0,0);
+const dateOf=o=>{const d=new Date(today);d.setDate(d.getDate()+o);return d};
+const fmt=o=>dateOf(o).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+let seed=20261109;const rnd=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const FIRST=['Anna','Luca','Marta','Jonas','Elena','Tomás','Sofia','Marko','Clara','Daniel','Ivana','Paolo','Nora','Felix','Lidia','Mateo'],LAST=['Rossi','Keller','Novak','García','Weber','Marino','Horvat','Bianchi','Lang','Costa','Petrović','Moretti'];
+const B=[];let ref=1040;
+UNITS.forEach(u=>{let d=-150+Math.floor(rnd()*4);while(d<60){const nights=2+Math.floor(rnd()*6),s=d,e=d+nights;
+ const status=e<=0?'Checked out':s<=0?'In house':rnd()<.15?'Pending':'Confirmed';
+ B.push({ref:'AV-'+(ref++),unit:u,s,e,nights,status,guest:FIRST[Math.floor(rnd()*16)]+' '+LAST[Math.floor(rnd()*12)],pax:1+Math.floor(rnd()*(u.type.id==='casetta'?5:3))});
+ d=e+Math.floor(rnd()*2)}});
+B.sort((a,b)=>a.s-b.s);
+const cleaned=new Set(),LOG=[];
+const ROLES={owner:['overview','bookings','rooms','revenue'],reception:['overview','bookings','rooms'],housekeeping:['rooms']};
+const TAB={overview:'Overview',bookings:'Bookings',rooms:'Rooms',revenue:'Revenue'};
+let role='owner',tab='overview',F={q:'',status:'',type:''};
+const eur=n=>'€'+Math.round(n).toLocaleString('en-US');
+const occ=o=>B.filter(b=>b.s<=o&&o<b.e).length;
+const monthRev=m=>{const t={};TYPES.forEach(x=>t[x.id]=0);B.forEach(b=>{if(b.status==='Pending')return;for(let o=b.s;o<b.e;o++){const d=dateOf(o);if(d.getFullYear()*12+d.getMonth()===m)t[b.unit.type.id]+=b.unit.type.rate}});return t};
+const curM=today.getFullYear()*12+today.getMonth();
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2600)}
+function bars(vals,labels,w,h,fmtv){const max=Math.max(...vals,1),bw=w/vals.length;
+ return `<svg viewBox="0 0 ${w} ${h+22}" width="100%" role="img">${vals.map((v,i)=>{const bh=v/max*h;return `<rect x="${i*bw+2}" y="${h-bh}" width="${bw-4}" height="${bh}" rx="3" fill="${i===vals.length-1&&vals.length<10?'#B7683E':i===0&&vals.length>=10?'#B7683E':'#6B7048'}"><title>${labels[i]}: ${fmtv?fmtv(v):v}</title></rect>`+(labels[i]?`<text x="${i*bw+bw/2}" y="${h+15}" text-anchor="middle">${labels[i]}</text>`:'')}).join('')}</svg>`}
+function tabs(){$('#tabs').innerHTML=Object.keys(TAB).map(k=>{const ok=ROLES[role].includes(k);return `<button class="${k===tab?'on':''} ${ok?'':'lock'}" data-t="${k}">${ok?'':'🔒 '}${TAB[k]}</button>`}).join('')}
+$('#tabs').onclick=e=>{const k=e.target.dataset.t;if(!k)return;if(!ROLES[role].includes(k)){const r=$('#role').selectedOptions[0].text;LOG.unshift(`${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})} · ${r} tried to open ${TAB[k]} · blocked`);toast(`Access denied for ${r}. The attempt was logged.`);return}tab=k;render()};
+$('#role').onchange=e=>{role=e.target.value;if(!ROLES[role].includes(tab))tab=ROLES[role][0];render();toast('Now viewing as '+e.target.selectedOptions[0].text)};
+function overview(){const arr=B.filter(b=>b.s===0),dep=B.filter(b=>b.e===0),o=occ(0),n=UNITS.length,rev=Object.values(monthRev(curM)).reduce((a,b)=>a+b,0);
+ const vals=Array.from({length:30},(_,i)=>Math.round(occ(i)/n*100)),labs=vals.map((_,i)=>i%5===0?fmt(i):'');
+ return `<h2>Today at Aurevia</h2><p class="note">${today.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})} · ${n} rooms across 3 types</p>
+ <div class="kpis"><div class="card kpi"><b>${Math.round(o/n*100)}%</b><span>Occupancy today</span></div><div class="card kpi"><b>${arr.length}</b><span>Arrivals today</span></div><div class="card kpi"><b>${dep.length}</b><span>Departures today</span></div>
+ ${ROLES[role].includes('revenue')?`<div class="card kpi"><b>${eur(rev)}</b><span>Revenue this month</span></div>`:''}</div>
+ <div class="grid2"><div class="card"><h3>Occupancy, next 30 days</h3>${bars(vals,labs,600,120,v=>v+'%')}</div>
+ <div class="card"><h3>Arrivals &amp; departures</h3><ul class="list">${arr.map(b=>`<li><span>↓ ${b.guest}</span><span>${b.unit.id}</span></li>`).join('')+dep.map(b=>`<li><span>↑ ${b.guest}</span><span>${b.unit.id}</span></li>`).join('')||'<li>Nothing scheduled today</li>'}</ul></div></div>
+ ${role==='owner'?`<div class="card" style="margin-top:14px"><h3>Access log</h3><ul class="list">${LOG.slice(0,5).map(l=>`<li>${l}</li>`).join('')||'<li>No blocked attempts yet. Switch role above and try a locked tab.</li>'}</ul></div>`:''}`}
+function bookings(){const q=F.q.toLowerCase(),rows=B.filter(b=>b.e>-30&&b.s<45&&(!F.status||b.status===F.status)&&(!F.type||b.unit.type.id===F.type)&&(!q||(b.guest+b.ref).toLowerCase().includes(q))).slice(0,60);
+ return `<h2>Bookings</h2><p class="note">Sample reservations around today. Filter by status, room type or guest.</p>
+ <div class="filters"><input id="fq" placeholder="Search guest or reference" value="${F.q}"><select id="fs"><option value="">All statuses</option>${['In house','Confirmed','Pending','Checked out'].map(s=>`<option ${F.status===s?'selected':''}>${s}</option>`).join('')}</select><select id="ft"><option value="">All room types</option>${TYPES.map(t=>`<option value="${t.id}" ${F.type===t.id?'selected':''}>${t.name}</option>`).join('')}</select></div>
+ <div class="card wrap"><table><tr><th>Ref</th><th>Guest</th><th>Room</th><th>Stay</th><th>Nights</th><th>Guests</th><th>Total</th><th>Status</th></tr>${rows.map(b=>`<tr><td>${b.ref}</td><td>${b.guest}</td><td>${b.unit.type.name} · ${b.unit.id}</td><td>${fmt(b.s)} → ${fmt(b.e)}</td><td>${b.nights}</td><td>${b.pax}</td><td>${eur(b.nights*b.unit.type.rate)}</td><td><span class="pill p-${b.status.slice(0,2)}">${b.status}</span></td></tr>`).join('')||'<tr><td colspan="8">No bookings match.</td></tr>'}</table></div>`}
+function rooms(){const hk=role==='housekeeping';
+ return `<h2>Rooms</h2><p class="note">${hk?'Housekeeping view: room status only, no guest details.':'Live room status with a 14-day occupancy strip.'}</p><div class="rooms">${UNITS.map(u=>{const cur=B.find(b=>b.unit===u&&b.s<=0&&0<b.e),arr=B.find(b=>b.unit===u&&b.s===0),dep=B.find(b=>b.unit===u&&b.e===0);
+ let st='Vacant · clean',cls='';if(cur&&!dep){st='Occupied';}if(dep){st=cleaned.has(u.id)?'Vacant · clean':'Needs cleaning';}if(arr&&!cur){st=cleaned.has(u.id)?'Arriving today · ready':'Arriving today';}if(dep&&arr)st=cleaned.has(u.id)?'Turnover · ready':'Turnover · clean first';
+ const need=/clean first|Needs cleaning|Arriving today$/.test(st)&&!cleaned.has(u.id)&&(dep||arr&&!cur);
+ const strip=Array.from({length:14},(_,i)=>`<i class="${occ14(u,i)?'o':''}" title="${fmt(i)}"></i>`).join('');
+ const g=!hk&&cur?`<div class="note" style="margin:4px 0 0">${cur.guest} · until ${fmt(cur.e)}</div>`:'';
+ return `<div class="card room"><img src="../aurevia/img/${u.type.img}.webp" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><div><h3>${u.type.name} · ${u.id}</h3><span class="pill">${st}</span>${g}<div class="strip" aria-label="Next 14 days">${strip}</div>${need?`<button class="act" data-c="${u.id}">Mark clean</button>`:''}</div></div>`}).join('')}</div>`}
+const occ14=(u,i)=>B.some(b=>b.unit===u&&b.s<=i&&i<b.e);
+function revenue(){const ms=Array.from({length:6},(_,i)=>curM-5+i),tot=ms.map(m=>Object.values(monthRev(m)).reduce((a,b)=>a+b,0)),cur=monthRev(curM),lab=m=>new Date(Math.floor(m/12),m%12,1).toLocaleDateString('en-GB',{month:'short'});
+ const ty=TYPES.map(t=>cur[t.id]);
+ return `<h2>Revenue</h2><p class="note">Owner only. Sample figures from the generated bookings, excluding pending requests.</p>
+ <div class="grid2"><div class="card"><h3>Last 6 months</h3>${bars(tot,ms.map(lab),600,140,eur)}<p class="note" style="margin:6px 0 0">The highlighted bar is the current month. Hover a bar for the exact value.</p></div>
+ <div class="card"><h3>This month by room type</h3><ul class="list">${TYPES.map((t,i)=>`<li><span>${t.name}</span><b>${eur(ty[i])}</b></li>`).join('')}<li><span>Total</span><b>${eur(ty.reduce((a,b)=>a+b,0))}</b></li></ul></div></div>`}
+function render(){tabs();const v=$('#view');v.innerHTML={overview,bookings,rooms,revenue}[tab]();
+ if(tab==='bookings'){const f=()=>{F.q=$('#fq').value;F.status=$('#fs').value;F.type=$('#ft').value;const p=$('#fq').selectionStart;render();$('#fq').focus();$('#fq').setSelectionRange(p,p)};$('#fq').oninput=f;$('#fs').onchange=f;$('#ft').onchange=f}
+ if(tab==='rooms')v.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{cleaned.add(b.dataset.c);toast('Marked clean');render()})}
+render();
+</script></body></html>

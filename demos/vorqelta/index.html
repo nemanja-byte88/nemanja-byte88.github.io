@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VORQELTA Building Materials · concept demo by NB Digital Labs</title>
+<meta name="description" content="Concept demo of a B2B ordering system for a building-materials wholesaler: order wizard, stock and role-based staff area. Fictional company, built by NB Digital Labs.">
+<meta name="theme-color" content="#23272B">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF0F1;--ink:#23272B;--mid:#6B7278;--line:#D5D9DC;--red:#D7263D;--red2:#b01c30;--ok:#1E8E5A;--warn:#C77700;--card:#fff}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.5 Barlow,system-ui,sans-serif;padding-bottom:env(safe-area-inset-bottom,0)}
+h1,h2,h3{font-family:'Barlow Condensed',Arial Narrow,sans-serif;font-weight:700;margin:0;letter-spacing:.3px;text-transform:uppercase}
+a{color:var(--red)}
+.demo{background:var(--ink);color:#c9ced2;font-size:12px;padding:7px 16px;padding-top:calc(7px + env(safe-area-inset-top,0));display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between}.demo a{color:#fff}
+header{background:#fff;border-bottom:3px solid var(--red);padding:12px 20px;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font:700 26px 'Barlow Condensed',sans-serif;letter-spacing:1.5px}.logo small{display:block;font:500 11px Barlow;letter-spacing:1.5px;color:var(--mid);text-transform:uppercase}
+.logo i{width:34px;height:34px;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;border-radius:6px;box-shadow:inset -8px -8px 0 var(--red)}
+.modes button,.btn{font:inherit;font-weight:500;border:2px solid var(--ink);background:#fff;color:var(--ink);padding:8px 16px;cursor:pointer;border-radius:4px}
+.modes button.on,.btn.p{background:var(--red);border-color:var(--red);color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:1100px;margin:0 auto;padding:22px 18px 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
+.steps{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}.steps span{padding:5px 14px;border-radius:99px;background:#dde1e4;font-size:13px}.steps .on{background:var(--ink);color:#fff}.steps .done{background:var(--red);color:#fff}
+.lay{display:grid;grid-template-columns:1fr 290px;gap:16px;align-items:start}@media(max-width:820px){.lay{grid-template-columns:1fr}}
+.grp{margin:18px 0 6px;color:var(--red);font-size:20px}
+.row{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.sw{position:relative;width:48px;height:48px;border-radius:6px;background:var(--ink);color:#fff;display:grid;place-items:center;font:700 14px 'Barlow Condensed';overflow:hidden}.sw img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.row small{color:var(--mid);display:block}.ctl{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.ctl button{width:30px;height:30px;border:1px solid var(--ink);background:#fff;border-radius:4px;cursor:pointer;font-size:16px}.ctl button.pal{width:auto;padding:0 8px;font-size:12px}
+.ctl input{width:56px;text-align:center}
+input,select{font:inherit;border:1px solid #b9bfc4;border-radius:4px;padding:8px 10px;background:#fff;color:var(--ink);width:100%}.ctl input{padding:5px}
+label{display:block;font-size:13px;color:var(--mid);margin:10px 0 3px}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:600px){.two{grid-template-columns:1fr}}
+.opt{display:flex;gap:10px;margin-bottom:10px}.opt label{flex:1;margin:0;border:2px solid var(--line);border-radius:6px;padding:12px;cursor:pointer;color:var(--ink)}.opt input{width:auto;margin-right:6px}.opt label.on{border-color:var(--red)}
+.sum td{padding:4px 0}.sum .t td{border-top:2px solid var(--ink);font-weight:500;padding-top:8px}
+.low{color:var(--warn)}.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;background:#e3e6e8}.s-New{background:#fde2e5}.s-Pi{background:#fdf0d5}.s-Re{background:#dbeee3}.s-Di,.s-Co{background:#e3e6e8;color:var(--mid)}
+.acts{display:flex;justify-content:space-between;margin-top:16px;gap:10px}
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:16px;flex-wrap:wrap}.tabs button{font:500 15px Barlow;background:none;border:0;border-bottom:3px solid transparent;padding:10px 16px;cursor:pointer;margin-bottom:-2px}.tabs .on{border-color:var(--red)}.tabs .lock{opacity:.45}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:16px}.kpi b{display:block;font:700 34px 'Barlow Condensed';color:var(--red)}.kpi span{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--mid)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mid);font-weight:500}.wrap{overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+ul.l{list-style:none;margin:0;padding:0}ul.l li{padding:7px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
+.mut{color:var(--mid);font-size:13px}.ok{color:var(--ok);font-weight:500}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:6px;opacity:0;transition:.25s;pointer-events:none;max-width:90vw;z-index:9}#toast.show{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;font-size:12px;color:var(--mid);padding:18px}
+</style></head><body>
+<div class="demo"><span>Concept demo · fictional company · all data is sample data</span><span><a href="../../work.html">← Back to NB Digital Labs</a> · <a href="../kalmora/">Kalmora freight ↗</a></span></div>
+<header><div class="logo"><i>Q</i><div>VORQELTA<small>Building Materials · Ljubljana</small></div></div>
+<div class="modes"><button id="m-order" class="on">Order online</button> <button id="m-staff">Staff login</button></div></header>
+<main id="app"></main>
+<footer>© 2026 VORQELTA Building Materials · fictional concept · Made by <a href="../../work.html" style="color:inherit">NB Digital Labs</a></footer>
+<div id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s),eur=n=>'€'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const P=[['fb2','Adhesives','FlexBond C2 tile adhesive','bag 25 kg',9.8,640,40,'AD'],['fb1','Adhesives','FlexBond S1 flexible adhesive','bag 25 kg',14.2,320,40,'AD'],
+['tb','Façade systems','ThermoBoard EPS 100 mm','pack 6 m²',26.5,180,20,'FA'],['bc','Façade systems','BaseCoat adhesive and reinforcing mortar','bag 25 kg',10.5,520,48,'FA'],['fr','Façade systems','FacadeCoat mineral render 1.5 mm','bag 25 kg',11.9,410,48,'FA'],['mh','Façade systems','Reinforcing mesh','roll 50 m²',38,75,20,'FA'],
+['iw','Paints','InteriorWhite matt','pail 15 l',54,120,24,'PA'],['fs','Paints','FacadeShield acrylic','pail 15 l',89,95,24,'PA'],
+['dp','Coatings','DeepPrime primer','pail 10 l',38,150,30,'CO'],['as','Coatings','AquaSeal waterproofing','pail 15 kg',72,28,24,'CO'],
+['t6','Tiles','Porcelain 60×60 Cement Grey','box 1.44 m²',32.8,90,40,'TI'],['t3','Tiles','Porcelain 30×60 Warm Sand','box 1.08 m²',27,140,48,'TI']].map(a=>({id:a[0],g:a[1],n:a[2],u:a[3],p:a[4],st:a[5],pal:a[6],ab:a[7]}));
+const byId=id=>P.find(p=>p.id===id),LOWAT=30;
+const ZONES={1:['Slovenia',45],2:['Austria, Croatia',95],3:['Serbia, Hungary, Italy',160]},SLOTS=['07:00–09:00','09:00–11:00','11:00–13:00','13:00–15:00'],KM=['KM-1311','KM-2048','KM-7782'];
+const wd=n=>{let d=new Date(),k=0;while(k<n){d.setDate(d.getDate()+1);if(d.getDay()%6)k++}return d};
+const dstr=d=>d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+const money=it=>it.reduce((a,[id,q])=>a+byId(id).p*q,0),fee=(sub,o)=>o.mode==='pickup'||sub>=1500?0:ZONES[o.zone][1];
+const h=n=>Date.now()-n*36e5;
+const SEED=()=>[
+{ref:'VQ-4106',co:'Hribar Gradnje d.o.o.',mode:'delivery',zone:1,when:dstr(wd(1)),it:[['fb2',80],['bc',40],['dp',6]],st:'New',t:h(1)},
+{ref:'VQ-4105',co:'Bau Kral GmbH',mode:'delivery',zone:2,when:dstr(wd(2)),it:[['tb',60],['fr',48],['mh',4]],st:'Picking',t:h(5)},
+{ref:'VQ-4104',co:'Zidar Plus d.o.o.',mode:'pickup',when:dstr(wd(1))+' · 09:00–11:00',it:[['iw',8],['dp',4]],st:'Ready',t:h(9)},
+{ref:'VQ-4103',co:'Kovač Fasade',mode:'delivery',zone:1,when:dstr(wd(1)),it:[['fs',10],['fr',30]],st:'Ready',t:h(20)},
+{ref:'VQ-4102',co:'Alpen Renovation',mode:'delivery',zone:3,when:'last week',it:[['t6',60],['fb1',24]],st:'Dispatched',km:KM[0],t:h(60)},
+{ref:'VQ-4101',co:'Dom Invest d.o.o.',mode:'pickup',when:'last week',it:[['as',6],['bc',20]],st:'Collected',t:h(80)}].map(o=>({...o,sub:money(o.it),fee:fee(money(o.it),o)}));
+let S,role='owner',tab='dash',mode='order',step=1,cart={},O={mode:'pickup',zone:1,date:'',slot:SLOTS[0]},C={},LOG=[];
+const load=()=>{try{const j=JSON.parse(localStorage.getItem('vq-demo-v1')||'null');if(j&&Date.now()-j.t<864e5){S=j;return}}catch(e){}S={t:Date.now(),orders:SEED(),stock:Object.fromEntries(P.map(p=>[p.id,p.st]))}};
+const save=()=>{try{localStorage.setItem('vq-demo-v1',JSON.stringify(S))}catch(e){}};load();
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2800)}
+const sw=p=>`<span class="sw">${p.ab}<img src="img/${p.id}.webp" alt="" onerror="this.remove()"></span>`;
+const cartIt=()=>Object.entries(cart).filter(([,q])=>q>0);
+/* ---------- order wizard ---------- */
+function order(){const it=cartIt(),sub=money(it),f=it.length?fee(sub,O):0,box=`<div class="card"><h3>Your order</h3><table class="sum">${it.map(([id,q])=>`<tr><td>${q} × ${byId(id).n}</td><td align="right">${eur(byId(id).p*q)}</td></tr>`).join('')||'<tr><td class="mut">Nothing added yet.</td></tr>'}<tr class="t"><td>Goods</td><td align="right">${eur(sub)}</td></tr>${step>1?`<tr><td>${O.mode==='pickup'?'Pickup':'Delivery'}</td><td align="right">${f?eur(f):'Free'}</td></tr><tr class="t"><td>Total excl. VAT</td><td align="right">${eur(sub+f)}</td></tr>`:''}</table><p class="mut">Prices exclude VAT. Minimum order €150. Free delivery from €1,500.</p></div>`;
+ const nav=['Products','Delivery','Company','Review'].map((s,i)=>`<span class="${i+1===step?'on':i+1<step?'done':''}">${i+1}. ${s}</span>`).join('');
+ let b='';
+ if(step===1){b=[...new Set(P.map(p=>p.g))].map(g=>`<h3 class="grp">${g}</h3>`+P.filter(p=>p.g===g).map(p=>{const av=S.stock[p.id];return `<div class="row">${sw(p)}<div>${p.n}<small>${p.u} · ${eur(p.p)} · <span class="${av<=LOWAT?'low':''}">${av>0?av+' in stock':'out of stock'}</span></small></div><div class="ctl"><button data-q="${p.id}" data-d="-1">−</button><input type="number" min="0" max="${av}" value="${cart[p.id]||0}" data-i="${p.id}" aria-label="Quantity"><button data-q="${p.id}" data-d="1">+</button><button class="pal" data-q="${p.id}" data-d="${p.pal}" title="One pallet">+ pallet (${p.pal})</button></div></div>`}).join('')).join('')}
+ if(step===2){const days=[2,3,4,5,6].map(n=>dstr(wd(n)));if(!O.date)O.date=days[0];
+  b=`<div class="opt"><label class="${O.mode==='pickup'?'on':''}"><input type="radio" name="md" value="pickup" ${O.mode==='pickup'?'checked':''}>Pickup at our warehouse<br><span class="mut">Ljubljana · free · Mon–Fri</span></label><label class="${O.mode==='delivery'?'on':''}"><input type="radio" name="md" value="delivery" ${O.mode==='delivery'?'checked':''}>Delivery to site<br><span class="mut">By Kalmora freight</span></label></div>
+  ${O.mode==='delivery'?`<label>Delivery zone</label><select id="zn">${Object.entries(ZONES).map(([k,v])=>`<option value="${k}" ${+O.zone===+k?'selected':''}>Zone ${k} · ${v[0]} · ${eur(v[1])}</option>`).join('')}</select>`:''}
+  <div class="two"><div><label>${O.mode==='pickup'?'Pickup':'Delivery'} date</label><select id="dt">${days.map(d=>`<option ${O.date===d?'selected':''}>${d}</option>`).join('')}</select></div>${O.mode==='pickup'?`<div><label>Time slot</label><select id="sl">${SLOTS.map(s=>`<option ${O.slot===s?'selected':''}>${s}</option>`).join('')}</select></div>`:''}</div>`}
+ if(step===3){const F=[['co','Company name'],['vat','VAT ID (e.g. SI12345678)'],['nm','Contact person'],['em','Email'],['ad','Site address (delivery)']].filter(f=>f[0]!=='ad'||O.mode==='delivery');b=`<div class="two">${F.map(f=>`<div><label>${f[1]}</label><input data-c="${f[0]}" value="${C[f[0]]||''}"></div>`).join('')}</div><p class="mut">Demo only: nothing is sent anywhere.</p>`}
+ if(step===4){b=`<h3>Review</h3><p>${O.mode==='pickup'?'Pickup':'Delivery'}: <b>${O.date}${O.mode==='pickup'?' · '+O.slot:''}</b>${O.mode==='delivery'?` · Zone ${O.zone} · ${C.ad||''}`:''}</p><p>${C.co} · VAT ${C.vat} · ${C.nm} (${C.em})</p><p class="mut">Check the list on the right, then confirm. Stock is reserved straight away.</p>`}
+ return `<div class="steps">${nav}</div><div class="lay"><div class="card">${b}<div class="acts"><button class="btn" id="bk" ${step===1?'disabled':''}>Back</button><button class="btn p" id="nx">${step===4?'Confirm order':'Continue'}</button></div></div>${box}</div>`}
+function bindOrder(){document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{const id=b.dataset.q,n=Math.max(0,Math.min(S.stock[id],(cart[id]||0)+ +b.dataset.d));cart[id]=n;render()});
+ document.querySelectorAll('[data-i]').forEach(i=>i.onchange=()=>{cart[i.dataset.i]=Math.max(0,Math.min(S.stock[i.dataset.i],+i.value||0));render()});
+ document.querySelectorAll('[name=md]').forEach(r=>r.onchange=()=>{O.mode=r.value;render()});
+ const z=$('#zn');if(z)z.onchange=()=>{O.zone=+z.value;render()};const d=$('#dt');if(d)d.onchange=()=>O.date=d.value;const s=$('#sl');if(s)s.onchange=()=>O.slot=s.value;
+ document.querySelectorAll('[data-c]').forEach(i=>i.oninput=()=>C[i.dataset.c]=i.value);
+ $('#bk').onclick=()=>{step--;render()};
+ $('#nx').onclick=()=>{const it=cartIt(),sub=money(it);
+  if(step===1&&sub<150)return toast('Minimum order is €150. Add more products.');
+  if(step===3){const need=['co','vat','nm','em'].concat(O.mode==='delivery'?['ad']:[]);if(need.some(k=>!(C[k]||'').trim()))return toast('Please fill in all company fields.')}
+  if(step<4){step++;return render()}
+  const no=4100+S.orders.length+1,o={ref:'VQ-'+no,co:C.co,mode:O.mode,zone:O.zone,when:O.date+(O.mode==='pickup'?' · '+O.slot:''),it,st:'New',t:Date.now(),sub,fee:fee(sub,O)};
+  it.forEach(([id,q])=>S.stock[id]-=q);S.orders.unshift(o);save();LOG.unshift(`${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})} · Web order ${o.ref} placed by ${o.co}`);
+  $('#app').innerHTML=`<div class="card" style="max-width:640px;margin:0 auto;text-align:center"><h2>Order received</h2><p>Your reference is <b>${o.ref}</b>.</p><p>${o.mode==='pickup'?'We will have it ready at the warehouse on':'We will deliver on'} <b>${o.when}</b>.</p>${o.mode==='delivery'?'<p class="mut">Delivery is arranged with Kalmora freight. You will get a KM tracking reference when the order is dispatched.</p>':''}<p class="mut">Open Staff login to see this order from the inside.</p><button class="btn p" id="ns">Start a new order</button> <button class="btn" id="gs">Staff login</button></div>`;
+  $('#ns').onclick=()=>{cart={};C={};step=1;render()};$('#gs').onclick=()=>{cart={};C={};step=1;setMode('staff')}}}
+/* ---------- staff ---------- */
+const ROLES={owner:'Owner / General Manager',sales:'Sales',wh:'Warehouse'},TABS={dash:'Dashboard',orders:'Orders',stock:'Stock'},ACC={owner:['dash','orders','stock'],sales:['dash','orders'],wh:['dash','orders','stock']};
+const NEXT={New:['Picking','Release to warehouse',['sales','owner']],Picking:['Ready','Mark ready',['wh','owner']],Ready:[null,null,['sales','owner']]};
+const stamp=()=>new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+const lowList=()=>P.filter(p=>S.stock[p.id]<=LOWAT);
+function actBtn(o){const n=NEXT[o.st];if(!n)return '';const lab=o.st==='Ready'?(o.mode==='pickup'?'Confirm pickup':'Dispatch with Kalmora'):n[1];return `<button class="btn p" data-a="${o.ref}">${lab}</button>`}
+function advance(ref){const o=S.orders.find(x=>x.ref===ref),n=NEXT[o.st];if(!n[2].includes(role)){LOG.unshift(`${stamp()} · ${ROLES[role]} tried to move ${ref} · blocked`);return toast(`Access denied for ${ROLES[role]}. The attempt was logged.`)}
+ if(o.st==='Ready'){if(o.mode==='pickup')o.st='Collected';else{o.st='Dispatched';o.km=KM[S.orders.filter(x=>x.km).length%3]}}else o.st=n[0];
+ LOG.unshift(`${stamp()} · ${ROLES[role]} moved ${ref} to ${o.st}`);save();toast(`${ref} is now ${o.st}${o.km?' · '+o.km:''}`);render()}
+function dash(){const c=s=>S.orders.filter(o=>o.st===s).length,rev=S.orders.reduce((a,o)=>a+o.sub+o.fee,0),low=lowList();
+ return `<div class="kpis"><div class="card kpi"><b>${c('New')}</b><span>New, to release</span></div><div class="card kpi"><b>${c('Picking')}</b><span>In picking</span></div><div class="card kpi"><b>${c('Ready')}</b><span>Ready to hand over</span></div>${role==='owner'?`<div class="card kpi"><b>${eur(rev).replace('.00','')}</b><span>Order value (sample week)</span></div>`:''}</div>
+ <div class="grid2"><div class="card"><h3>Low stock</h3><ul class="l">${low.map(p=>`<li><span>${p.n}</span><b class="low">${S.stock[p.id]} left</b></li>`).join('')||'<li>All stock levels are fine.</li>'}</ul></div>
+ <div class="card"><h3>${role==='owner'?'Activity and access log':'Your tasks'}</h3>${role==='owner'?`<ul class="l">${LOG.slice(0,6).map(l=>`<li>${l}</li>`).join('')||'<li class="mut">Nothing yet. Move an order, or try another role.</li>'}</ul>`:`<p class="mut">${role==='sales'?'Release new orders to the warehouse and hand over ready ones.':'Pick released orders, mark them ready and book new stock in.'}</p>`}</div></div>`}
+function orders(){const wh=role==='wh';return `<div class="card wrap"><table><tr><th>Ref</th><th>Customer</th><th>Goods</th><th>${wh?'':'Total'}</th><th>Handover</th><th>Status</th><th></th></tr>${S.orders.map(o=>`<tr><td>${o.ref}</td><td>${o.co}</td><td class="mut">${o.it.map(([id,q])=>q+' × '+byId(id).n).join(', ')}</td><td>${wh?'':eur(o.sub+o.fee)}</td><td>${o.mode==='pickup'?'Pickup':'Delivery'} · ${o.when}${o.km?`<br><a href="../kalmora/#track">Track ${o.km} ↗</a>`:''}</td><td><span class="pill s-${o.st.slice(0,2)}">${o.st}</span></td><td>${actBtn(o)}</td></tr>`).join('')}</table></div>`}
+function stock(){const can=role!=='sales';return `<div class="card wrap"><table><tr><th>Product</th><th>Group</th><th>Unit</th><th>In stock</th><th></th></tr>${P.map(p=>`<tr><td>${p.n}</td><td>${p.g}</td><td>${p.u}</td><td class="${S.stock[p.id]<=LOWAT?'low':''}"><b>${S.stock[p.id]}</b>${S.stock[p.id]<=LOWAT?' · low':''}</td><td>${can?`<button class="btn" data-r="${p.id}">+ 1 pallet (${p.pal})</button>`:''}</td></tr>`).join('')}</table></div>`}
+function staff(){const tb=Object.keys(TABS).map(k=>{const ok=ACC[role].includes(k);return `<button class="${k===tab?'on':''} ${ok?'':'lock'}" data-t="${k}">${ok?'':'🔒 '}${TABS[k]}</button>`}).join('');
+ return `<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px"><label style="margin:0">Signed in as <select id="rl" style="width:auto;display:inline-block">${Object.entries(ROLES).map(([k,v])=>`<option value="${k}" ${k===role?'selected':''}>${v}</option>`).join('')}</select></label><button class="btn" id="rs">Reset demo data</button></div><div class="tabs">${tb}</div>${{dash,orders,stock}[tab]()}`}
+function bindStaff(){$('#rl').onchange=e=>{role=e.target.value;if(!ACC[role].includes(tab))tab='dash';render();toast('Now viewing as '+ROLES[role])};
+ $('#rs').onclick=()=>{try{localStorage.removeItem('vq-demo-v1')}catch(e){}load();LOG=[];render();toast('Demo data reset')};
+ document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{const k=b.dataset.t;if(!ACC[role].includes(k)){LOG.unshift(`${stamp()} · ${ROLES[role]} tried to open ${TABS[k]} · blocked`);return toast(`Access denied for ${ROLES[role]}. The attempt was logged.`)}tab=k;render()});
+ document.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>advance(b.dataset.a));
+ document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{const p=byId(b.dataset.r);S.stock[p.id]+=p.pal;LOG.unshift(`${stamp()} · ${ROLES[role]} booked in ${p.pal} × ${p.n}`);save();toast('Stock updated');render()})}
+function setMode(m){mode=m;$('#m-order').classList.toggle('on',m==='order');$('#m-staff').classList.toggle('on',m==='staff');history.replaceState(null,'',m==='staff'?'#staff':location.pathname);render()}
+function render(){const a=$('#app'),y=scrollY;if(mode==='order'){a.innerHTML=order();bindOrder()}else{a.innerHTML=staff();bindStaff()}scrollTo(0,y)}
+$('#m-order').onclick=()=>setMode('order');$('#m-staff').onclick=()=>setMode('staff');
+mode=location.hash==='#staff'?'staff':'order';$('#m-order').classList.toggle('on',mode==='order');$('#m-staff').classList.toggle('on',mode==='staff');render();
+</script></body></html>

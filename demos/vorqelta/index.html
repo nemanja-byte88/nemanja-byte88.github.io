@@ -41,6 +41,17 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;p
 ul.l{list-style:none;margin:0;padding:0}ul.l li{padding:7px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
 .mut{color:var(--mid);font-size:13px}.ok{color:var(--ok);font-weight:500}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:6px;opacity:0;transition:.25s;pointer-events:none;max-width:90vw;z-index:9}#toast.show{opacity:1;transform:translate(-50%,0)}
+.hero{background:linear-gradient(115deg,rgba(35,39,43,.94) 55%,rgba(35,39,43,.55)),url(img/hero.webp) center/cover,#23272B;color:#fff;border-radius:8px;padding:44px 34px;margin-bottom:14px;border-left:8px solid var(--red)}
+.hero h1{font-size:clamp(34px,6vw,56px);line-height:1;margin-bottom:12px}.hero p{max-width:560px;color:#d3d7da;margin:0 0 18px}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px}.how div{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 16px}.how b{display:block;font:700 18px 'Barlow Condensed';text-transform:uppercase;color:var(--red)}.how span{font-size:14px;color:var(--mid)}
+.cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.cats button{font:500 14px Barlow;border:2px solid var(--line);background:#fff;border-radius:99px;padding:6px 16px;cursor:pointer}.cats .on{background:var(--ink);border-color:var(--ink);color:#fff}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}.pc{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.ph{position:relative;height:130px;display:grid;place-items:center;color:rgba(255,255,255,.85);font:700 38px 'Barlow Condensed';background:linear-gradient(135deg,#4a5057,#23272B)}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.g-FA{background:linear-gradient(135deg,#5b6168,#2c3136)}.g-PA{background:linear-gradient(135deg,#e0465a,#9e1a2c)}.g-CO{background:linear-gradient(135deg,#8c8f93,#4c5156)}.g-TI{background:linear-gradient(135deg,#b4a58f,#6f6454)}
+.lb{position:absolute;left:8px;top:8px;background:var(--warn);color:#fff;font:500 12px Barlow;padding:2px 9px;border-radius:99px;font-style:normal}
+.pb{padding:12px 14px;display:flex;flex-direction:column;gap:4px;flex:1}.pb small{color:var(--red);text-transform:uppercase;letter-spacing:1px;font-size:11px}.pb h4{margin:0;font:700 19px/1.1 'Barlow Condensed';text-transform:uppercase}.pb p{margin:0}.pb .ctl{justify-content:flex-start;margin-top:6px}
+details{margin-top:6px;font-size:13px}summary{cursor:pointer;color:var(--red)}
+.lay>.card:last-child{position:sticky;top:12px}
 footer{text-align:center;font-size:12px;color:var(--mid);padding:18px}
 </style></head><body>
 <div class="demo"><span>Concept demo · fictional company · all data is sample data</span><span><a href="../../work.html">← Back to NB Digital Labs</a> · <a href="../kalmora/">Kalmora freight ↗</a></span></div>
@@ -51,11 +62,29 @@ footer{text-align:center;font-size:12px;color:var(--mid);padding:18px}
 <div id="toast" role="status"></div>
 <script>
 const $=s=>document.querySelector(s),eur=n=>'€'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-const P=[['fb2','Adhesives','FlexBond C2 tile adhesive','bag 25 kg',9.8,640,40,'AD'],['fb1','Adhesives','FlexBond S1 flexible adhesive','bag 25 kg',14.2,320,40,'AD'],
-['tb','Façade systems','ThermoBoard EPS 100 mm','pack 6 m²',26.5,180,20,'FA'],['bc','Façade systems','BaseCoat adhesive and reinforcing mortar','bag 25 kg',10.5,520,48,'FA'],['fr','Façade systems','FacadeCoat mineral render 1.5 mm','bag 25 kg',11.9,410,48,'FA'],['mh','Façade systems','Reinforcing mesh','roll 50 m²',38,75,20,'FA'],
-['iw','Paints','InteriorWhite matt','pail 15 l',54,120,24,'PA'],['fs','Paints','FacadeShield acrylic','pail 15 l',89,95,24,'PA'],
-['dp','Coatings','DeepPrime primer','pail 10 l',38,150,30,'CO'],['as','Coatings','AquaSeal waterproofing','pail 15 kg',72,28,24,'CO'],
-['t6','Tiles','Porcelain 60×60 Cement Grey','box 1.44 m²',32.8,90,40,'TI'],['t3','Tiles','Porcelain 30×60 Warm Sand','box 1.08 m²',27,140,48,'TI']].map(a=>({id:a[0],g:a[1],n:a[2],u:a[3],p:a[4],st:a[5],pal:a[6],ab:a[7]}));
+const P=[
+['fb2','Adhesives','FlexBond C2 tile adhesive','bag 25 kg',9.8,640,40,'AD','Cementitious adhesive for floor and wall tiles indoors.','Coverage about 4 kg/m² · open time 30 min'],
+['fb1','Adhesives','FlexBond S1 flexible adhesive','bag 25 kg',14.2,320,40,'AD','Deformable adhesive for large tiles and heated floors.','Coverage about 5 kg/m² · S1 class'],
+['fr2','Adhesives','FlexBond Rapid C2F','bag 25 kg',12.4,210,40,'AD','Fast-setting adhesive, walkable after 3 hours.','Grouting after 3 h · open time 20 min'],
+['sf','Adhesives','StoneFix natural stone adhesive','bag 25 kg',16.8,150,40,'AD','White adhesive that will not stain marble or light stone.','Coverage about 5 kg/m² · white'],
+['tb','Façade systems','ThermoBoard EPS 100 mm','pack 6 m²',26.5,180,20,'FA','Expanded polystyrene board for external wall insulation.','λ 0.032 W/mK · 1000 × 500 mm'],
+['bc','Façade systems','BaseCoat adhesive and reinforcing mortar','bag 25 kg',10.5,520,48,'FA','Bonds insulation boards and embeds the mesh.','Use about 5 kg/m² · mineral'],
+['fr','Façade systems','FacadeCoat mineral render 1.5 mm','bag 25 kg',11.9,410,48,'FA','Breathable decorative top coat in white, tintable.','Use about 2.5 kg/m² · grain 1.5 mm'],
+['mh','Façade systems','Reinforcing mesh','roll 50 m²',38,75,20,'FA','Alkali-resistant glass-fibre mesh for the base coat.','160 g/m² · 1 m wide'],
+['iw','Paints','InteriorWhite matt','pail 15 l',54,120,24,'PA','High-coverage matt paint for walls and ceilings.','Coverage 10–12 m²/l · dry in 2 h'],
+['is','Paints','InteriorSoft silk','pail 15 l',62,80,24,'PA','Washable silk finish for kitchens and corridors.','Coverage 10 m²/l · class 1 scrub'],
+['fs','Paints','FacadeShield acrylic','pail 15 l',89,95,24,'PA','Weatherproof acrylic façade paint with algae protection.','Coverage 8 m²/l · water-based'],
+['mp','Paints','MetalPro anticorrosive','pail 5 l',46,64,60,'PA','Primer and finish in one for steel and iron surfaces.','Coverage 8 m²/l · recoat 6 h'],
+['dp','Coatings','DeepPrime primer','pail 10 l',38,150,30,'CO','Deep-penetration primer that evens out absorbent surfaces.','Coverage 8 m²/l · dry in 4 h'],
+['qg','Coatings','QuartzGrip primer','pail 15 kg',58,90,30,'CO','Quartz-sand primer that gives smooth surfaces grip.','Use about 0.3 kg/m²'],
+['as','Coatings','AquaSeal waterproofing','pail 15 kg',72,28,24,'CO','Flexible two-coat membrane for bathrooms and terraces.','Use about 1.5 kg/m² per coat'],
+['ss','Coatings','SilicaSeal concrete sealer','pail 10 l',64,55,30,'CO','Dust-proofing sealer for concrete floors.','Coverage 6 m²/l · clear'],
+['t6','Tiles','Porcelain 60×60 Cement Grey','box 1.44 m²',32.8,90,40,'TI','Matt porcelain tile with a concrete look, rectified.','R10 slip rating · frost resistant'],
+['t8','Tiles','Porcelain 80×80 Slate Anthracite','box 1.28 m²',44.9,70,36,'TI','Large-format dark tile for floors and façades.','R11 slip rating · 9 mm'],
+['t3','Tiles','Porcelain 30×60 Warm Sand','box 1.08 m²',27,140,48,'TI','Warm beige tile for living spaces and bathrooms.','R9 slip rating · rectified'],
+['tw','Tiles','Ceramic wall 30×60 White Gloss','box 1.44 m²',19.6,160,48,'TI','Glossy white wall tile for bathrooms and kitchens.','Wall use · 8 mm']
+].map(a=>({id:a[0],g:a[1],n:a[2],u:a[3],p:a[4],st:a[5],pal:a[6],ab:a[7],d:a[8],s:a[9]}));
+let cat='All';const CATS=['All',...new Set(P.map(p=>p.g))];
 const byId=id=>P.find(p=>p.id===id),LOWAT=30;
 const ZONES={1:['Slovenia',45],2:['Austria, Croatia',95],3:['Serbia, Hungary, Italy',160]},SLOTS=['07:00–09:00','09:00–11:00','11:00–13:00','13:00–15:00'],KM=['KM-1311','KM-2048','KM-7782'];
 const wd=n=>{let d=new Date(),k=0;while(k<n){d.setDate(d.getDate()+1);if(d.getDay()%6)k++}return d};
@@ -63,31 +92,33 @@ const dstr=d=>d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:
 const money=it=>it.reduce((a,[id,q])=>a+byId(id).p*q,0),fee=(sub,o)=>o.mode==='pickup'||sub>=1500?0:ZONES[o.zone][1];
 const h=n=>Date.now()-n*36e5;
 const SEED=()=>[
-{ref:'VQ-4106',co:'Hribar Gradnje d.o.o.',mode:'delivery',zone:1,when:dstr(wd(1)),it:[['fb2',80],['bc',40],['dp',6]],st:'New',t:h(1)},
-{ref:'VQ-4105',co:'Bau Kral GmbH',mode:'delivery',zone:2,when:dstr(wd(2)),it:[['tb',60],['fr',48],['mh',4]],st:'Picking',t:h(5)},
+{ref:'VQ-4106',city:'Maribor',co:'Hribar Gradnje d.o.o.',mode:'delivery',zone:1,when:dstr(wd(1)),it:[['fb2',80],['bc',40],['dp',6]],st:'New',t:h(1)},
+{ref:'VQ-4105',city:'Graz',co:'Bau Kral GmbH',mode:'delivery',zone:2,when:dstr(wd(2)),it:[['tb',60],['fr',48],['mh',4]],st:'Picking',t:h(5)},
 {ref:'VQ-4104',co:'Zidar Plus d.o.o.',mode:'pickup',when:dstr(wd(1))+' · 09:00–11:00',it:[['iw',8],['dp',4]],st:'Ready',t:h(9)},
-{ref:'VQ-4103',co:'Kovač Fasade',mode:'delivery',zone:1,when:dstr(wd(1)),it:[['fs',10],['fr',30]],st:'Ready',t:h(20)},
-{ref:'VQ-4102',co:'Alpen Renovation',mode:'delivery',zone:3,when:'last week',it:[['t6',60],['fb1',24]],st:'Dispatched',km:KM[0],t:h(60)},
+{ref:'VQ-4103',city:'Ljubljana',co:'Kovač Fasade',mode:'delivery',zone:1,when:dstr(wd(1)),it:[['fs',10],['fr',30]],st:'Ready',t:h(20)},
+{ref:'VQ-4102',city:'Trieste',co:'Alpen Renovation',mode:'delivery',zone:3,when:'last week',it:[['t6',60],['fb1',24]],st:'Dispatched',km:'KM-3101',eta:'Delivered',pal:3,shipSt:'Delivered',t:h(60)},
 {ref:'VQ-4101',co:'Dom Invest d.o.o.',mode:'pickup',when:'last week',it:[['as',6],['bc',20]],st:'Collected',t:h(80)}].map(o=>({...o,sub:money(o.it),fee:fee(money(o.it),o)}));
 let S,role='owner',tab='dash',mode='order',step=1,cart={},O={mode:'pickup',zone:1,date:'',slot:SLOTS[0]},C={},LOG=[];
 const load=()=>{try{const j=JSON.parse(localStorage.getItem('vq-demo-v1')||'null');if(j&&Date.now()-j.t<864e5){S=j;return}}catch(e){}S={t:Date.now(),orders:SEED(),stock:Object.fromEntries(P.map(p=>[p.id,p.st]))}};
-const save=()=>{try{localStorage.setItem('vq-demo-v1',JSON.stringify(S))}catch(e){}};load();
+const save=()=>{try{localStorage.setItem('vq-demo-v1',JSON.stringify(S));localStorage.setItem('vq-ship',JSON.stringify(S.orders.filter(o=>o.km).map(o=>({ref:o.km,fr:'Ljubljana',to:o.city||'Ljubljana',pal:o.pal||1,ord:o.ref,when:o.when,eta:o.eta||'',st:o.shipSt||'In transit'}))))}catch(e){}};load();save();
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2800)}
 const sw=p=>`<span class="sw">${p.ab}<img src="img/${p.id}.webp" alt="" onerror="this.remove()"></span>`;
 const cartIt=()=>Object.entries(cart).filter(([,q])=>q>0);
 /* ---------- order wizard ---------- */
+function hero(){return `<section class="hero"><h1>Materials for people who build.</h1><p>Adhesives, façade systems, paints, coatings and tiles for contractors in Slovenia, Austria and the Western Balkans. Order online, collect in Ljubljana or have it delivered with Kalmora.</p><button class="btn p" id="go">Browse the catalogue</button></section><section class="how"><div><b>1 · Choose</b><span>Products and quantities, by unit or by pallet.</span></div><div><b>2 · Pickup or delivery</b><span>Collect in Ljubljana or book a delivery slot.</span></div><div><b>3 · We handle the rest</b><span>We pick, pack and hand over to Kalmora freight with live tracking.</span></div></section>`}
 function order(){const it=cartIt(),sub=money(it),f=it.length?fee(sub,O):0,box=`<div class="card"><h3>Your order</h3><table class="sum">${it.map(([id,q])=>`<tr><td>${q} × ${byId(id).n}</td><td align="right">${eur(byId(id).p*q)}</td></tr>`).join('')||'<tr><td class="mut">Nothing added yet.</td></tr>'}<tr class="t"><td>Goods</td><td align="right">${eur(sub)}</td></tr>${step>1?`<tr><td>${O.mode==='pickup'?'Pickup':'Delivery'}</td><td align="right">${f?eur(f):'Free'}</td></tr><tr class="t"><td>Total excl. VAT</td><td align="right">${eur(sub+f)}</td></tr>`:''}</table><p class="mut">Prices exclude VAT. Minimum order €150. Free delivery from €1,500.</p></div>`;
  const nav=['Products','Delivery','Company','Review'].map((s,i)=>`<span class="${i+1===step?'on':i+1<step?'done':''}">${i+1}. ${s}</span>`).join('');
  let b='';
- if(step===1){b=[...new Set(P.map(p=>p.g))].map(g=>`<h3 class="grp">${g}</h3>`+P.filter(p=>p.g===g).map(p=>{const av=S.stock[p.id];return `<div class="row">${sw(p)}<div>${p.n}<small>${p.u} · ${eur(p.p)} · <span class="${av<=LOWAT?'low':''}">${av>0?av+' in stock':'out of stock'}</span></small></div><div class="ctl"><button data-q="${p.id}" data-d="-1">−</button><input type="number" min="0" max="${av}" value="${cart[p.id]||0}" data-i="${p.id}" aria-label="Quantity"><button data-q="${p.id}" data-d="1">+</button><button class="pal" data-q="${p.id}" data-d="${p.pal}" title="One pallet">+ pallet (${p.pal})</button></div></div>`}).join('')).join('')}
+ if(step===1){b=`<div class="cats">${CATS.map(c=>`<button class="${c===cat?'on':''}" data-cat="${c}">${c}</button>`).join('')}</div><div class="pg" id="cat">${P.filter(p=>cat==='All'||p.g===cat).map(p=>{const av=S.stock[p.id];return `<div class="pc"><div class="ph g-${p.ab}"><span>${p.ab}</span><img src="img/${p.id}.webp" alt="" loading="lazy" onerror="this.remove()">${av<=LOWAT?`<em class="lb">${av>0?'Only '+av+' left':'Out of stock'}</em>`:''}</div><div class="pb"><small>${p.g}</small><h4>${p.n}</h4><p class="mut">${p.u} · <b>${eur(p.p)}</b></p><div class="ctl"><button data-q="${p.id}" data-d="-1">−</button><input type="number" min="0" max="${av}" value="${cart[p.id]||0}" data-i="${p.id}" aria-label="Quantity"><button data-q="${p.id}" data-d="1">+</button><button class="pal" data-q="${p.id}" data-d="${p.pal}" title="One pallet">+ pallet</button></div><details><summary>Details</summary><p>${p.d}</p><p class="mut">${p.s} · ${p.pal} per pallet</p></details></div></div>`}).join('')}</div>`}
  if(step===2){const days=[2,3,4,5,6].map(n=>dstr(wd(n)));if(!O.date)O.date=days[0];
   b=`<div class="opt"><label class="${O.mode==='pickup'?'on':''}"><input type="radio" name="md" value="pickup" ${O.mode==='pickup'?'checked':''}>Pickup at our warehouse<br><span class="mut">Ljubljana · free · Mon–Fri</span></label><label class="${O.mode==='delivery'?'on':''}"><input type="radio" name="md" value="delivery" ${O.mode==='delivery'?'checked':''}>Delivery to site<br><span class="mut">By Kalmora freight</span></label></div>
   ${O.mode==='delivery'?`<label>Delivery zone</label><select id="zn">${Object.entries(ZONES).map(([k,v])=>`<option value="${k}" ${+O.zone===+k?'selected':''}>Zone ${k} · ${v[0]} · ${eur(v[1])}</option>`).join('')}</select>`:''}
   <div class="two"><div><label>${O.mode==='pickup'?'Pickup':'Delivery'} date</label><select id="dt">${days.map(d=>`<option ${O.date===d?'selected':''}>${d}</option>`).join('')}</select></div>${O.mode==='pickup'?`<div><label>Time slot</label><select id="sl">${SLOTS.map(s=>`<option ${O.slot===s?'selected':''}>${s}</option>`).join('')}</select></div>`:''}</div>`}
- if(step===3){const F=[['co','Company name'],['vat','VAT ID (e.g. SI12345678)'],['nm','Contact person'],['em','Email'],['ad','Site address (delivery)']].filter(f=>f[0]!=='ad'||O.mode==='delivery');b=`<div class="two">${F.map(f=>`<div><label>${f[1]}</label><input data-c="${f[0]}" value="${C[f[0]]||''}"></div>`).join('')}</div><p class="mut">Demo only: nothing is sent anywhere.</p>`}
- if(step===4){b=`<h3>Review</h3><p>${O.mode==='pickup'?'Pickup':'Delivery'}: <b>${O.date}${O.mode==='pickup'?' · '+O.slot:''}</b>${O.mode==='delivery'?` · Zone ${O.zone} · ${C.ad||''}`:''}</p><p>${C.co} · VAT ${C.vat} · ${C.nm} (${C.em})</p><p class="mut">Check the list on the right, then confirm. Stock is reserved straight away.</p>`}
- return `<div class="steps">${nav}</div><div class="lay"><div class="card">${b}<div class="acts"><button class="btn" id="bk" ${step===1?'disabled':''}>Back</button><button class="btn p" id="nx">${step===4?'Confirm order':'Continue'}</button></div></div>${box}</div>`}
-function bindOrder(){document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{const id=b.dataset.q,n=Math.max(0,Math.min(S.stock[id],(cart[id]||0)+ +b.dataset.d));cart[id]=n;render()});
+ if(step===3){const F=[['co','Company name'],['vat','VAT ID (e.g. SI12345678)'],['nm','Contact person'],['em','Email'],['ad','Site address (delivery)'],['ct','City (delivery)']].filter(f=>!['ad','ct'].includes(f[0])||O.mode==='delivery');b=`<div class="two">${F.map(f=>`<div><label>${f[1]}</label><input data-c="${f[0]}" value="${C[f[0]]||''}"></div>`).join('')}</div><p class="mut">Demo only: nothing is sent anywhere.</p>`}
+ if(step===4){b=`<h3>Review</h3><p>${O.mode==='pickup'?'Pickup':'Delivery'}: <b>${O.date}${O.mode==='pickup'?' · '+O.slot:''}</b>${O.mode==='delivery'?` · Zone ${O.zone} · ${C.ad||''}, ${C.ct||''}`:''}</p><p>${C.co} · VAT ${C.vat} · ${C.nm} (${C.em})</p><p class="mut">Check the list on the right, then confirm. Stock is reserved straight away.</p>`}
+ return `${step===1?hero():''}<div class="steps">${nav}</div><div class="lay"><div class="card">${b}<div class="acts"><button class="btn" id="bk" ${step===1?'disabled':''}>Back</button><button class="btn p" id="nx">${step===4?'Confirm order':'Continue'}</button></div></div>${box}</div>`}
+function bindOrder(){document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{cat=b.dataset.cat;render()});const gg=$('#go');if(gg)gg.onclick=()=>$('#cat').scrollIntoView({behavior:'smooth'});
+ document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{const id=b.dataset.q,n=Math.max(0,Math.min(S.stock[id],(cart[id]||0)+ +b.dataset.d));cart[id]=n;render()});
  document.querySelectorAll('[data-i]').forEach(i=>i.onchange=()=>{cart[i.dataset.i]=Math.max(0,Math.min(S.stock[i.dataset.i],+i.value||0));render()});
  document.querySelectorAll('[name=md]').forEach(r=>r.onchange=()=>{O.mode=r.value;render()});
  const z=$('#zn');if(z)z.onchange=()=>{O.zone=+z.value;render()};const d=$('#dt');if(d)d.onchange=()=>O.date=d.value;const s=$('#sl');if(s)s.onchange=()=>O.slot=s.value;
@@ -95,9 +126,9 @@ function bindOrder(){document.querySelectorAll('[data-q]').forEach(b=>b.onclick=
  $('#bk').onclick=()=>{step--;render()};
  $('#nx').onclick=()=>{const it=cartIt(),sub=money(it);
   if(step===1&&sub<150)return toast('Minimum order is €150. Add more products.');
-  if(step===3){const need=['co','vat','nm','em'].concat(O.mode==='delivery'?['ad']:[]);if(need.some(k=>!(C[k]||'').trim()))return toast('Please fill in all company fields.')}
+  if(step===3){const need=['co','vat','nm','em'].concat(O.mode==='delivery'?['ad','ct']:[]);if(need.some(k=>!(C[k]||'').trim()))return toast('Please fill in all company fields.')}
   if(step<4){step++;return render()}
-  const no=4100+S.orders.length+1,o={ref:'VQ-'+no,co:C.co,mode:O.mode,zone:O.zone,when:O.date+(O.mode==='pickup'?' · '+O.slot:''),it,st:'New',t:Date.now(),sub,fee:fee(sub,O)};
+  const no=4100+S.orders.length+1,o={ref:'VQ-'+no,city:C.ct||'Ljubljana',co:C.co,mode:O.mode,zone:O.zone,when:O.date+(O.mode==='pickup'?' · '+O.slot:''),it,st:'New',t:Date.now(),sub,fee:fee(sub,O)};
   it.forEach(([id,q])=>S.stock[id]-=q);S.orders.unshift(o);save();LOG.unshift(`${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})} · Web order ${o.ref} placed by ${o.co}`);
   $('#app').innerHTML=`<div class="card" style="max-width:640px;margin:0 auto;text-align:center"><h2>Order received</h2><p>Your reference is <b>${o.ref}</b>.</p><p>${o.mode==='pickup'?'We will have it ready at the warehouse on':'We will deliver on'} <b>${o.when}</b>.</p>${o.mode==='delivery'?'<p class="mut">Delivery is arranged with Kalmora freight. You will get a KM tracking reference when the order is dispatched.</p>':''}<p class="mut">Open Staff login to see this order from the inside.</p><button class="btn p" id="ns">Start a new order</button> <button class="btn" id="gs">Staff login</button></div>`;
   $('#ns').onclick=()=>{cart={};C={};step=1;render()};$('#gs').onclick=()=>{cart={};C={};step=1;setMode('staff')}}}
@@ -108,20 +139,20 @@ const stamp=()=>new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-
 const lowList=()=>P.filter(p=>S.stock[p.id]<=LOWAT);
 function actBtn(o){const n=NEXT[o.st];if(!n)return '';const lab=o.st==='Ready'?(o.mode==='pickup'?'Confirm pickup':'Dispatch with Kalmora'):n[1];return `<button class="btn p" data-a="${o.ref}">${lab}</button>`}
 function advance(ref){const o=S.orders.find(x=>x.ref===ref),n=NEXT[o.st];if(!n[2].includes(role)){LOG.unshift(`${stamp()} · ${ROLES[role]} tried to move ${ref} · blocked`);return toast(`Access denied for ${ROLES[role]}. The attempt was logged.`)}
- if(o.st==='Ready'){if(o.mode==='pickup')o.st='Collected';else{o.st='Dispatched';o.km=KM[S.orders.filter(x=>x.km).length%3]}}else o.st=n[0];
+ if(o.st==='Ready'){if(o.mode==='pickup')o.st='Collected';else{o.st='Dispatched';o.km='KM-'+(3101+S.orders.filter(x=>x.km).length);o.eta=dstr(wd(2));o.pal=Math.max(1,Math.ceil(o.it.reduce((a,[id,q])=>a+q/byId(id).pal,0)));o.shipSt='In transit'}}else o.st=n[0];
  LOG.unshift(`${stamp()} · ${ROLES[role]} moved ${ref} to ${o.st}`);save();toast(`${ref} is now ${o.st}${o.km?' · '+o.km:''}`);render()}
 function dash(){const c=s=>S.orders.filter(o=>o.st===s).length,rev=S.orders.reduce((a,o)=>a+o.sub+o.fee,0),low=lowList();
  return `<div class="kpis"><div class="card kpi"><b>${c('New')}</b><span>New, to release</span></div><div class="card kpi"><b>${c('Picking')}</b><span>In picking</span></div><div class="card kpi"><b>${c('Ready')}</b><span>Ready to hand over</span></div>${role==='owner'?`<div class="card kpi"><b>${eur(rev).replace('.00','')}</b><span>Order value (sample week)</span></div>`:''}</div>
  <div class="grid2"><div class="card"><h3>Low stock</h3><ul class="l">${low.map(p=>`<li><span>${p.n}</span><b class="low">${S.stock[p.id]} left</b></li>`).join('')||'<li>All stock levels are fine.</li>'}</ul></div>
  <div class="card"><h3>${role==='owner'?'Activity and access log':'Your tasks'}</h3>${role==='owner'?`<ul class="l">${LOG.slice(0,6).map(l=>`<li>${l}</li>`).join('')||'<li class="mut">Nothing yet. Move an order, or try another role.</li>'}</ul>`:`<p class="mut">${role==='sales'?'Release new orders to the warehouse and hand over ready ones.':'Pick released orders, mark them ready and book new stock in.'}</p>`}</div></div>`}
-function orders(){const wh=role==='wh';return `<div class="card wrap"><table><tr><th>Ref</th><th>Customer</th><th>Goods</th><th>${wh?'':'Total'}</th><th>Handover</th><th>Status</th><th></th></tr>${S.orders.map(o=>`<tr><td>${o.ref}</td><td>${o.co}</td><td class="mut">${o.it.map(([id,q])=>q+' × '+byId(id).n).join(', ')}</td><td>${wh?'':eur(o.sub+o.fee)}</td><td>${o.mode==='pickup'?'Pickup':'Delivery'} · ${o.when}${o.km?`<br><a href="../kalmora/#track">Track ${o.km} ↗</a>`:''}</td><td><span class="pill s-${o.st.slice(0,2)}">${o.st}</span></td><td>${actBtn(o)}</td></tr>`).join('')}</table></div>`}
+function orders(){const wh=role==='wh';return `<div class="card wrap"><table><tr><th>Ref</th><th>Customer</th><th>Goods</th><th>${wh?'':'Total'}</th><th>Handover</th><th>Status</th><th></th></tr>${S.orders.map(o=>`<tr><td>${o.ref}</td><td>${o.co}</td><td class="mut">${o.it.map(([id,q])=>q+' × '+byId(id).n).join(', ')}</td><td>${wh?'':eur(o.sub+o.fee)}</td><td>${o.mode==='pickup'?'Pickup':'Delivery to '+o.city} · ${o.when}${o.km?`<br><a href="../kalmora/#track" data-km="${o.km}">Track ${o.km} ↗</a>`:''}</td><td><span class="pill s-${o.st.slice(0,2)}">${o.st}</span></td><td>${actBtn(o)}</td></tr>`).join('')}</table></div>`}
 function stock(){const can=role!=='sales';return `<div class="card wrap"><table><tr><th>Product</th><th>Group</th><th>Unit</th><th>In stock</th><th></th></tr>${P.map(p=>`<tr><td>${p.n}</td><td>${p.g}</td><td>${p.u}</td><td class="${S.stock[p.id]<=LOWAT?'low':''}"><b>${S.stock[p.id]}</b>${S.stock[p.id]<=LOWAT?' · low':''}</td><td>${can?`<button class="btn" data-r="${p.id}">+ 1 pallet (${p.pal})</button>`:''}</td></tr>`).join('')}</table></div>`}
 function staff(){const tb=Object.keys(TABS).map(k=>{const ok=ACC[role].includes(k);return `<button class="${k===tab?'on':''} ${ok?'':'lock'}" data-t="${k}">${ok?'':'🔒 '}${TABS[k]}</button>`}).join('');
  return `<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px"><label style="margin:0">Signed in as <select id="rl" style="width:auto;display:inline-block">${Object.entries(ROLES).map(([k,v])=>`<option value="${k}" ${k===role?'selected':''}>${v}</option>`).join('')}</select></label><button class="btn" id="rs">Reset demo data</button></div><div class="tabs">${tb}</div>${{dash,orders,stock}[tab]()}`}
 function bindStaff(){$('#rl').onchange=e=>{role=e.target.value;if(!ACC[role].includes(tab))tab='dash';render();toast('Now viewing as '+ROLES[role])};
  $('#rs').onclick=()=>{try{localStorage.removeItem('vq-demo-v1')}catch(e){}load();LOG=[];render();toast('Demo data reset')};
  document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{const k=b.dataset.t;if(!ACC[role].includes(k)){LOG.unshift(`${stamp()} · ${ROLES[role]} tried to open ${TABS[k]} · blocked`);return toast(`Access denied for ${ROLES[role]}. The attempt was logged.`)}tab=k;render()});
- document.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>advance(b.dataset.a));
+ document.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>advance(b.dataset.a));document.querySelectorAll('[data-km]').forEach(a=>a.onclick=()=>{try{localStorage.setItem('km-prefill',a.dataset.km)}catch(e){}});
  document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{const p=byId(b.dataset.r);S.stock[p.id]+=p.pal;LOG.unshift(`${stamp()} · ${ROLES[role]} booked in ${p.pal} × ${p.n}`);save();toast('Stock updated');render()})}
 function setMode(m){mode=m;$('#m-order').classList.toggle('on',m==='order');$('#m-staff').classList.toggle('on',m==='staff');history.replaceState(null,'',m==='staff'?'#staff':location.pathname);render()}
 function render(){const a=$('#app'),y=scrollY;if(mode==='order'){a.innerHTML=order();bindOrder()}else{a.innerHTML=staff();bindStaff()}scrollTo(0,y)}

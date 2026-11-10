@@ -41,12 +41,13 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;p
 ul.l{list-style:none;margin:0;padding:0}ul.l li{padding:7px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
 .mut{color:var(--mid);font-size:13px}.ok{color:var(--ok);font-weight:500}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0));transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:6px;opacity:0;transition:.25s;pointer-events:none;max-width:90vw;z-index:9}#toast.show{opacity:1;transform:translate(-50%,0)}
-.hero{background:linear-gradient(115deg,rgba(35,39,43,.94) 55%,rgba(35,39,43,.55)),url(img/hero.webp) center/cover,#23272B;color:#fff;border-radius:8px;padding:44px 34px;margin-bottom:14px;border-left:8px solid var(--red)}
+.hero{background:linear-gradient(100deg,rgba(35,39,43,.93) 0%,rgba(35,39,43,.86) 42%,rgba(35,39,43,.18) 78%),url(img/hero.webp) center 72%/cover,#23272B;color:#fff;border-radius:8px;padding:44px 34px;margin-bottom:14px;border-left:8px solid var(--red)}
+@media(max-width:700px){.hero{background:linear-gradient(rgba(35,39,43,.9),rgba(35,39,43,.82)),url(img/hero.webp) center 72%/cover,#23272B;padding:30px 20px}}
 .hero h1{font-size:clamp(34px,6vw,56px);line-height:1;margin-bottom:12px}.hero p{max-width:560px;color:#d3d7da;margin:0 0 18px}
 .how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px}.how div{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 16px}.how b{display:block;font:700 18px 'Barlow Condensed';text-transform:uppercase;color:var(--red)}.how span{font-size:14px;color:var(--mid)}
 .cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.cats button{font:500 14px Barlow;border:2px solid var(--line);background:#fff;border-radius:99px;padding:6px 16px;cursor:pointer}.cats .on{background:var(--ink);border-color:var(--ink);color:#fff}
 .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}.pc{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
-.ph{position:relative;height:130px;display:grid;place-items:center;color:rgba(255,255,255,.85);font:700 38px 'Barlow Condensed';background:linear-gradient(135deg,#4a5057,#23272B)}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph{position:relative;aspect-ratio:3/2;display:grid;place-items:center;color:rgba(255,255,255,.85);font:700 38px 'Barlow Condensed';background:linear-gradient(135deg,#4a5057,#23272B)}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .g-FA{background:linear-gradient(135deg,#5b6168,#2c3136)}.g-PA{background:linear-gradient(135deg,#e0465a,#9e1a2c)}.g-CO{background:linear-gradient(135deg,#8c8f93,#4c5156)}.g-TI{background:linear-gradient(135deg,#b4a58f,#6f6454)}
 .lb{position:absolute;left:8px;top:8px;background:var(--warn);color:#fff;font:500 12px Barlow;padding:2px 9px;border-radius:99px;font-style:normal}
 .pb{padding:12px 14px;display:flex;flex-direction:column;gap:4px;flex:1}.pb small{color:var(--red);text-transform:uppercase;letter-spacing:1px;font-size:11px}.pb h4{margin:0;font:700 19px/1.1 'Barlow Condensed';text-transform:uppercase}.pb p{margin:0}.pb .ctl{justify-content:flex-start;margin-top:6px}
@@ -83,7 +84,7 @@ const P=[
 ['fs','Paints','FacadeShield acrylic','pail 15 l',89,95,24,'PA','Weatherproof acrylic façade paint with algae protection.','Coverage 8 m²/l · water-based'],
 ['mp','Paints','MetalPro anticorrosive','pail 5 l',46,64,60,'PA','Primer and finish in one for steel and iron surfaces.','Coverage 8 m²/l · recoat 6 h'],
 ['dp','Coatings','DeepPrime primer','pail 10 l',38,150,30,'CO','Deep-penetration primer that evens out absorbent surfaces.','Coverage 8 m²/l · dry in 4 h'],
-['qg','Coatings','QuartzGrip primer','pail 15 kg',58,90,30,'CO','Quartz-sand primer that gives smooth surfaces grip.','Use about 0.3 kg/m²'],
+['qg','Coatings','QuartzGrip quartz coating','pail 15 kg',58,90,30,'CO','Textured quartz-sand coating with a grippy, decorative finish.','Use about 2 kg/m² · fine grain'],
 ['as','Coatings','AquaSeal waterproofing','pail 15 kg',72,28,24,'CO','Flexible two-coat membrane for bathrooms and terraces.','Use about 1.5 kg/m² per coat'],
 ['ss','Coatings','SilicaSeal concrete sealer','pail 10 l',64,55,30,'CO','Dust-proofing sealer for concrete floors.','Coverage 6 m²/l · clear'],
 ['t6','Tiles','Porcelain 60×60 Cement Grey','box 1.44 m²',32.8,90,40,'TI','Matt porcelain tile with a concrete look, rectified.','R10 slip rating · frost resistant'],

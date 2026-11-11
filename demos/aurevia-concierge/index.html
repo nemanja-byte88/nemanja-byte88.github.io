@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aurevia Concierge · Concept demo · NB Digital Labs</title>
+<style>
+:root{--bg:#02100f;--panel:#041a19;--line:#0f4a47;--txt:#cfeeea;--dim:#7fa8a3;--g:#39e75f;--t:#19c3b0;--c:#22d3ee;
+--mono:"JetBrains Mono","SF Mono",Consolas,"Liberation Mono",monospace}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:radial-gradient(1200px 600px at 70% -10%,#06403d 0,transparent 60%),var(--bg);color:var(--txt);font-family:var(--mono);font-size:14px;line-height:1.55;min-height:100vh}
+.wrap{max-width:1120px;margin:0 auto;padding:24px 20px 56px}
+.crumb{color:var(--dim);font-size:12px}
+.crumb a{color:var(--t);text-decoration:none}
+h1{font-size:26px;margin:14px 0 6px}
+.sub{color:var(--dim);max-width:62ch;margin:0 0 22px}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tabs button{background:transparent;border:1px solid var(--line);color:var(--txt);font:inherit;padding:8px 14px;border-radius:8px;cursor:pointer}
+.tabs button[aria-pressed=true]{border-color:var(--g);color:var(--g);box-shadow:0 0 0 1px var(--g) inset}
+.tabs button:focus-visible,.opts button:focus-visible,.send:focus-visible,.go:focus-visible,input:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.grid{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:24px;align-items:start}
+.phone{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column;height:640px}
+.hd{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--hbg,#062624)}
+.av{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#02100f;display:grid;place-items:center;font-weight:700}
+.hd b{display:block;font-size:14px}.hd small{color:var(--dim);font-size:11px}
+#chat{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;background:var(--cbg,#031615)}
+.m{max-width:82%;padding:9px 12px;border-radius:12px;white-space:pre-wrap;word-wrap:break-word}
+.m.bot{background:var(--bot);align-self:flex-start;border-bottom-left-radius:3px}
+.m.user{background:var(--usr);align-self:flex-end;border-bottom-right-radius:3px}
+.m.typ{color:var(--dim);font-style:italic}
+.opts{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;border-top:1px solid var(--line);min-height:50px}
+.opts button{background:transparent;border:1px solid var(--acc);color:var(--acc);font:inherit;font-size:12px;padding:6px 10px;border-radius:999px;cursor:pointer}
+.opts button:hover{background:var(--acc);color:#02100f}
+.in{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.in input{flex:1;background:#021211;border:1px solid var(--line);border-radius:8px;color:var(--txt);font:inherit;padding:9px 10px;min-width:0}
+.send{background:var(--acc);color:#02100f;border:0;border-radius:8px;font:inherit;font-weight:700;padding:0 14px;cursor:pointer}
+body[data-ch=telegram]{--acc:#4cb4ff;--bot:#182533;--usr:#2b5278;--hbg:#17212b;--cbg:#0e1621}
+body[data-ch=whatsapp]{--acc:#25d366;--bot:#202c33;--usr:#005c4b;--hbg:#202c33;--cbg:#0b141a}
+body[data-ch=web]{--acc:#39e75f;--bot:#0a2b29;--usr:#0f5a4a;--hbg:#062624;--cbg:#031615}
+.side{display:grid;gap:18px}
+.box{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:rgba(4,26,25,.7)}
+.box h2{font-size:15px;margin:0 0 4px}
+.box p{margin:0 0 12px;color:var(--dim);font-size:12.5px}
+ol.st{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+ol.st li{display:flex;gap:10px;align-items:center;color:var(--dim);transition:color .25s}
+ol.st li i{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--line);flex:none;transition:all .25s}
+ol.st li.on{color:var(--txt)}
+ol.st li.on i{background:var(--g);border-color:var(--g);box-shadow:0 0 10px var(--g)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line)}
+th{color:var(--dim);font-weight:400}
+td.empty{color:var(--dim);text-align:center;padding:16px}
+.tag{border:1px solid var(--t);color:var(--t);border-radius:999px;padding:1px 8px;font-size:11px}
+.tag.l{border-color:var(--c);color:var(--c)}
+.go{display:inline-block;margin-top:12px;border:1px solid var(--t);color:var(--t);padding:7px 12px;border-radius:8px;text-decoration:none;font-size:12px}
+.go:hover{background:var(--t);color:#02100f}
+.note{color:var(--dim);font-size:12px;margin-top:22px}
+.foot{margin-top:28px}
+@media (max-width:860px){.grid{grid-template-columns:1fr}.phone{height:560px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body data-ch="telegram">
+<div class="wrap">
+  <div class="crumb"><a href="../../work.html">Work with me</a> / <a href="../../work.html">Automation &amp; Bots</a> / Aurevia Concierge</div>
+  <h1>Aurevia Concierge</h1>
+  <p class="sub">One bot for the resort’s guests, on the channel they already use. Answer questions, take a booking, capture a lead, and hand it to the back office.</p>
+
+  <div class="tabs" role="group" aria-label="Channel">
+    <button data-ch="telegram" aria-pressed="true">Telegram</button>
+    <button data-ch="whatsapp" aria-pressed="false">WhatsApp</button>
+    <button data-ch="web" aria-pressed="false">Website chat</button>
+  </div>
+
+  <div class="grid">
+    <section class="phone" aria-label="Chat demo">
+      <div class="hd"><div class="av">A</div><div><b id="bname">Aurevia Concierge</b><small id="bstat">bot · online</small></div></div>
+      <div id="chat" aria-live="polite"></div>
+      <div class="opts" id="opts"></div>
+      <div class="in"><input id="txt" placeholder="Type a message…" autocomplete="off" aria-label="Message"><button class="send" id="send">Send</button></div>
+    </section>
+
+    <div class="side">
+      <section class="box">
+        <h2>What happens behind the scenes</h2>
+        <p>Every message goes through the same steps, whichever channel it comes from.</p>
+        <ol class="st" id="steps">
+          <li><i></i>Message received</li>
+          <li><i></i>Request understood</li>
+          <li><i></i>Availability checked</li>
+          <li><i></i>Booking created</li>
+          <li><i></i>Confirmation sent to the guest</li>
+          <li><i></i>Added to the back office</li>
+        </ol>
+      </section>
+      <section class="box">
+        <h2>Back office</h2>
+        <p>New bookings and leads land here as soon as the guest finishes.</p>
+        <table><thead><tr><th>Ref</th><th>Guest</th><th>Details</th><th>Type</th></tr></thead>
+        <tbody id="rows"><tr><td class="empty" colspan="4">Nothing yet. Book a room in the chat.</td></tr></tbody></table>
+        <a class="go" href="../aurevia-ops/">Open Aurevia Operations ↗</a>
+      </section>
+    </div>
+  </div>
+
+  <p class="note">Concept demo. Replies are scripted, no real messages are sent and nothing is stored. Aurevia is a fictional resort.</p>
+  <div class="foot"><a class="go" href="../../work.html">← Go back</a></div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const chat=$('#chat'),opts=$('#opts'),txt=$('#txt'),rows=$('#rows');
+const names={telegram:['Aurevia Concierge','bot · online'],whatsapp:['Aurevia Resort','Business account · online'],web:['Concierge','Typically replies in seconds']};
+const ROOMS=[['Olive Suite','€140 / night · 2 guests, terrace'],['Vineyard Room','€115 / night · 2 guests, garden view'],['Cypress Family Loft','€190 / night · up to 5 guests, two bedrooms']];
+let ch='telegram',b={},waiting=null,gen=0,hasRows=false;
+
+function bubble(t,who){const d=document.createElement('div');d.className='m '+who;d.textContent=t;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d}
+function light(n){document.querySelectorAll('#steps li').forEach((li,i)=>li.classList.toggle('on',i<=n))}
+function setOpts(list){opts.innerHTML='';list.forEach(o=>{const x=document.createElement('button');x.textContent=o[0];x.onclick=()=>pick(o[0],o[1]);opts.appendChild(x)})}
+function bot(text,list,cb){const id=gen;setOpts([]);const t=bubble('typing…','bot typ');setTimeout(()=>{if(id!==gen)return;t.remove();bubble(text,'bot');setOpts(list||[]);if(cb)cb()},600)}
+function pick(label,fn){bubble(label,'user');setOpts([]);light(1);fn(label)}
+function menu(){return[['Book a room',askDates],['Rooms & rates',rooms],['Family activities',acts],['Check-in & breakfast',info]]}
+function more(t){bot(t||'Anything else I can help with?',menu())}
+
+function start(){gen++;chat.innerHTML='';b={};waiting=null;light(-1);
+  bot('Welcome to Aurevia Family Resort in Tuscany. I’m the concierge bot. How can I help?',menu())}
+function rooms(){bot(ROOMS.map(r=>r[0]+'\n'+r[1]).join('\n\n'),[['Book a room',askDates],['Back to menu',()=>more()]])}
+function acts(){bot('Guests enjoy:\n• Pasta and pizza evenings with the family kitchen\n• Olive grove walks for all ages\n• Pool and kids’ garden\n• Day trips to Siena and Val d’Orcia',[['Book a room',askDates],['Back to menu',()=>more()]])}
+function info(){bot('Check-in is from 15:00 and check-out by 11:00. Breakfast is served 07:30–10:30 with local produce. Late arrival? Tell us and we’ll leave the key.',[['Book a room',askDates],['Back to menu',()=>more()]])}
+
+function askDates(){light(1);bot('Lovely! When would you like to stay?',['This weekend','Next week','In two weeks'].map(d=>[d,guests]))}
+function guests(d){b.dates=d;bot('How many guests?',['2 guests','3–4 guests','5+ guests'].map(g=>[g,pickRoom]))}
+function pickRoom(g){b.guests=g;light(2);
+  const list=g==='5+ guests'?[ROOMS[2]]:ROOMS;
+  bot('Here is what’s free for '+b.dates.toLowerCase()+':',list.map(r=>[r[0]+' · '+r[1].split(' · ')[0],()=>askName(r[0])]))}
+function askName(r){b.room=r;waiting='name';bot('Good choice. What name should I put the booking under?',[['Use a sample name',()=>done('Ana Petrović')]])}
+function done(name){waiting=null;b.name=name;const ref='AUR-'+(1000+Math.floor(Math.random()*9000));
+  light(3);
+  bot('Booked. '+b.room+', '+b.dates.toLowerCase()+', '+b.guests+'.\nReference: '+ref+'\nName: '+name,[],()=>{
+    light(4);setTimeout(()=>{light(5);addRow(ref,name,b.room+' · '+b.dates,'Booking');more('A confirmation is on its way. Anything else?')},500)})}
+function addRow(ref,who,det,type){if(!hasRows){rows.innerHTML='';hasRows=true}
+  const tr=document.createElement('tr');tr.innerHTML='<td></td><td></td><td></td><td><span class="tag'+(type==='Lead'?' l':'')+'"></span></td>';
+  const c=tr.children;c[0].textContent=ref;c[1].textContent=who;c[2].textContent=det;c[3].firstChild.textContent=type;rows.prepend(tr)}
+
+function lead(mail){waiting=null;light(4);bot('Thanks. The team will reply to '+mail+' within a few hours.',[],()=>{light(5);addRow('LEAD-'+(100+Math.floor(Math.random()*900)),mail,b.q||'Open question','Lead');more()})}
+function handle(t){const s=t.toLowerCase();
+  if(/book|stay|reserv|available/.test(s))return askDates();
+  if(/rate|price|cost|room|suite|loft/.test(s))return rooms();
+  if(/pool|activit|kid|child|family|tour|walk/.test(s))return acts();
+  if(/check|breakfast|arriv|time|key/.test(s))return info();
+  b.q=t.length>40?t.slice(0,40)+'…':t;waiting='lead';
+  bot('Good question. I’ll pass it to the team. What email should they reply to?',[['Use a sample email',()=>lead('guest@example.com')]])}
+function send(){const t=txt.value.trim();if(!t)return;txt.value='';bubble(t,'user');setOpts([]);light(1);
+  if(waiting==='name')return done(t);
+  if(waiting==='lead')return lead(t);
+  handle(t)}
+
+$('#send').onclick=send;
+txt.addEventListener('keydown',e=>{if(e.key==='Enter')send()});
+document.querySelectorAll('.tabs button').forEach(bt=>bt.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-pressed',x===bt));
+  ch=bt.dataset.ch;document.body.dataset.ch=ch;$('#bname').textContent=names[ch][0];$('#bstat').textContent=names[ch][1];start()});
+const q=new URLSearchParams(location.search).get('ch');
+const pre=q&&document.querySelector('.tabs button[data-ch="'+q+'"]');
+if(pre)pre.click();else start();
+</script>
+</body>
+</html>

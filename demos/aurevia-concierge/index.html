@@ -1,169 +1,112 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Aurevia Concierge · Concept demo · NB Digital Labs</title>
+<meta name="description" content="Concept demo of a booking concierge bot on Telegram, WhatsApp and a website chat, connected to a resort back office. Fictional resort, built by NB Digital Labs.">
 <style>
-:root{--bg:#02100f;--panel:#041a19;--line:#0f4a47;--txt:#cfeeea;--dim:#7fa8a3;--g:#39e75f;--t:#19c3b0;--c:#22d3ee;
---mono:"JetBrains Mono","SF Mono",Consolas,"Liberation Mono",monospace}
-*{box-sizing:border-box}
-html,body{margin:0}
-body{background:radial-gradient(1200px 600px at 70% -10%,#06403d 0,transparent 60%),var(--bg);color:var(--txt);font-family:var(--mono);font-size:14px;line-height:1.55;min-height:100vh}
-.wrap{max-width:1120px;margin:0 auto;padding:24px 20px 56px}
-.crumb{color:var(--dim);font-size:12px}
-.crumb a{color:var(--t);text-decoration:none}
-h1{font-size:26px;margin:14px 0 6px}
-.sub{color:var(--dim);max-width:62ch;margin:0 0 22px}
-.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.tabs button{background:transparent;border:1px solid var(--line);color:var(--txt);font:inherit;padding:8px 14px;border-radius:8px;cursor:pointer}
-.tabs button[aria-pressed=true]{border-color:var(--g);color:var(--g);box-shadow:0 0 0 1px var(--g) inset}
-.tabs button:focus-visible,.opts button:focus-visible,.send:focus-visible,.go:focus-visible,input:focus-visible{outline:2px solid var(--c);outline-offset:2px}
-.grid{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:24px;align-items:start}
-.phone{border:1px solid var(--line);border-radius:18px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column;height:640px}
-.hd{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--hbg,#062624)}
-.av{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#02100f;display:grid;place-items:center;font-weight:700}
-.hd b{display:block;font-size:14px}.hd small{color:var(--dim);font-size:11px}
-#chat{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;background:var(--cbg,#031615)}
-.m{max-width:82%;padding:9px 12px;border-radius:12px;white-space:pre-wrap;word-wrap:break-word}
-.m.bot{background:var(--bot);align-self:flex-start;border-bottom-left-radius:3px}
-.m.user{background:var(--usr);align-self:flex-end;border-bottom-right-radius:3px}
-.m.typ{color:var(--dim);font-style:italic}
-.opts{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;border-top:1px solid var(--line);min-height:50px}
-.opts button{background:transparent;border:1px solid var(--acc);color:var(--acc);font:inherit;font-size:12px;padding:6px 10px;border-radius:999px;cursor:pointer}
-.opts button:hover{background:var(--acc);color:#02100f}
-.in{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
-.in input{flex:1;background:#021211;border:1px solid var(--line);border-radius:8px;color:var(--txt);font:inherit;padding:9px 10px;min-width:0}
-.send{background:var(--acc);color:#02100f;border:0;border-radius:8px;font:inherit;font-weight:700;padding:0 14px;cursor:pointer}
+:root{--bg:#02100f;--panel:#041a19;--line:#0f4a47;--txt:#d7f1ed;--dim:#7fa8a3;--g:#39e75f;--t:#19c3b0;--c:#22d3ee;--mono:"JetBrains Mono","SF Mono",Consolas,"Liberation Mono",monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 600px at 70% -10%,#06403d 0,transparent 60%),var(--bg);color:var(--txt);font:14px/1.55 var(--mono);min-height:100vh;padding-bottom:env(safe-area-inset-bottom,0)}
+.bar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:9px 20px;padding-top:calc(9px + env(safe-area-inset-top,0));background:#010a09;border-bottom:1px solid var(--line);color:var(--dim);font-size:12px}.bar a{color:var(--txt)}.bar a:hover{color:var(--g)}
+.wrap{max-width:1240px;margin:0 auto;padding:22px 20px 56px}h1{font-size:28px;margin:12px 0 6px}.sub{color:var(--dim);max-width:66ch;margin:0 0 20px}
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}.tabs button{background:transparent;border:1px solid var(--line);color:var(--txt);font:inherit;padding:8px 14px;border-radius:8px;cursor:pointer}.tabs button[aria-pressed=true]{border-color:var(--g);color:var(--g);box-shadow:0 0 0 1px var(--g) inset}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.grid{display:grid;grid-template-columns:380px minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:start}
+@media(max-width:1020px){.grid{grid-template-columns:minmax(0,420px);justify-content:center}}
 body[data-ch=telegram]{--acc:#4cb4ff;--bot:#182533;--usr:#2b5278;--hbg:#17212b;--cbg:#0e1621}
 body[data-ch=whatsapp]{--acc:#25d366;--bot:#202c33;--usr:#005c4b;--hbg:#202c33;--cbg:#0b141a}
 body[data-ch=web]{--acc:#39e75f;--bot:#0a2b29;--usr:#0f5a4a;--hbg:#062624;--cbg:#031615}
-.side{display:grid;gap:18px}
-.box{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:rgba(4,26,25,.7)}
-.box h2{font-size:15px;margin:0 0 4px}
-.box p{margin:0 0 12px;color:var(--dim);font-size:12.5px}
-ol.st{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-ol.st li{display:flex;gap:10px;align-items:center;color:var(--dim);transition:color .25s}
-ol.st li i{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--line);flex:none;transition:all .25s}
-ol.st li.on{color:var(--txt)}
-ol.st li.on i{background:var(--g);border-color:var(--g);box-shadow:0 0 10px var(--g)}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line)}
-th{color:var(--dim);font-weight:400}
-td.empty{color:var(--dim);text-align:center;padding:16px}
-.tag{border:1px solid var(--t);color:var(--t);border-radius:999px;padding:1px 8px;font-size:11px}
-.tag.l{border-color:var(--c);color:var(--c)}
-.go{display:inline-block;margin-top:12px;border:1px solid var(--t);color:var(--t);padding:7px 12px;border-radius:8px;text-decoration:none;font-size:12px}
-.go:hover{background:var(--t);color:#02100f}
-.note{color:var(--dim);font-size:12px;margin-top:22px}
-.foot{margin-top:28px}
-@media (max-width:860px){.grid{grid-template-columns:1fr}.phone{height:560px}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
-</head>
+.phone{border:1px solid var(--line);border-radius:26px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column;height:660px;box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 70px -18px var(--acc);transition:box-shadow .4s}
+.hd{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:10px;background:var(--hbg);font-family:var(--sans)}
+.av{width:36px;height:36px;border-radius:50%;background:var(--acc);color:#02100f;display:grid;place-items:center;font-weight:700}.hd b{display:block;font-size:15px}.hd small{color:var(--dim);font-size:12px}
+#chat{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;background:var(--cbg);font-family:var(--sans);font-size:15px}
+.m{max-width:84%;padding:8px 12px 6px;border-radius:14px;white-space:pre-wrap;word-wrap:break-word;line-height:1.4}.m.bot{background:var(--bot);align-self:flex-start;border-bottom-left-radius:4px}.m.user{background:var(--usr);align-self:flex-end;border-bottom-right-radius:4px}
+.tm{display:block;text-align:right;font-size:10.5px;color:rgba(255,255,255,.5);margin-top:2px}.tm b{color:var(--acc);font-weight:400}
+.m.typ{padding:12px 14px}.typ i{display:inline-block;width:7px;height:7px;margin:0 2px;border-radius:50%;background:var(--dim);animation:bl 1s infinite}.typ i:nth-child(2){animation-delay:.15s}.typ i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.opts{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;border-top:1px solid rgba(255,255,255,.06);min-height:52px;background:var(--hbg);font-family:var(--sans)}
+.opts button{background:transparent;border:1px solid var(--acc);color:var(--acc);font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;cursor:pointer}.opts button:hover{background:var(--acc);color:#02100f}
+.in{display:flex;gap:8px;padding:10px 12px;background:var(--hbg);font-family:var(--sans)}.in input{flex:1;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:20px;color:var(--txt);font:inherit;padding:9px 14px;min-width:0}.send{background:var(--acc);color:#02100f;border:0;border-radius:20px;font:inherit;font-weight:700;padding:0 16px;cursor:pointer}
+.box{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:rgba(4,26,25,.75);margin-bottom:16px}.box h2{font-size:15px;margin:0 0 4px}.box p{margin:0 0 12px;color:var(--dim);font-size:12.5px}
+.flow{position:relative;padding-left:30px}.rail{position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}.dot{position:absolute;left:2px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--g);box-shadow:0 0 16px var(--g);transition:top .55s cubic-bezier(.4,0,.2,1);opacity:0}.dot.on{opacity:1}
+ol.st{list-style:none;margin:0;padding:0;display:grid;gap:12px}ol.st li{color:var(--dim);transition:color .3s;min-height:38px}ol.st li.on{color:var(--txt)}ol.st .d{display:block;font-size:11.5px;color:var(--g);min-height:16px}
+.zones{display:flex;justify-content:space-between;font-size:11px;color:var(--dim);margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase}
+.log{font-size:11.5px;color:var(--dim);max-height:120px;overflow:auto;border-top:1px solid var(--line);margin-top:12px;padding-top:8px}.log div{white-space:nowrap}.log b{color:var(--c);font-weight:400}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}.kp div{border:1px solid var(--line);border-radius:10px;padding:8px 10px}.kp b{display:block;font-size:22px;color:var(--g)}.kp span{font-size:11px;color:var(--dim)}.kp .fl b{animation:fl .8s}
+@keyframes fl{0%{color:#fff;text-shadow:0 0 14px var(--g)}100%{color:var(--g)}}
+table{width:100%;border-collapse:collapse;font-size:12.5px}th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line)}th{color:var(--dim);font-weight:400}td.empty{color:var(--dim);text-align:center;padding:16px}tr.new{animation:nw 1.6s}@keyframes nw{0%{background:rgba(57,231,95,.28)}100%{background:transparent}}
+.tag{border:1px solid var(--t);color:var(--t);border-radius:999px;padding:1px 8px;font-size:11px}.tag.l{border-color:var(--c);color:var(--c)}
+.go{display:inline-block;margin-top:12px;border:1px solid var(--t);color:var(--t);padding:7px 12px;border-radius:8px;text-decoration:none;font-size:12px}.go:hover{background:var(--t);color:#02100f}
+.conf{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--dim)}.conf.on{border:1px solid var(--g);color:var(--txt);background:linear-gradient(135deg,rgba(57,231,95,.1),transparent)}.conf .t{color:var(--g);margin:0 0 8px;font-size:13px}.conf .l{display:flex;gap:10px}.conf .l b{color:var(--dim);font-weight:400;min-width:64px}
+.note{color:var(--dim);font-size:12px;margin-top:20px}.foot{margin-top:24px}
+body.emb{background:var(--cbg);padding:0}body.emb .bar,body.emb .wrap>h1,body.emb .sub,body.emb .tabs,body.emb .col,body.emb .note,body.emb .foot{display:none}body.emb .wrap{padding:0;max-width:none}body.emb .grid{display:block}body.emb .phone{height:100vh;height:100dvh;border:0;border-radius:0;box-shadow:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head>
 <body data-ch="telegram">
+<div class="bar"><span>Concept demo · fictional company · all data is sample data</span><span><a href="../../work.html">← Back to NB Digital Labs</a> · <a href="../aurevia/">Aurevia Resort ↗</a> · <a href="../aurevia-ops/">Aurevia Operations ↗</a></span></div>
 <div class="wrap">
-  <div class="crumb"><a href="../../work.html">Work with me</a> / <a href="../../work.html">Automation &amp; Bots</a> / Aurevia Concierge</div>
-  <h1>Aurevia Concierge</h1>
-  <p class="sub">One bot for the resort’s guests, on the channel they already use. Answer questions, take a booking, capture a lead, and hand it to the back office.</p>
-
-  <div class="tabs" role="group" aria-label="Channel">
-    <button data-ch="telegram" aria-pressed="true">Telegram</button>
-    <button data-ch="whatsapp" aria-pressed="false">WhatsApp</button>
-    <button data-ch="web" aria-pressed="false">Website chat</button>
-  </div>
-
-  <div class="grid">
-    <section class="phone" aria-label="Chat demo">
-      <div class="hd"><div class="av">A</div><div><b id="bname">Aurevia Concierge</b><small id="bstat">bot · online</small></div></div>
-      <div id="chat" aria-live="polite"></div>
-      <div class="opts" id="opts"></div>
-      <div class="in"><input id="txt" placeholder="Type a message…" autocomplete="off" aria-label="Message"><button class="send" id="send">Send</button></div>
-    </section>
-
-    <div class="side">
-      <section class="box">
-        <h2>What happens behind the scenes</h2>
-        <p>Every message goes through the same steps, whichever channel it comes from.</p>
-        <ol class="st" id="steps">
-          <li><i></i>Message received</li>
-          <li><i></i>Request understood</li>
-          <li><i></i>Availability checked</li>
-          <li><i></i>Booking created</li>
-          <li><i></i>Confirmation sent to the guest</li>
-          <li><i></i>Added to the back office</li>
-        </ol>
-      </section>
-      <section class="box">
-        <h2>Back office</h2>
-        <p>New bookings and leads land here as soon as the guest finishes.</p>
-        <table><thead><tr><th>Ref</th><th>Guest</th><th>Details</th><th>Type</th></tr></thead>
-        <tbody id="rows"><tr><td class="empty" colspan="4">Nothing yet. Book a room in the chat.</td></tr></tbody></table>
-        <a class="go" href="../aurevia-ops/">Open Aurevia Operations ↗</a>
-      </section>
-    </div>
-  </div>
-
-  <p class="note">Concept demo. Replies are scripted, no real messages are sent and nothing is stored. Aurevia is a fictional resort.</p>
-  <div class="foot"><a class="go" href="../../work.html">← Go back</a></div>
+<h1>Aurevia Concierge</h1>
+<p class="sub">One bot for the resort’s guests, on the channel they already use. It answers questions, takes a booking, captures a lead and hands everything to the back office.</p>
+<div class="tabs" role="group" aria-label="Channel"><button data-ch="telegram" aria-pressed="true">Telegram</button><button data-ch="whatsapp" aria-pressed="false">WhatsApp</button><button data-ch="web" aria-pressed="false">Website chat</button></div>
+<div class="grid">
+<section class="phone" aria-label="Chat demo"><div class="hd"><div class="av">A</div><div><b id="bname">Aurevia Concierge</b><small id="bstat">bot · online</small></div></div><div id="chat" aria-live="polite"></div><div class="opts" id="opts"></div><div class="in"><input id="txt" placeholder="Type a message…" autocomplete="off" aria-label="Message"><button class="send" id="send">Send</button></div></section>
+<div class="col"><section class="box"><h2>The journey of a message</h2><p>Guest → concierge bot → back office, whichever channel it comes from.</p><div class="zones"><span>Guest</span><span>Concierge bot</span><span>Back office</span></div>
+<div class="flow"><div class="rail"></div><div class="dot" id="dot"></div><ol class="st" id="steps"></ol></div><div class="log" id="log"></div></section>
+<section class="box"><h2>Guest confirmation</h2><p>What the guest receives as soon as the booking is created.</p><div class="conf" id="conf">Appears after a booking.</div></section></div>
+<div class="col"><section class="box"><h2>Back office</h2><p>New bookings and leads land here the moment the guest finishes.</p>
+<div class="kp"><div id="k1"><b>6</b><span>Bookings today</span></div><div id="k2"><b>2</b><span>New leads</span></div><div><b>1.8 s</b><span>Avg. reply</span></div></div>
+<table><thead><tr><th>Ref</th><th>Guest</th><th>Details</th><th>Type</th></tr></thead><tbody id="rows"><tr><td class="empty" colspan="4">Nothing yet. Book a room in the chat.</td></tr></tbody></table>
+<a class="go" href="../aurevia-ops/">Open Aurevia Operations ↗</a> <span class="note" style="display:block;margin-top:8px">Bookings made here also appear in Operations → Bookings.</span></section></div>
 </div>
-
+<p class="note">Concept demo. Replies are scripted and no real messages are sent. Aurevia is a fictional resort.</p>
+<div class="foot"><a class="go" href="../../work.html">← Go back</a></div>
+</div>
 <script>
-const $=s=>document.querySelector(s);
-const chat=$('#chat'),opts=$('#opts'),txt=$('#txt'),rows=$('#rows');
+const $=s=>document.querySelector(s),chat=$('#chat'),opts=$('#opts'),txt=$('#txt'),rows=$('#rows');
+const QS=new URLSearchParams(location.search),EMB=QS.get('embed')==='1';if(EMB)document.body.classList.add('emb');
 const names={telegram:['Aurevia Concierge','bot · online'],whatsapp:['Aurevia Resort','Business account · online'],web:['Concierge','Typically replies in seconds']};
-const ROOMS=[['Olive Suite','€140 / night · 2 guests, terrace'],['Vineyard Room','€115 / night · 2 guests, garden view'],['Cypress Family Loft','€190 / night · up to 5 guests, two bedrooms']];
-let ch='telegram',b={},waiting=null,gen=0,hasRows=false;
-
-function bubble(t,who){const d=document.createElement('div');d.className='m '+who;d.textContent=t;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d}
-function light(n){document.querySelectorAll('#steps li').forEach((li,i)=>li.classList.toggle('on',i<=n))}
+const ROOMS=[['Camera Ulivo','€165 / night · 2 guests, olive grove view'],['Suite Vigna','€215 / night · 2 guests, vineyard terrace'],['Casetta Famiglia','€290 / night · up to 5 guests, own garden']];
+const STEPS=['Message received','Request understood','Availability checked','Booking created','Confirmation sent','Added to the back office'];
+let ch='telegram',b={},waiting=null,gen=0,hasRows=false,kb=6,kl=2;
+const hm=()=>new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+$('#steps').innerHTML=STEPS.map(s=>`<li>${s}<span class="d"></span></li>`).join('');
+function bubble(t,who){const d=document.createElement('div');d.className='m '+who;d.append(t);if(who!=='bot typ'){const s=document.createElement('span');s.className='tm';s.append(hm()+' ');if(who==='user'&&ch!=='web'){const k=document.createElement('b');k.textContent='✓✓';s.append(k)}d.append(s)}chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d}
+function light(n,d){const li=[...document.querySelectorAll('#steps li')];li.forEach((x,i)=>x.classList.toggle('on',i<=n));const dot=$('#dot');if(n<0){dot.classList.remove('on');document.querySelectorAll('#steps .d').forEach(x=>x.textContent='');$('#log').textContent='';return}
+ dot.classList.add('on');dot.style.top=(li[n].offsetTop+4)+'px';if(d){li[n].querySelector('.d').textContent=d;const l=document.createElement('div'),bb=document.createElement('b');bb.textContent=hm()+' ';l.append(bb,STEPS[n]+' · '+d);$('#log').prepend(l)}}
 function setOpts(list){opts.innerHTML='';list.forEach(o=>{const x=document.createElement('button');x.textContent=o[0];x.onclick=()=>pick(o[0],o[1]);opts.appendChild(x)})}
-function bot(text,list,cb){const id=gen;setOpts([]);const t=bubble('typing…','bot typ');setTimeout(()=>{if(id!==gen)return;t.remove();bubble(text,'bot');setOpts(list||[]);if(cb)cb()},600)}
-function pick(label,fn){bubble(label,'user');setOpts([]);light(1);fn(label)}
+function bot(text,list,cb){const id=gen;setOpts([]);const t=document.createElement('div');t.className='m bot typ';t.innerHTML='<i></i><i></i><i></i>';chat.appendChild(t);chat.scrollTop=chat.scrollHeight;setTimeout(()=>{if(id!==gen)return;t.remove();bubble(text,'bot');setOpts(list||[]);if(cb)cb()},700)}
+const MENU=['Book a room','Rooms & rates','Family activities','Check-in & breakfast'];
+function pick(label,fn){bubble(label,'user');setOpts([]);if(MENU.includes(label)){light(0,'“'+label+'”');setTimeout(()=>light(1,'Intent: '+label.toLowerCase()),350)}fn(label)}
 function menu(){return[['Book a room',askDates],['Rooms & rates',rooms],['Family activities',acts],['Check-in & breakfast',info]]}
 function more(t){bot(t||'Anything else I can help with?',menu())}
-
-function start(){gen++;chat.innerHTML='';b={};waiting=null;light(-1);
-  bot('Welcome to Aurevia Family Resort in Tuscany. I’m the concierge bot. How can I help?',menu())}
-function rooms(){bot(ROOMS.map(r=>r[0]+'\n'+r[1]).join('\n\n'),[['Book a room',askDates],['Back to menu',()=>more()]])}
-function acts(){bot('Guests enjoy:\n• Pasta and pizza evenings with the family kitchen\n• Olive grove walks for all ages\n• Pool and kids’ garden\n• Day trips to Siena and Val d’Orcia',[['Book a room',askDates],['Back to menu',()=>more()]])}
-function info(){bot('Check-in is from 15:00 and check-out by 11:00. Breakfast is served 07:30–10:30 with local produce. Late arrival? Tell us and we’ll leave the key.',[['Book a room',askDates],['Back to menu',()=>more()]])}
-
-function askDates(){light(1);bot('Lovely! When would you like to stay?',['This weekend','Next week','In two weeks'].map(d=>[d,guests]))}
-function guests(d){b.dates=d;bot('How many guests?',['2 guests','3–4 guests','5+ guests'].map(g=>[g,pickRoom]))}
-function pickRoom(g){b.guests=g;light(2);
-  const list=g==='5+ guests'?[ROOMS[2]]:ROOMS;
-  bot('Here is what’s free for '+b.dates.toLowerCase()+':',list.map(r=>[r[0]+' · '+r[1].split(' · ')[0],()=>askName(r[0])]))}
+function start(){gen++;chat.innerHTML='';b={};waiting=null;light(-1);resetConf();bot('Welcome to Aurevia Family Resort in Tuscany. I’m the concierge bot. How can I help?',menu())}
+const menuExcept=n=>menu().filter(o=>o[0]!==n);
+function rooms(){bot(ROOMS.map(r=>r[0]+'\n'+r[1]).join('\n\n'),menuExcept('Rooms & rates'))}
+const ACTS=[['Pasta & pizza evenings','Tuesday and Friday the family kitchen opens to guests. Kids knead the dough, everyone eats together at 19:30.'],['Olive grove walks','Guided walk at 09:00, about 90 minutes and easy for all ages. It ends with an olive oil tasting.'],['Pool & kids’ garden','The pool is open 09:00–19:00 with a lifeguard on duty. The kids’ garden is next to it, with games and shade.'],['Day trips to Siena','Half or full day to Siena and Val d’Orcia. The front desk arranges the driver and tickets.']];
+function acts(){bot('What would you like to know more about?',ACTS.map((a,i)=>[a[0],()=>act(i)]).concat([['Back to menu',()=>more()]]))}
+function act(i){bot(ACTS[i][1],ACTS.map((a,j)=>j!==i?[a[0],()=>act(j)]:null).filter(Boolean).concat([['Book a room',askDates],['Back to menu',()=>more()]]))}
+function info(){bot('Check-in is from 15:00 and check-out by 11:00. Breakfast is served 07:30–10:30 with local produce. Late arrival? Tell us and we’ll leave the key.',menuExcept('Check-in & breakfast'))}
+function askDates(){bot('Lovely! When would you like to stay?',[['This weekend',3],['Next week',8],['In two weeks',15]].map(d=>[d[0],()=>guests(d)]))}
+function guests(d){b.dates=d[0];b.off=d[1];bot('How many guests?',['2 guests','3–4 guests','5+ guests'].map(g=>[g,()=>pickRoom(g)]))}
+function pickRoom(g){b.guests=g;const list=g==='5+ guests'?[ROOMS[2]]:g==='3–4 guests'?[ROOMS[2]]:ROOMS;
+ bot('Here is what’s free for '+b.dates.toLowerCase()+':',list.map(r=>[r[0]+' · '+r[1].split(' · ')[0],()=>{light(2,r[0]+' free ✓');askName(r[0])}]))}
 function askName(r){b.room=r;waiting='name';bot('Good choice. What name should I put the booking under?',[['Use a sample name',()=>done('Ana Petrović')]])}
-function done(name){waiting=null;b.name=name;const ref='AUR-'+(1000+Math.floor(Math.random()*9000));
-  light(3);
-  bot('Booked. '+b.room+', '+b.dates.toLowerCase()+', '+b.guests+'.\nReference: '+ref+'\nName: '+name,[],()=>{
-    light(4);setTimeout(()=>{light(5);addRow(ref,name,b.room+' · '+b.dates,'Booking');more('A confirmation is on its way. Anything else?')},500)})}
-function addRow(ref,who,det,type){if(!hasRows){rows.innerHTML='';hasRows=true}
-  const tr=document.createElement('tr');tr.innerHTML='<td></td><td></td><td></td><td><span class="tag'+(type==='Lead'?' l':'')+'"></span></td>';
-  const c=tr.children;c[0].textContent=ref;c[1].textContent=who;c[2].textContent=det;c[3].firstChild.textContent=type;rows.prepend(tr)}
-
-function lead(mail){waiting=null;light(4);bot('Thanks. The team will reply to '+mail+' within a few hours.',[],()=>{light(5);addRow('LEAD-'+(100+Math.floor(Math.random()*900)),mail,b.q||'Open question','Lead');more()})}
-function handle(t){const s=t.toLowerCase();
-  if(/book|stay|reserv|available/.test(s))return askDates();
-  if(/rate|price|cost|room|suite|loft/.test(s))return rooms();
-  if(/pool|activit|kid|child|family|tour|walk/.test(s))return acts();
-  if(/check|breakfast|arriv|time|key/.test(s))return info();
-  b.q=t.length>40?t.slice(0,40)+'…':t;waiting='lead';
-  bot('Good question. I’ll pass it to the team. What email should they reply to?',[['Use a sample email',()=>lead('guest@example.com')]])}
-function send(){const t=txt.value.trim();if(!t)return;txt.value='';bubble(t,'user');setOpts([]);light(1);
-  if(waiting==='name')return done(t);
-  if(waiting==='lead')return lead(t);
-  handle(t)}
-
-$('#send').onclick=send;
-txt.addEventListener('keydown',e=>{if(e.key==='Enter')send()});
-document.querySelectorAll('.tabs button').forEach(bt=>bt.onclick=()=>{
-  document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-pressed',x===bt));
-  ch=bt.dataset.ch;document.body.dataset.ch=ch;$('#bname').textContent=names[ch][0];$('#bstat').textContent=names[ch][1];start()});
-const q=new URLSearchParams(location.search).get('ch');
-const pre=q&&document.querySelector('.tabs button[data-ch="'+q+'"]');
-if(pre)pre.click();else start();
-</script>
-</body>
-</html>
+function done(name){waiting=null;b.name=name;const ref='AUR-'+(1000+Math.floor(Math.random()*9000));light(3,ref);
+ bot('Booked. '+b.room+', '+b.dates.toLowerCase()+', '+b.guests+'.\nReference: '+ref+'\nName: '+name,[],()=>{light(4,'via '+VIA[ch]);showConf(ref,name);
+  try{const ev=JSON.parse(localStorage.getItem('av-events')||'[]');ev.unshift({ref,name,room:b.room,dates:b.dates,guests:b.guests,ch:VIA[ch],t:Date.now()});localStorage.setItem('av-events',JSON.stringify(ev.slice(0,20)))}catch(e){}
+  setTimeout(()=>{light(5,'Visible in Operations');addRow(ref,name,b.room+' · '+b.dates,'Booking');more('A confirmation is on its way. Anything else?')},600)})}
+const VIA={telegram:'Telegram',whatsapp:'WhatsApp',web:'website chat'};
+function resetConf(){const c=$('#conf');c.className='conf';c.textContent='Appears after a booking.'}
+function showConf(ref,name){const c=$('#conf');c.className='conf on';c.textContent='';const h=document.createElement('p');h.className='t';h.textContent='✔ Booking confirmed · '+ref;c.appendChild(h);
+ [['To',name+' (via '+VIA[ch]+')'],['Stay',b.room+', '+b.dates.toLowerCase()],['Guests',b.guests],['Check-in','from 15:00'],['Changes','Reply to this message']].forEach(r=>{const d=document.createElement('div');d.className='l';const k=document.createElement('b');k.textContent=r[0];const v=document.createElement('span');v.textContent=r[1];d.append(k,v);c.appendChild(d)})}
+function kpi(id,v){const e=$(id);e.querySelector('b').textContent=v;e.classList.remove('fl');void e.offsetWidth;e.classList.add('fl')}
+function addRow(ref,who,det,type){if(!hasRows){rows.innerHTML='';hasRows=true}const tr=document.createElement('tr');tr.className='new';tr.innerHTML='<td></td><td></td><td></td><td><span class="tag'+(type==='Lead'?' l':'')+'"></span></td>';const c=tr.children;c[0].textContent=ref;c[1].textContent=who;c[2].textContent=det;c[3].firstChild.textContent=type;rows.prepend(tr);if(type==='Lead')kpi('#k2',++kl);else kpi('#k1',++kb)}
+function lead(mail){waiting=null;light(3,'Lead saved');bot('Thanks. The team will reply to '+mail+' within a few hours.',[],()=>{light(5,'Visible in the back office');addRow('LEAD-'+(100+Math.floor(Math.random()*900)),mail,b.q||'Open question','Lead');more()})}
+function handle(t){const s=t.toLowerCase();if(/book|stay|reserv|available/.test(s))return askDates();if(/rate|price|cost|room|suite|loft/.test(s))return rooms();if(/pool|activit|kid|child|family|tour|walk/.test(s))return acts();if(/check|breakfast|arriv|time|key/.test(s))return info();
+ b.q=t.length>40?t.slice(0,40)+'…':t;waiting='lead';bot('Good question. I’ll pass it to the team. What email should they reply to?',[['Use a sample email',()=>lead('guest@example.com')]])}
+function send(){const t=txt.value.trim();if(!t)return;txt.value='';bubble(t,'user');setOpts([]);light(0,'“'+(t.length>24?t.slice(0,24)+'…':t)+'”');setTimeout(()=>light(1,'Reading the request'),350);if(waiting==='name')return done(t);if(waiting==='lead')return lead(t);handle(t)}
+$('#send').onclick=send;txt.addEventListener('keydown',e=>{if(e.key==='Enter')send()});
+function setCh(c){ch=c;document.body.dataset.ch=c;$('#bname').textContent=names[c][0];$('#bstat').textContent=names[c][1];document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.ch===c));start()}
+document.querySelectorAll('.tabs button').forEach(bt=>bt.onclick=()=>setCh(bt.dataset.ch));
+const q=QS.get('ch');setCh(['telegram','whatsapp','web'].includes(q)?q:(EMB?'web':'telegram'));
+</script></body></html>

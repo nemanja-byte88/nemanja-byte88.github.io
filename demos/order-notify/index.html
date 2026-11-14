@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Order → Notify · Concept demo · NB Digital Labs</title>
+<meta name="description" content="Concept demo of a business workflow: a new order triggers a Telegram message to the warehouse, an email to the customer and a pickup request to the freight partner. Fictional company, built by NB Digital Labs.">
+<style>
+:root{--bg:#02100f;--panel:#041a19;--line:#0f4a47;--txt:#d7f1ed;--dim:#7fa8a3;--g:#39e75f;--t:#19c3b0;--c:#22d3ee;--mono:"JetBrains Mono","SF Mono",Consolas,"Liberation Mono",monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 600px at 70% -10%,#06403d 0,transparent 60%),var(--bg);color:var(--txt);font:14px/1.55 var(--mono);min-height:100vh;padding-bottom:env(safe-area-inset-bottom,0)}
+.bar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:9px 20px;padding-top:calc(9px + env(safe-area-inset-top,0));background:#010a09;border-bottom:1px solid var(--line);color:var(--dim);font-size:12px}.bar a{color:var(--txt)}.bar a:hover{color:var(--g)}
+.wrap{max-width:1240px;margin:0 auto;padding:22px 20px 56px}h1{font-size:28px;margin:12px 0 6px}.sub{color:var(--dim);max-width:70ch;margin:0 0 20px}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.grid{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:start}@media(max-width:1020px){.grid{grid-template-columns:minmax(0,560px);justify-content:center}}
+.box{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:rgba(4,26,25,.75);margin-bottom:16px}.box h2{font-size:15px;margin:0 0 4px}.box p{margin:0 0 12px;color:var(--dim);font-size:12.5px}
+.ord{display:block;width:100%;text-align:left;background:transparent;border:1px solid var(--line);color:var(--txt);font:inherit;border-radius:10px;padding:9px 11px;margin-bottom:8px;cursor:pointer}.ord:hover{border-color:var(--t)}.ord[aria-pressed=true]{border-color:var(--g);box-shadow:0 0 0 1px var(--g) inset}.ord b{display:block}.ord span{color:var(--dim);font-size:12px}
+.tag{border:1px solid var(--t);color:var(--t);border-radius:999px;padding:0 8px;font-size:11px;margin-left:6px}.tag.s{border-color:var(--dim);color:var(--dim)}
+.go{display:inline-block;margin-top:10px;border:1px solid var(--t);color:var(--t);padding:7px 12px;border-radius:8px;text-decoration:none;font-size:12px;background:transparent;font-family:inherit;cursor:pointer}.go:hover{background:var(--t);color:#02100f}
+.rule{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--line);font-size:12.5px}.rule input{margin-top:3px;accent-color:#39e75f}.rule small{display:block;color:var(--dim)}
+.flow{position:relative;padding-left:30px;margin-top:12px}.rail{position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}.dot{position:absolute;left:2px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--g);box-shadow:0 0 16px var(--g);transition:top .5s cubic-bezier(.4,0,.2,1);opacity:0}.dot.on{opacity:1}
+ol.st{list-style:none;margin:0;padding:0;display:grid;gap:10px}ol.st li{color:var(--txt);animation:in .4s}ol.st .d{display:block;font-size:11.5px;color:var(--g)}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.log{font-size:11.5px;color:var(--dim);max-height:110px;overflow:auto;border-top:1px solid var(--line);margin-top:12px;padding-top:8px}.log b{color:var(--c);font-weight:400}
+.out{border-radius:14px;padding:12px 14px;margin-bottom:12px;font-family:var(--sans);font-size:14px;animation:in .45s;border:1px solid var(--line);background:#0a1f1e}.out h4{margin:0 0 6px;font:600 12px var(--mono);color:var(--dim);letter-spacing:.4px;text-transform:uppercase}.out pre{margin:0;white-space:pre-wrap;font:inherit}
+.out.tg{border-color:#2b5278;background:#182533}.out.tg h4{color:#4cb4ff}.out.em{border-color:#37505a;background:#0d2326}.out.em .h{border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:8px;font-size:13px;color:var(--dim)}
+.out.km{border-color:#8a6a10;background:#1c1a0c}.out.km h4{color:#F2A900}.out.own{border-color:#8a2a35;background:#220d12}.out.own h4{color:#ff6b7b}.out.low{border-color:#8a5a10;background:#1d150a}.out.low h4{color:#ffa94d}
+.out .tm{display:block;text-align:right;font-size:11px;color:var(--dim);margin-top:4px}
+.empty{color:var(--dim);text-align:center;padding:30px 10px;border:1px dashed var(--line);border-radius:14px}
+.note{color:var(--dim);font-size:12px;margin-top:20px}.foot{margin-top:24px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head>
+<body>
+<div class="bar"><span>Concept demo · fictional company · all data is sample data</span><span><a href="../../work.html">← Back to NB Digital Labs</a> · <a href="../vorqelta/">VORQELTA ↗</a> · <a href="../kalmora/">Kalmora ↗</a></span></div>
+<div class="wrap">
+<h1>Order → Notify</h1>
+<p class="sub">A new order in the shop sets off a chain of messages by itself: the warehouse, the customer and the freight partner are informed in seconds, with no one typing anything.</p>
+<div class="grid">
+<div><section class="box"><h2>1 · Choose an order</h2><p>Orders from the VORQELTA shop. Place one there and it appears here for 24 hours.</p><div id="orders"></div><a class="go" href="../vorqelta/">Place an order in VORQELTA ↗</a></section></div>
+<div><section class="box"><h2>2 · The workflow</h2><p>When a new order arrives, these rules decide who gets what.</p>
+<label class="rule"><input type="checkbox" checked disabled><span>Telegram message to the warehouse<small>Always on</small></span></label>
+<label class="rule"><input type="checkbox" id="r-em" checked><span>Confirmation email to the customer</span></label>
+<label class="rule"><input type="checkbox" id="r-km" checked><span>Delivery orders: book pickup with Kalmora<small>Skipped for pickup orders</small></span></label>
+<label class="rule"><input type="checkbox" id="r-own"><span>Orders over €1,500: also alert the owner</span></label>
+<label class="rule"><input type="checkbox" id="r-low" checked><span>Low stock after the order: warn the warehouse</span></label>
+<div class="flow"><div class="rail"></div><div class="dot" id="dot"></div><ol class="st" id="steps"></ol></div><div class="log" id="log"></div>
+<button class="go" id="replay">↻ Replay</button></section></div>
+<div><section class="box"><h2>3 · What gets sent</h2><p>Each message appears as the recipient would see it.</p><div id="outs"></div></section></div>
+</div>
+<p class="note">Concept demo. Messages are simulated, nothing is sent and orders are kept for 24 hours in this browser only. VORQELTA is a fictional company.</p>
+<div class="foot"><a class="go" href="../../work.html">← Go back</a></div>
+</div>
+<script>
+const $=s=>document.querySelector(s),eur=n=>'€'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+let FEED=null;try{FEED=JSON.parse(localStorage.getItem('vq-feed')||'null')}catch(e){}
+const SAMPLE={ref:'VQ-4107',co:'Nova Gradnja d.o.o.',em:'purchasing@novagradnja.example',nm:'Marko',city:'Celje',mode:'delivery',when:'Thu 12 Nov',total:2140,km:'KM-3102',pal:3,lines:['40 × FlexBond C2 tile adhesive','24 × ThermoBoard EPS 100 mm','6 × AquaSeal waterproofing'],t:Date.now(),sample:true};
+let orders=((FEED&&FEED.orders)||[]).filter(o=>Date.now()-o.t<864e5).slice(0,6);if(!orders.length)orders=[SAMPLE];
+const LOW=(FEED&&FEED.low)||['AquaSeal waterproofing · 22 left'];let cur=0,runId=0;
+const R=()=>({em:$('#r-em').checked,km:$('#r-km').checked,own:$('#r-own').checked,low:$('#r-low').checked});
+const hm=()=>new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+function msgs(o){const r=R(),m=[],ho=(o.mode==='pickup'?'Pickup':'Delivery to '+o.city)+' · '+o.when;
+ m.push({k:'tg',step:'Telegram sent to the warehouse',h:'Telegram · Warehouse team',b:'New order '+o.ref+'\n'+o.co+'\n'+o.lines.join('\n')+'\n'+ho+'\nTotal '+eur(o.total)});
+ if(r.em)m.push({k:'em',step:'Confirmation emailed to the customer',h:'Email · '+(o.em||'customer'),b:'Hello '+(o.nm||'there')+',\nthank you for your order '+o.ref+'. We are preparing:\n'+o.lines.join('\n')+'\n\n'+ho+'\nTotal '+eur(o.total)+' excl. VAT\n\nVORQELTA Building Materials',subj:'Order '+o.ref+' confirmed'});
+ if(r.km&&o.mode==='delivery')m.push({k:'km',step:'Pickup booked with Kalmora ('+(o.km||'KM-…')+')',h:'Kalmora · Pickup request',b:'Reference '+(o.km||'KM-…')+'\nLjubljana → '+o.city+'\n'+(o.pal||1)+' pallet'+((o.pal||1)>1?'s':'')+' · building materials\nVORQELTA order '+o.ref,link:true});
+ if(r.own&&o.total>=1500)m.push({k:'own',step:'Owner alerted (large order)',h:'Telegram · Owner',b:'Large order '+o.ref+': '+eur(o.total)+' from '+o.co});
+ if(r.low&&LOW.length)m.push({k:'low',step:'Low stock warning sent',h:'Telegram · Warehouse team',b:'Low stock after '+o.ref+':\n'+LOW.slice(0,3).join('\n')});
+ return m}
+function drawOrders(){const box=$('#orders');box.textContent='';orders.forEach((o,i)=>{const b=el('button','ord');b.setAttribute('aria-pressed',i===cur);const t=el('b',null,o.ref+' · '+o.co);if(o.sample){t.append(el('span','tag s','sample'))}b.append(t,el('span',null,eur(o.total)+' · '+(o.mode==='pickup'?'pickup':'delivery to '+o.city)));b.onclick=()=>{cur=i;drawOrders();play()};box.append(b)})}
+function play(){const id=++runId,o=orders[cur],ms=msgs(o),st=$('#steps'),outs=$('#outs'),dot=$('#dot');st.textContent='';outs.textContent='';$('#log').textContent='';dot.classList.remove('on');
+ const seq=[{step:'New order received',d:o.ref+' · '+eur(o.total)},{step:'Rules checked',d:ms.length+' of 5 rules matched'}].concat(ms.map(m=>({step:m.step,m})));
+ seq.forEach((s,i)=>setTimeout(()=>{if(id!==runId)return;const li=el('li',null,s.step);li.append(el('span','d',s.d||'sent '+hm()));st.append(li);dot.classList.add('on');dot.style.top=(li.offsetTop+4)+'px';const l=el('div');l.append(el('b',null,hm()+' '),document.createTextNode(s.step));$('#log').prepend(l);
+  if(s.m)out(s.m)},i*750+200))}
+function out(m){const d=el('div','out '+m.k);d.append(el('h4',null,m.h));if(m.subj){const h=el('div','h','Subject: '+m.subj);d.append(h)}d.append(el('pre',null,m.b));if(m.link){const a=el('a','go','Open tracking in Kalmora ↗');a.href='../kalmora/#track';a.onclick=()=>{try{localStorage.setItem('km-prefill',orders[cur].km||'')}catch(e){}};d.append(a)}d.append(el('span','tm',hm()+' · delivered'));$('#outs').append(d)}
+['em','km','own','low'].forEach(k=>$('#r-'+k).onchange=play);$('#replay').onclick=play;drawOrders();play();
+</script></body></html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Connected · Concept demo · NB Digital Labs</title>
+<meta name="description" content="Concept demo of system integrations: a website, a chat bot, a back office, a shop, a notification workflow and a freight partner exchanging events. Fictional companies, built by NB Digital Labs.">
+<style>
+:root{--bg:#02100f;--panel:#041a19;--line:#0f4a47;--txt:#d7f1ed;--dim:#7fa8a3;--g:#39e75f;--t:#19c3b0;--c:#22d3ee;--mono:"JetBrains Mono","SF Mono",Consolas,"Liberation Mono",monospace}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(1200px 600px at 70% -10%,#06403d 0,transparent 60%),var(--bg);color:var(--txt);font:14px/1.55 var(--mono);min-height:100vh;padding-bottom:env(safe-area-inset-bottom,0)}
+.bar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:9px 20px;padding-top:calc(9px + env(safe-area-inset-top,0));background:#010a09;border-bottom:1px solid var(--line);color:var(--dim);font-size:12px}.bar a{color:var(--txt)}.bar a:hover{color:var(--g)}
+.wrap{max-width:1240px;margin:0 auto;padding:22px 20px 56px}h1{font-size:28px;margin:12px 0 6px}.sub{color:var(--dim);max-width:72ch;margin:0 0 20px}
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:start}@media(max-width:980px){.grid{grid-template-columns:minmax(0,1fr)}}
+.box{border:1px solid var(--line);border-radius:16px;padding:16px 18px;background:rgba(4,26,25,.75);margin-bottom:16px}.box h2{font-size:15px;margin:0 0 4px}.box p{margin:0 0 12px;color:var(--dim);font-size:12.5px}
+svg{width:100%;height:auto;display:block}.lk{fill:none;stroke:var(--line);stroke-width:2}.lk.d{stroke-dasharray:5 5}.hit{fill:none;stroke:transparent;stroke-width:22;cursor:pointer}.lk.on{stroke:var(--c)}
+.nd rect{fill:#041a19;stroke:var(--line);stroke-width:1.5;transition:stroke .2s}.nd{cursor:pointer}.nd:hover rect,.nd.on rect{stroke:var(--g)}.nd text{fill:var(--txt);font:600 13px var(--mono)}.nd .s{fill:var(--dim);font:11px var(--mono)}
+.ev{font:11px var(--mono);fill:var(--dim);cursor:pointer}.ev.on{fill:var(--c)}
+pre.js{margin:0;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#021211;color:#bfe9e3;font:12.5px/1.5 var(--mono);overflow:auto;max-height:300px;white-space:pre-wrap}.k{color:#19c3b0}.sv{color:#ffd479}.nv{color:#7fd1ff}
+.hd2{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px;flex-wrap:wrap}.hd2 b{color:var(--c)}
+.go{display:inline-block;margin-top:10px;border:1px solid var(--t);color:var(--t);padding:7px 12px;border-radius:8px;text-decoration:none;font-size:12px}.go:hover{background:var(--t);color:#02100f}
+ul.act{list-style:none;margin:0;padding:0}ul.act li{padding:7px 0;border-bottom:1px solid var(--line);font-size:12.5px;display:flex;gap:10px}ul.act b{color:var(--c);font-weight:400;min-width:56px}ul.act span{color:var(--dim)}
+.tg{border:1px solid var(--dim);color:var(--dim);border-radius:999px;padding:0 8px;font-size:11px}
+.note{color:var(--dim);font-size:12px;margin-top:20px}.foot{margin-top:24px}
+</style></head><body>
+<div class="bar"><span>Concept demo · fictional companies · all data is sample data</span><span><a href="../../work.html">← Back to NB Digital Labs</a></span></div>
+<div class="wrap">
+<h1>Connected</h1>
+<p class="sub">Six separate systems that talk to each other. Click a connection to see the message that travels along it, or a system to open it. Anything you do in the demos shows up here.</p>
+<div class="grid">
+<div><section class="box"><h2>The system map</h2><p>Dots show events moving between systems.</p><div id="map"></div></section></div>
+<div>
+<section class="box"><div class="hd2"><h2 style="margin:0">Message</h2><span id="evn" class="tg"></span></div><p id="evd"></p><pre class="js" id="pl"></pre><div id="nodeinfo"></div></section>
+<section class="box"><h2>Recent activity</h2><p>Real events from the demos you tried, kept for 24 hours in this browser.</p><ul class="act" id="act"></ul></section>
+</div></div>
+<p class="note">Concept demo. Messages are simulated. Aurevia, VORQELTA and Kalmora are fictional companies.</p>
+<div class="foot"><a class="go" href="../../work.html">← Go back</a></div>
+</div>
+<script>
+const $=s=>document.querySelector(s),J=k=>{try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}};
+const N={site:{x:20,y:30,t:'Aurevia website',s:'guest visits',c:'#A9B08F',u:'../aurevia/',d:'The resort website, with a concierge chat button.'},bot:{x:20,y:135,t:'Concierge bot',s:'chat channels',c:'#A9B08F',u:'../aurevia-concierge/',d:'Answers guests and takes bookings.'},ops:{x:305,y:135,t:'Aurevia Operations',s:'back office',c:'#A9B08F',u:'../aurevia-ops/',d:'Bookings, rooms and revenue for the resort team.'},shop:{x:20,y:250,t:'VORQELTA shop',s:'orders and stock',c:'#D7263D',u:'../vorqelta/',d:'A wholesale shop with its own staff area.'},notify:{x:305,y:250,t:'Order → Notify',s:'workflow',c:'#22d3ee',u:'../order-notify/',d:'Turns every order into messages and a pickup request.'},msgs:{x:590,y:30,t:'Telegram & email',s:'notifications',c:'#4cb4ff',u:'../order-notify/',d:'Messages to the warehouse, the customer and the owner.'},kal:{x:590,y:250,t:'Kalmora',s:'freight partner',c:'#F2A900',u:'../kalmora/',d:'Books pickups and tracks every shipment.'}};
+const L=[{id:'l1',d:'M95,82 L95,135',lx:104,ly:114,ev:'chat.opened',from:'site',to:'bot'},{id:'l2',d:'M170,161 L305,161',lx:196,ly:152,ev:'booking.created',from:'bot',to:'ops'},{id:'l3',d:'M95,250 L95,302 L95,302 M170,276 L305,276',lx:196,ly:267,ev:'order.created',from:'shop',to:'notify'},{id:'l4',d:'M455,276 L590,276',lx:476,ly:267,ev:'pickup.requested',from:'notify',to:'kal'},{id:'l5',d:'M455,262 C520,262 520,56 590,56',lx:500,ly:150,ev:'message.sent',from:'notify',to:'msgs'},{id:'l6',d:'M665,302 C665,380 95,380 95,302',lx:300,ly:372,ev:'shipment.status',from:'kal',to:'shop',dash:1}];
+L[2].d='M170,276 L305,276';
+const DESC={l1:'A guest opens the chat on the website.',l2:'The bot creates a booking and the resort back office receives it.',l3:'A new order in the shop starts the workflow.',l4:'For delivery orders the workflow books a pickup with the freight partner.',l5:'The workflow sends the messages to the people involved.',l6:'The freight partner reports the status back to the shop.'};
+const feed=J('vq-feed'),evs=J('av-events')||[],ships=J('vq-ship')||[];
+const fo=((feed&&feed.orders)||[]).filter(o=>Date.now()-o.t<864e5),fd=fo.find(o=>o.mode==='delivery')||fo[0];
+function payload(id){const now=new Date().toISOString().slice(0,19)+'Z';
+ if(id==='l1')return{event:'chat.opened',time:now,channel:'website',page:'/aurevia/',session:'s-'+(1000+Math.floor(Date.now()/1000)%9000)};
+ if(id==='l2'){const e=evs[0];return e?{event:'booking.created',time:new Date(e.t).toISOString().slice(0,19)+'Z',ref:e.ref,guest:e.name,room:e.room,stay:e.dates,guests:e.guests,source:'concierge · '+e.ch}:{event:'booking.created',time:now,ref:'AUR-4821',guest:'Ana Petrović',room:'Suite Vigna',stay:'This weekend',guests:'2 guests',source:'concierge · Telegram',sample:true}}
+ if(id==='l3'){const o=fd;return o?{event:'order.created',time:new Date(o.t).toISOString().slice(0,19)+'Z',ref:o.ref,customer:o.co,total_eur:Math.round(o.total*100)/100,handover:o.mode==='pickup'?'pickup':'delivery to '+o.city,lines:o.lines.length}:{event:'order.created',time:now,ref:'VQ-4107',customer:'Nova Gradnja d.o.o.',total_eur:1828.4,handover:'delivery to Celje',lines:3,sample:true}}
+ if(id==='l4'){const o=fo.find(x=>x.km);return o?{event:'pickup.requested',time:new Date(o.t).toISOString().slice(0,19)+'Z',tracking:o.km,order:o.ref,from:'Ljubljana',to:o.city,pallets:o.pal}:{event:'pickup.requested',time:now,tracking:'KM-3102',order:'VQ-4107',from:'Ljubljana',to:'Celje',pallets:3,sample:true}}
+ if(id==='l5'){const o=fd;return{event:'message.sent',time:now,order:o?o.ref:'VQ-4107',deliveries:[{to:'warehouse',channel:'telegram'},{to:'customer',channel:'telegram'},{to:'customer',channel:'email',type:'digital receipt'}]}}
+ const s=ships[0];return s?{event:'shipment.status',time:now,tracking:s.ref,order:s.ord,status:s.st}:{event:'shipment.status',time:now,tracking:'KM-3102',order:'VQ-4107',status:'Pickup requested',sample:true}}
+function hl(o){return JSON.stringify(o,null,2).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/("(?:[^"\\]|\\.)*")(\s*:)?|\b(true|false|null)\b|(-?\d+\.?\d*)/g,(m,s,c,b,n)=>s?(c?'<span class="k">'+s+'</span>'+c:'<span class="sv">'+s+'</span>'):'<span class="nv">'+m+'</span>')}
+const red=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function map(){let s='<svg viewBox="0 0 760 400" role="img" aria-label="System map">';
+ L.forEach((l,i)=>{s+='<path id="'+l.id+'" class="lk'+(l.dash?' d':'')+'" d="'+l.d+'"/>';if(!red)s+='<circle r="5" fill="#39e75f" opacity="0"><set attributeName="opacity" to="1" begin="'+(i*.6)+'s"/><animateMotion dur="3.6s" begin="'+(i*.6)+'s" repeatCount="indefinite"><mpath href="#'+l.id+'"/></animateMotion></circle>';s+='<path class="hit" data-l="'+l.id+'" d="'+l.d+'" tabindex="0" role="button" aria-label="'+l.ev+'"/><text class="ev" data-l="'+l.id+'" x="'+l.lx+'" y="'+l.ly+'">'+l.ev+'</text>'});
+ Object.entries(N).forEach(([k,n])=>{s+='<g class="nd" data-n="'+k+'" tabindex="0" role="button" aria-label="'+n.t+'"><rect x="'+n.x+'" y="'+n.y+'" width="150" height="52" rx="12"/><rect x="'+n.x+'" y="'+(n.y+8)+'" width="4" height="36" rx="2" fill="'+n.c+'" stroke="none"/><text x="'+(n.x+14)+'" y="'+(n.y+22)+'">'+n.t+'</text><text class="s" x="'+(n.x+14)+'" y="'+(n.y+39)+'">'+n.s+'</text></g>'});
+ $('#map').innerHTML=s+'</svg>';
+ document.querySelectorAll('[data-l]').forEach(e=>{e.onclick=()=>pick(e.dataset.l);e.onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();pick(e.dataset.l)}}});
+ document.querySelectorAll('[data-n]').forEach(e=>{e.onclick=()=>node(e.dataset.n);e.onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();node(e.dataset.n)}}})}
+function mark(l,n){document.querySelectorAll('.lk').forEach(e=>e.classList.toggle('on',e.id===l));document.querySelectorAll('.ev').forEach(e=>e.classList.toggle('on',e.dataset.l===l));document.querySelectorAll('.nd').forEach(e=>e.classList.toggle('on',e.dataset.n===n))}
+function pick(id){const l=L.find(x=>x.id===id),p=payload(id);mark(id,null);$('#evn').textContent=l.ev;$('#evd').textContent=N[l.from].t+' → '+N[l.to].t+'. '+DESC[id]+(p.sample?' (sample data, try the demos to see yours)':'');$('#pl').innerHTML=hl(p);$('#nodeinfo').textContent=''}
+function node(k){const n=N[k];mark(null,k);$('#evn').textContent='system';$('#evd').textContent=n.t+'. '+n.d;$('#pl').innerHTML=hl({system:n.t,role:n.s,connections:L.filter(l=>l.from===k||l.to===k).map(l=>l.ev)});const a=document.createElement('a');a.className='go';a.href=n.u;a.textContent='Open '+n.t+' ↗';const w=$('#nodeinfo');w.textContent='';w.append(a)}
+function activity(){const r=[];evs.forEach(e=>r.push([e.t,'booking.created',e.ref+' · '+e.room+' · via '+e.ch]));fo.forEach(o=>{r.push([o.t,'order.created',o.ref+' · '+o.co+' · €'+o.total.toFixed(2)]);if(o.km)r.push([o.t+1,'pickup.requested',o.km+' → '+o.city])});
+ r.sort((a,b)=>b[0]-a[0]);const ul=$('#act');ul.textContent='';const rows=r.filter(x=>Date.now()-x[0]<864e5).slice(0,7);
+ if(!rows.length){const li=document.createElement('li');li.innerHTML='<span>Nothing yet. Book a room with the concierge or place an order in VORQELTA, then come back.</span>';ul.append(li);return}
+ rows.forEach(x=>{const li=document.createElement('li'),b=document.createElement('b'),s=document.createElement('span');b.textContent=new Date(x[0]).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});s.textContent=x[1]+' · '+x[2];li.append(b,s);ul.append(li)})}
+map();pick('l3');activity();
+</script></body></html>

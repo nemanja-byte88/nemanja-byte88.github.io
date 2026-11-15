@@ -93,7 +93,7 @@ function pickRoom(g){b.guests=g;const list=g==='5+ guests'?[ROOMS[2]]:g==='3–4
 function askName(r){b.room=r;waiting='name';bot('Good choice. What name should I put the booking under?',[['Use a sample name',()=>done('Ana Petrović')]])}
 function done(name){waiting=null;b.name=name;const ref='AUR-'+(1000+Math.floor(Math.random()*9000));light(3,ref);
  bot('Booked. '+b.room+', '+b.dates.toLowerCase()+', '+b.guests+'.\nReference: '+ref+'\nName: '+name,[],()=>{light(4,'via '+VIA[ch]);showConf(ref,name);
-  try{const ev=JSON.parse(localStorage.getItem('av-events')||'[]');ev.unshift({ref,name,room:b.room,dates:b.dates,guests:b.guests,ch:VIA[ch],t:Date.now()});localStorage.setItem('av-events',JSON.stringify(ev.slice(0,20)))}catch(e){}
+  try{const ev=JSON.parse(localStorage.getItem('av-events')||'[]');ev.unshift({ref,name,room:b.room,dates:b.dates,guests:b.guests,ch:VIA[ch],src:'bot',t:Date.now()});localStorage.setItem('av-events',JSON.stringify(ev.slice(0,20)))}catch(e){}
   setTimeout(()=>{light(5,'Visible in Operations');addRow(ref,name,b.room+' · '+b.dates,'Booking');more('A confirmation is on its way. Anything else?')},600)})}
 const VIA={telegram:'Telegram',whatsapp:'WhatsApp',web:'website chat'};
 function resetConf(){const c=$('#conf');c.className='conf';c.textContent='Appears after a booking.'}

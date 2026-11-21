@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>NB Digital Labs · Ponuda</title>
+<style>
+:root{--ink:#14211f;--mute:#5d6f6b;--line:#dde6e3;--bg:#f4f7f6;--card:#fff;--acc:#0e8f6e;--accd:#0b6f55;--bad:#b3392f;--warn:#a86a00}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,"Segoe UI",Arial,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.brand{font-weight:800;letter-spacing:.08em;font-size:15px}.brand span{color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:16px}
+h1{font-size:24px;margin:0 0 4px}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:0 0 10px}
+.mute{color:var(--mute)}
+.badge{display:inline-block;padding:3px 12px;border-radius:99px;font-size:13px;font-weight:600;border:1px solid var(--line)}
+.badge.quoted{color:var(--warn);border-color:var(--warn)}.badge.accepted{color:var(--acc);border-color:var(--acc)}.badge.declined,.badge.expired{color:var(--bad);border-color:var(--bad)}
+ul.items{margin:0;padding:0;list-style:none;columns:2;column-gap:24px}
+ul.items li{padding:5px 0 5px 22px;position:relative;break-inside:avoid;border-bottom:1px dashed var(--line)}
+ul.items li:before{content:"✓";position:absolute;left:0;color:var(--acc);font-weight:700}
+.price{display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:baseline}
+.price .big{font-size:30px;font-weight:800}
+.price .strike{text-decoration:line-through;color:var(--mute)}
+.save{color:var(--acc);font-weight:600}
+.btn{display:inline-block;border:0;border-radius:10px;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer}
+.btn.yes{background:var(--acc);color:#fff}.btn.yes:hover{background:var(--accd)}
+.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btn.no{background:#fff;border:1px solid var(--bad);color:var(--bad)}
+.btn:disabled{opacity:.55;cursor:wait}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+textarea,select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;margin:6px 0 10px;background:#fff}
+textarea{min-height:90px}
+.panel{border-top:1px solid var(--line);margin-top:14px;padding-top:14px}
+.msg{padding:12px 14px;border-radius:10px;margin-top:12px}.msg.ok{background:#e6f6f0;color:#0b5a45}.msg.err{background:#fbeceb;color:var(--bad)}
+.terms{font-size:14px;color:var(--mute)}
+.hide{display:none!important}
+.foot{font-size:13px;color:var(--mute);text-align:center;margin-top:20px}
+@media (max-width:560px){ul.items{columns:1}.price .big{font-size:26px}}
+@media print{body{background:#fff}.card{border:0;padding:0}.noprint,.actions{display:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><div class="brand">NB <span>DIGITAL LABS</span></div><button class="btn ghost noprint" id="print"></button></header>
+  <div id="state" class="card"><p class="mute" id="loading">…</p></div>
+  <div id="offer" class="hide"></div>
+  <p class="foot">NB Digital Labs · Web · Apps · Automation</p>
+</div>
+<script>
+const ENDPOINT = 'https://ahroezfpigjqmabknevz.supabase.co/functions/v1/offer';
+const T = {
+  sr: {title:'Ponuda', for:'Za', valid:'Važi do', status:{quoted:'Čeka odgovor',accepted:'Prihvaćeno',declined:'Odbijeno',expired:'Istekla'},
+    includes:'Šta je uključeno', price:'Cena', regular:'Redovna cena', discount:'Popust', total:'Ukupno', deposit:'Avans pri prihvatanju',
+    terms:'Uslovi', accept:'Prihvatam ponudu', ask:'Imam pitanje ili želim izmenu', decline:'Odbijam',
+    confirm:'Potvrdi prihvatanje', agree:'Prihvatam cenu, stavke i uslove ove ponude.', send:'Pošalji', cancel:'Otkaži',
+    qph:'Šta želite da pitate ili izmenite?', nph:'Napomena (nije obavezno)', reason:'Razlog (nije obavezno)',
+    reasons:['Izaberite…','Cena je previsoka','Predomislio/la sam se','Odabrao/la sam druge','Nije pravi trenutak','Drugo'],
+    okAccept:'Hvala! Ponuda je prihvaćena. Javljam se uskoro sa sledećim koracima.', okDecline:'Hvala na odgovoru. Ponuda je odbijena.',
+    okQuestion:'Poruka je poslata. Odgovoriću vam uskoro.', closed:'Ova ponuda je već zatvorena.', expired:'Ova ponuda je istekla. Javite mi se za novu.',
+    notFound:'Ponuda nije pronađena ili je povučena. Proverite link iz poruke.', fail:'Nešto nije uspelo. Pokušajte ponovo ili mi pišite direktno.',
+    done:'Odgovor je zabeležen', print:'Odštampaj / PDF', loc:'sr-Latn-RS', needAgree:'Potvrdite da prihvatate ponudu.'},
+  en: {title:'Offer', for:'For', valid:'Valid until', status:{quoted:'Awaiting your answer',accepted:'Accepted',declined:'Declined',expired:'Expired'},
+    includes:'What is included', price:'Price', regular:'Regular price', discount:'Discount', total:'Total', deposit:'Deposit on acceptance',
+    terms:'Terms', accept:'Accept offer', ask:'I have a question or want a change', decline:'Decline',
+    confirm:'Confirm acceptance', agree:'I accept the price, items and terms of this offer.', send:'Send', cancel:'Cancel',
+    qph:'What would you like to ask or change?', nph:'Note (optional)', reason:'Reason (optional)',
+    reasons:['Choose…','The price is too high','I changed my mind','I chose someone else','Not the right time','Other'],
+    okAccept:'Thank you! The offer is accepted. I will be in touch shortly with the next steps.', okDecline:'Thank you for your answer. The offer is declined.',
+    okQuestion:'Your message was sent. I will reply soon.', closed:'This offer is already closed.', expired:'This offer has expired. Contact me for a new one.',
+    notFound:'The offer was not found or has been withdrawn. Please check the link in your message.', fail:'Something went wrong. Please try again or write to me directly.',
+    done:'Your answer is recorded', print:'Print / PDF', loc:'en-GB', needAgree:'Please confirm that you accept the offer.'}
+};
+const $ = s => document.querySelector(s);
+const token = new URLSearchParams(location.search).get('t') || '';
+let L = T.sr, D = null;
+const eur = (n, cur) => Number(n).toLocaleString(L.loc, {maximumFractionDigits: 0}) + ' ' + (cur === 'EUR' ? '€' : cur);
+const day = s => new Date(s + 'T12:00:00').toLocaleDateString(L.loc, {day: 'numeric', month: 'long', year: 'numeric'});
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+async function api(method, body) {
+  const url = method === 'GET' ? ENDPOINT + '?t=' + encodeURIComponent(token) : ENDPOINT;
+  const r = await fetch(url, {method, headers: method === 'POST' ? {'Content-Type': 'application/json'} : {}, body: body ? JSON.stringify(body) : undefined});
+  let data = {}; try { data = await r.json(); } catch (_) {}
+  return {status: r.status, data};
+}
+function showState(text, ok) { const s = $('#state'); s.classList.remove('hide'); s.textContent = ''; s.appendChild(el('p', ok ? '' : 'mute', text)); }
+
+async function load() {
+  $('#print').textContent = L.print; $('#print').onclick = () => window.print();
+  if (!/^[A-Za-z0-9_-]{32,64}$/.test(token)) return showState(L.notFound);
+  try {
+    const {status, data} = await api('GET');
+    if (status === 404) return showState(L.notFound);
+    if (status !== 200) return showState(L.fail);
+    D = data; L = T[D.language] || T.sr; document.documentElement.lang = D.language === 'en' ? 'en' : 'sr';
+    $('#state').classList.add('hide'); render();
+  } catch (_) { showState(L.fail); }
+}
+
+function render() {
+  L = T[D.language] || T.sr; $('#print').textContent = L.print;
+  const root = $('#offer'); root.classList.remove('hide'); root.textContent = '';
+  const head = el('div', 'card');
+  head.appendChild(el('h1', '', `${L.title} ${D.code}`));
+  head.appendChild(el('p', 'mute', `${L.for}: ${D.client_name}${D.company ? ' · ' + D.company : ''}`));
+  const st = el('span', 'badge ' + D.status, L.status[D.status] || D.status);
+  const line = el('p', ''); line.appendChild(st);
+  if (D.valid_until) line.appendChild(el('span', 'mute', `  ${L.valid} ${day(D.valid_until)}`));
+  head.appendChild(line); root.appendChild(head);
+
+  const inc = el('div', 'card'); inc.appendChild(el('h2', '', `${L.includes} (${D.items.length})`));
+  const ul = el('ul', 'items'); D.items.forEach(n => ul.appendChild(el('li', '', n))); inc.appendChild(ul); root.appendChild(inc);
+
+  const pr = el('div', 'card'); pr.appendChild(el('h2', '', L.price));
+  const g = el('div', 'price');
+  const hasDisc = Number(D.discount_percent) > 0 && Number(D.regular_price) > Number(D.final_price);
+  if (hasDisc) {
+    g.appendChild(el('div', '', L.regular)); g.appendChild(el('div', 'strike', eur(D.regular_price, D.currency)));
+    g.appendChild(el('div', 'save', `${L.discount}${D.discount_note ? ' (' + D.discount_note + ')' : ''}`));
+    g.appendChild(el('div', 'save', '− ' + eur(Number(D.regular_price) - Number(D.final_price), D.currency)));
+  }
+  g.appendChild(el('div', '', L.total)); g.appendChild(el('div', 'big', eur(D.final_price, D.currency)));
+  if (D.deposit_amount) { g.appendChild(el('div', 'mute', `${L.deposit} (${D.deposit_percent}%)`)); g.appendChild(el('div', 'mute', eur(D.deposit_amount, D.currency))); }
+  pr.appendChild(g); root.appendChild(pr);
+
+  if (D.terms) { const tc = el('div', 'card'); tc.appendChild(el('h2', '', L.terms)); tc.appendChild(el('p', 'terms', D.terms)); root.appendChild(tc); }
+
+  const act = el('div', 'card actions'); act.id = 'actions';
+  if (D.status === 'quoted') {
+    const row = el('div', 'row');
+    const a = el('button', 'btn yes', L.accept), q = el('button', 'btn ghost', L.ask), d = el('button', 'btn no', L.decline);
+    row.append(a, q, d); act.appendChild(row);
+    const panel = el('div', 'panel hide'); act.appendChild(panel);
+    a.onclick = () => openPanel(panel, 'accept'); q.onclick = () => openPanel(panel, 'question'); d.onclick = () => openPanel(panel, 'decline');
+  } else {
+    const m = el('div', 'msg ' + (D.status === 'accepted' ? 'ok' : 'err'), D.status === 'expired' ? L.expired : (D.status === 'accepted' ? L.okAccept : L.okDecline));
+    act.appendChild(m);
+  }
+  root.appendChild(act);
+}
+
+function openPanel(panel, kind) {
+  panel.textContent = ''; panel.classList.remove('hide');
+  let chk = null, sel = null;
+  const ta = document.createElement('textarea');
+  ta.maxLength = 1000; ta.placeholder = kind === 'question' ? L.qph : L.nph;
+  if (kind === 'accept') {
+    const lab = el('label', ''); chk = document.createElement('input'); chk.type = 'checkbox'; chk.style.marginRight = '8px';
+    lab.append(chk, document.createTextNode(L.agree)); panel.appendChild(lab);
+  }
+  if (kind === 'decline') { sel = document.createElement('select'); L.reasons.forEach((r, i) => { const o = document.createElement('option'); o.value = i ? r : ''; o.textContent = r; sel.appendChild(o); }); panel.appendChild(sel); }
+  panel.appendChild(ta);
+  const row = el('div', 'row');
+  const go = el('button', 'btn ' + (kind === 'accept' ? 'yes' : kind === 'decline' ? 'no' : 'yes'), kind === 'accept' ? L.confirm : L.send);
+  const cancel = el('button', 'btn ghost', L.cancel); row.append(go, cancel); panel.appendChild(row);
+  const msg = el('div', 'hide'); panel.appendChild(msg);
+  cancel.onclick = () => panel.classList.add('hide');
+  go.onclick = async () => {
+    if (kind === 'accept' && !chk.checked) { msg.className = 'msg err'; msg.textContent = L.needAgree; return; }
+    go.disabled = true; msg.className = 'hide';
+    try {
+      const {status, data} = await api('POST', {t: token, action: kind, note: ta.value, reason: sel ? sel.value : ''});
+      if (status === 200 && data.ok) {
+        if (kind === 'question') { msg.className = 'msg ok'; msg.textContent = L.okQuestion; ta.value = ''; go.disabled = false; return; }
+        D.status = data.status; render(); return;
+      }
+      msg.className = 'msg err';
+      msg.textContent = status === 410 ? L.expired : status === 409 ? L.closed : L.fail;
+      if (status === 410) { D.status = 'expired'; render(); }
+      if (status === 409) { D.status = data.status || 'declined'; render(); }
+    } catch (_) { msg.className = 'msg err'; msg.textContent = L.fail; }
+    go.disabled = false;
+  };
+}
+load();
+</script>
+</body>
+</html>

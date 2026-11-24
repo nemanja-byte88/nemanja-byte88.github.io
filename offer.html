@@ -78,7 +78,7 @@ const $ = s => document.querySelector(s);
 const token = new URLSearchParams(location.search).get('t') || '';
 let L = T.sr, D = null;
 const eur = (n, cur) => Number(n).toLocaleString(L.loc, {maximumFractionDigits: 0}) + ' ' + (cur === 'EUR' ? '€' : cur);
-const day = s => new Date(s + 'T12:00:00').toLocaleDateString(L.loc, {day: 'numeric', month: 'long', year: 'numeric'});
+const day = s => new Date(s + 'T12:00:00').toLocaleDateString(L.loc, {day: 'numeric', month: 'long', year: 'numeric'}).replace(/\.$/, '');
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
 async function api(method, body) {
@@ -94,11 +94,13 @@ async function load() {
   if (!/^[A-Za-z0-9_-]{32,64}$/.test(token)) return showState(L.notFound);
   try {
     const {status, data} = await api('GET');
-    if (status === 404) return showState(L.notFound);
-    if (status !== 200) return showState(L.fail);
+    if (status === 404 && data && data.error === 'not_found') return showState(L.notFound);
+    if (status !== 200) return showState(L.fail + ' [' + status + ']');
     D = data; L = T[D.language] || T.sr; document.documentElement.lang = D.language === 'en' ? 'en' : 'sr';
     $('#state').classList.add('hide'); render();
-  } catch (_) { showState(L.fail); }
+    const act = new URLSearchParams(location.search).get('do'), idx = {accept: 0, question: 1, decline: 2}[act];
+    if (D.status === 'quoted' && idx !== undefined) { const b = document.querySelectorAll('#actions .row button')[idx]; if (b) { b.click(); document.getElementById('actions').scrollIntoView({behavior: 'smooth'}); } }
+  } catch (_) { showState(L.fail + ' [net]'); }
 }
 
 function render() {

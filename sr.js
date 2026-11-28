@@ -270,6 +270,8 @@
     if (document.body) walk(document.body);
   };
 
+  window.NB_SR_HAS = function (s) { return tr(s) !== null; };
+
   // Match the casing of the source text (ALL CAPS stays ALL CAPS, a lowercase start stays lowercase).
   function fit(src, out) {
     var t = src.trim();
@@ -308,12 +310,14 @@
       m = t.match(R[i][0]);
       if (m) { var out = R[i][1](m); return out === t ? null : out; }
     }
+    // "Area / Project type — Feature": split at the first separator, the rest is tried as a whole first.
     var seps = [' — ', ' / '];
     for (i = 0; i < seps.length; i++) {
-      if (t.indexOf(seps[i]) > -1) {
-        var parts = t.split(seps[i]), changed = false;
-        parts = parts.map(function (p) { var r = tr(p); if (r !== null && r !== p) { changed = true; return r; } return p; });
-        if (changed) return parts.join(seps[i]);
+      var at = t.indexOf(seps[i]);
+      if (at > -1) {
+        var head = t.slice(0, at), tail = t.slice(at + seps[i].length);
+        var h = tr(head), tl = tr(tail);
+        if (h !== null || tl !== null) return (h === null ? head : h) + seps[i] + (tl === null ? tail : tl);
       }
     }
     return null;
